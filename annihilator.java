@@ -1,6 +1,6 @@
 //enemy: the annihilator 
 
-public class annihilator extends solidObject {
+public class annihilator extends solidObject{
 	//polygons for tank body
 	private polygon3D[] body;
 	
@@ -97,7 +97,7 @@ public class annihilator extends solidObject {
 		
 		//create 2D boundary
 		boundary2D = new rectangle2D(x - 0.115, z + 0.115, 0.23, 0.23);
-		position = (int)(x*4) + (129-(int)(z*4))*80;
+		position = (int)(x * 4) + (129 - (int)(z * 4)) * 80;
 		desiredPosition = position;
 		obstacleMap.registerObstacle2(this, position);
 		
@@ -150,49 +150,49 @@ public class annihilator extends solidObject {
 		int i = 4;
 		
 		v = new vector[]{put(0.06, 0.06, 0.13), put(0.06, 0.06, 0.08), put(0.06, -0.01, 0.08), put(0.06, -0.01, 0.15)};
-		body[0+i] = new polygon3D(v, v[0], v[1], v[3], main.textures[58], 0.8,1.1,6);
+		body[0 + i] = new polygon3D(v, v[0], v[1], v[3], main.textures[58], 0.8,1.1,6);
 		
 		v = new vector[]{put(-0.06, -0.01, 0.15), put(-0.06, -0.01, 0.08), put(-0.06, 0.06, 0.08), put(-0.06, 0.06, 0.13)};
-		body[1+i] = new polygon3D(v, v[0], v[1], v[3], main.textures[58], 0.8,1.1,6);
+		body[1 + i] = new polygon3D(v, v[0], v[1], v[3], main.textures[58], 0.8,1.1,6);
 		
 		v = new vector[]{put(-0.06, 0.06, 0.09), put(0.06, 0.06, 0.09), put(0.06, 0.06, -0.13), put(-0.06, 0.06, -0.13)};
-		body[2+i] = new polygon3D(v, v[0], v[1], v[3], main.textures[58], 0.8,1.1,6);
+		body[2 + i] = new polygon3D(v, v[0], v[1], v[3], main.textures[58], 0.8,1.1,6);
 		
 		v = new vector[]{put(0.06, 0.06, 0.09), put(-0.06, 0.06, 0.09), put(-0.06, 0, 0.15), put(0.06, 0, 0.15)};
-		body[3+i] = new polygon3D(v, v[0], v[1], v[3], main.textures[58], 0.8,0.4,6);
+		body[3 + i] = new polygon3D(v, v[0], v[1], v[3], main.textures[58], 0.8,0.4,6);
 		
 		v = new vector[]{put(-0.1, 0.06, -0.13), put(0.1, 0.06, -0.13), put(0.1, 0, -0.14),  put(-0.1, 0, -0.14)};
-		body[4+i] = new polygon3D(v, v[0], v[1], v[3], main.textures[58], 0.8,0.3,6);
+		body[4 + i] = new polygon3D(v, v[0], v[1], v[3], main.textures[58], 0.8,0.3,6);
 		
 		v = new vector[]{put(0.06, 0.06, 0.13), put(0.1, 0.06, 0.13), put(0.1, 0.06, -0.13), put(0.06, 0.06, -0.13)};
-		body[5+i] = new polygon3D(v, v[0], v[1], v[3], main.textures[58], 0.3,0.8,6);
+		body[5 + i] = new polygon3D(v, v[0], v[1], v[3], main.textures[58], 0.3,0.8,6);
 		
 		v = new vector[]{put(-0.06, 0.06, -0.13), put(-0.1, 0.06, -0.13), put(-0.1, 0.06, 0.13), put(-0.06, 0.06, 0.13)};
-		body[6+i] = new polygon3D(v, v[0], v[1], v[3], main.textures[58], 0.3,0.8,6);
+		body[6 + i] = new polygon3D(v, v[0], v[1], v[3], main.textures[58], 0.3,0.8,6);
 		
 		v = new vector[]{put(0.1, 0.06, 0.13), put(0.06, 0.06, 0.13), put(0.06, 0., 0.15), put(0.1, 0., 0.15)};
-		body[7+i] = new polygon3D(v, v[0], v[1], v[3], main.textures[58], 0.8,1.1,6);
+		body[7 + i] = new polygon3D(v, v[0], v[1], v[3], main.textures[58], 0.8,1.1,6);
 		
 		v = new vector[]{put(-0.1, 0., 0.15), put(-0.06, 0., 0.15), put(-0.06, 0.06, 0.13),put(-0.1, 0.06, 0.13)};
-		body[8+i] = new polygon3D(v, v[0], v[1], v[3], main.textures[58], 0.8,1.1,6);
+		body[8 + i] = new polygon3D(v, v[0], v[1], v[3], main.textures[58], 0.8,1.1,6);
 		
 		v = new vector[]{put(0.1, 0.06, -0.13), put(0.1, 0.06, 0.13), put(0.1, 0, 0.15), put(0.1, 0, -0.14)};
-		body[9+i] = new polygon3D(v, v[0], v[1], v[3], main.textures[58], 0.8,0.2,6);
+		body[9 + i] = new polygon3D(v, v[0], v[1], v[3], main.textures[58], 0.8,0.2,6);
 		
 		v = new vector[]{put(-0.1, 0, -0.14), put(-0.1, 0, 0.15), put(-0.1, 0.06, 0.13), put(-0.1, 0.06, -0.13)};
-		body[10+i] = new polygon3D(v, v[0], v[1], v[3], main.textures[58], 0.8,0.2,6);
+		body[10 + i] = new polygon3D(v, v[0], v[1], v[3], main.textures[58], 0.8,0.2,6);
 		
 		v = new vector[]{put(0.1, 0, 0.01), put(0.1, 0, 0.15), put(0.1, -0.04, 0.14), put(0.1, -0.04, 0.03)};
-		body[11+i] = new polygon3D(v, put(0.1, 0.1, 0.03), put(0.1, 0.1, 0.13),  put(0.1, -0.04, 0.03), main.textures[12], 1,0.5,6);
+		body[11 + i] = new polygon3D(v, put(0.1, 0.1, 0.03), put(0.1, 0.1, 0.13),  put(0.1, -0.04, 0.03), main.textures[12], 1,0.5,6);
 		
 		v = new vector[]{put(0.1, 0, -0.14), put(0.1, 0, -0.01), put(0.1, -0.04, -0.03), put(0.1, -0.04, -0.12)};
-		body[12+i] = new polygon3D(v, put(0.1, 0.1, -0.15), put(0.1, 0.1, -0.01),  put(0.1, -0.04, -0.15), main.textures[12], 1,0.5,6);
+		body[12 +  i] = new polygon3D(v, put(0.1, 0.1, -0.15), put(0.1, 0.1, -0.01),  put(0.1, -0.04, -0.15), main.textures[12], 1,0.5,6);
 		
 		v = new vector[]{put(-0.1, -0.04, 0.03), put(-0.1, -0.04, 0.14), put(-0.1, 0, 0.15), put(-0.1, 0, 0.01)};
-		body[13+i] = new polygon3D(v, put(-0.1, 0.1, 0.03), put(-0.1, 0.1, 0.13),  put(-0.1, -0.04, 0.03), main.textures[12], 1,0.5,6);
+		body[13 + i] = new polygon3D(v, put(-0.1, 0.1, 0.03), put(-0.1, 0.1, 0.13),  put(-0.1, -0.04, 0.03), main.textures[12], 1,0.5,6);
 		
 		v = new vector[]{put(-0.1, -0.04, -0.12), put(-0.1, -0.04, -0.03), put(-0.1, 0, -0.01), put(-0.1, 0, -0.14)};
-		body[14+i] = new polygon3D(v, put(-0.1, 0.1, -0.15), put(-0.1, 0.1, -0.01),  put(-0.1, -0.04, -0.15), main.textures[12], 1,0.5,6);
+		body[14 + i] = new polygon3D(v, put(-0.1, 0.1, -0.15), put(-0.1, 0.1, -0.01),  put(-0.1, -0.04, -0.15), main.textures[12], 1,0.5,6);
 		
 		turretCenter = put(0, 0.07, -0);
 		
@@ -274,10 +274,10 @@ public class annihilator extends solidObject {
 		v = new vector[]{put(-0.05, 0.05, -0.04), put(-0.05, 0.05, 0.02), put(-0.05, 0.035, 0.02),put(-0.05, 0.035, -0.04)};
 		turret[16] = new polygon3D(v, v[0], v[1], v [3], main.textures[35], 0.5,0.5,6);
 		
-		int r = 150/8;
-		int g = 150/8;
-		int b = 150/8;
-		short color = (short)((int)r <<10 | (int)g << 5 | (int)b);
+		int r = 150 / 8;
+		int g = 150 / 8;
+		int b = 150 / 8;
+		short color = (short)((int)r << 10 | (int)g << 5 | (int)b);
 		
 		v = new vector[]{put(-0.075, 0.02, 0.02), put(-0.05, 0.02, 0.02), put(-0.05, 0.05, 0.02), put(-0.075, 0.05, 0.02)};
 		turret[17] = new polygon3D(v, v[0], v[1], v [3],null, 0.5,0.5,7);
@@ -310,7 +310,7 @@ public class annihilator extends solidObject {
 	
 	public void update(){
 		//Retrieve a random number every 333 game frame
-		if((main.timer+randomNumber1*3)%1000 == 0){
+		if((main.timer + randomNumber1 * 3) % 1000 == 0){
 			if(randomNumber2 > 50)
 				randomNumber2 = 50;
 			else
@@ -323,29 +323,29 @@ public class annihilator extends solidObject {
 		
 		//perform actions
 		if(aimLeft){
-			if(Math.abs(turretAngle - targetAngle) <=3){
+			if(Math.abs(turretAngle - targetAngle) <= 3){
 				turretAngleDelta = targetAngle - turretAngle;
-				turretAngle+=turretAngleDelta;
+				turretAngle += turretAngleDelta;
 				if(turretAngleDelta < 0)
-					turretAngleDelta+=360;
+					turretAngleDelta += 360;
 			}else{
-				turretAngleDelta=3;
-				turretAngle+=3;
+				turretAngleDelta = 3;
+				turretAngle += 3;
 			}
 			if(turretAngle >= 360)
-				turretAngle-=360;
+				turretAngle -= 360;
 		}else if(aimRight){
-			if(Math.abs(turretAngle - targetAngle) <=3){
+			if(Math.abs(turretAngle - targetAngle) <= 3 ){
 				turretAngleDelta = targetAngle - turretAngle;
-				turretAngle+=turretAngleDelta;
+				turretAngle += turretAngleDelta;
 				if(turretAngleDelta < 0)
-					turretAngleDelta+=360;
+					turretAngleDelta += 360;
 			}else{
-				turretAngleDelta=357;
-				turretAngle-=3;
+				turretAngleDelta = 357;
+				turretAngle -= 3;
 			}
 			if(turretAngle < 0)
-				turretAngle+=360;
+				turretAngle += 360;
 		}
 		
 		if(forward){
@@ -353,7 +353,7 @@ public class annihilator extends solidObject {
 			int delta = targetAngleBody - bodyAngle;
 			if(Math.abs(delta) < 5 || Math.abs(delta) > 355){
 				bodyAngle = targetAngleBody;
-				bodyAngleDelta = (delta+720)%360;
+				bodyAngleDelta = (delta + 720) % 360;
 				displacement.set(0,0,0.01);
 				displacement.rotate_XZ(bodyAngle);
 			}else{
@@ -373,7 +373,7 @@ public class annihilator extends solidObject {
 				
 				
 				
-				bodyAngle = (bodyAngle+bodyAngleDelta)%360;
+				bodyAngle = (bodyAngle+bodyAngleDelta) % 360;
 			}
 		}
 		
@@ -386,7 +386,7 @@ public class annihilator extends solidObject {
 		
 		//update location in the 2d tile map
 		//validating movement is already done in  process AI part
-		int newPosition = (int)(boundary2D.xPos*4) + (129-(int)(boundary2D.yPos*4))*80;
+		int newPosition = (int)(boundary2D.xPos * 4) + (129 - (int)(boundary2D.yPos * 4)) * 80;
 		if(!obstacleMap.isOccupied(newPosition)){
 			obstacleMap.removeObstacle2(position);
 			obstacleMap.registerObstacle2(this, newPosition);
@@ -411,7 +411,7 @@ public class annihilator extends solidObject {
 		//test whether the model is visible by comparing the 2D position of its centre point with the screen
 		visible = true;
 		
-		if(tempCentre.z < 0.9 || tempCentre.screenY < -10 || tempCentre.screenX < -400 || tempCentre.screenX >800){
+		if(tempCentre.z < 0.9 || tempCentre.screenY < -10 || tempCentre.screenX < -400 || tempCentre.screenX > 800){
 			visible = false;
 			isVisiblePreviousFrame = false;
 		}
@@ -430,7 +430,7 @@ public class annihilator extends solidObject {
 		if(visible){
 			modelDrawList.register(this);
 			
-			if(countDownToDeath <3){
+			if(countDownToDeath < 3){
 			
 				//update body polygons
 				for(int i = 0; i < body.length; i++){
@@ -568,10 +568,10 @@ public class annihilator extends solidObject {
 		}
 		
 		//handle attack event
-		if(coolDownShell > 0 && coolDownShell!=92 && !main.gamePaused)
+		if(coolDownShell > 0 && coolDownShell != 92 && !main.gamePaused)
 			coolDownShell--;
 		
-		if(coolDownRocket > 0 && coolDownRocket !=90 && !main.gamePaused)
+		if(coolDownRocket > 0 && coolDownRocket != 90 && !main.gamePaused)
 			coolDownRocket--;
 		
 		if(firingShell){
@@ -579,7 +579,7 @@ public class annihilator extends solidObject {
 				coolDownShell = 100;
 				//calculate laser direction
 				vector tempVector1 = new vector(0,0,1);
-				tempVector1.rotate_XZ((turretAngle+270)%360);
+				tempVector1.rotate_XZ((turretAngle + 270) % 360);
 				tempVector1.scale(0.035);
 				vector direction = new vector(0,0,1);
 				direction.rotate_XZ(turretAngle);
@@ -594,7 +594,7 @@ public class annihilator extends solidObject {
 				coolDownShell = 25;
 				//calculate shell direction
 				vector tempVector1 = new vector(0,0,1);
-				tempVector1.rotate_XZ((turretAngle+270)%360);
+				tempVector1.rotate_XZ((turretAngle + 270) % 360);
 				tempVector1.scale(-0.035);
 				vector direction = new vector(0,0,1);
 				direction.rotate_XZ(turretAngle);
@@ -611,7 +611,7 @@ public class annihilator extends solidObject {
 				coolDownRocket = 100;
 				//calculate laser direction
 				vector tempVector1 = new vector(0,0,1);
-				tempVector1.rotate_XZ((turretAngle+270)%360);
+				tempVector1.rotate_XZ((turretAngle + 270) % 360);
 				tempVector1.scale(0.095);
 				vector direction = new vector(0,0,1);
 				direction.rotate_XZ(turretAngle);
@@ -627,7 +627,7 @@ public class annihilator extends solidObject {
 				coolDownRocket = 45;
 				//calculate shell direction
 				vector tempVector1 = new vector(0,0,1);
-				tempVector1.rotate_XZ((turretAngle+270)%360);
+				tempVector1.rotate_XZ((turretAngle + 270) % 360);
 				tempVector1.scale(-0.095);
 				vector direction = new vector(0,0,1);
 				direction.rotate_XZ(turretAngle);
@@ -658,7 +658,7 @@ public class annihilator extends solidObject {
 				obstacleMap.removeObstacle2(position);
 				Smoke.stopped = true;
 			}
-			if(countDownToDeath >=40)
+			if(countDownToDeath >= 40)
 				lifeSpan = 0;
 		}
 		
@@ -672,7 +672,7 @@ public class annihilator extends solidObject {
 		displacement.reset();
 		firingRocket = false;
 		firingShell = false;
-		if(main.timer%10 == 0)
+		if(main.timer % 10 == 0)
 			unstuck = false;
 	
 	}
@@ -711,7 +711,7 @@ public class annihilator extends solidObject {
 		
 		if(engaged){
 			//if medium tank is engaged with player, it will send alert to nearby tanks
-			if((main.timer)%5 == 0 )
+			if((main.timer) % 5 == 0 )
 				obstacleMap.alertNearbyTanks(position);
 			
 			//test whether there is a type obstacle 2 between medium tank and player tank
@@ -727,7 +727,7 @@ public class annihilator extends solidObject {
 			clearToShoot = true;
 			int obstacleType = -1; 
 			double d = 0;
-			for(int i = 0; (d < distance) && (i < 30); i++, tempVector1.add(tempVector2), d+=0.125){
+			for(int i = 0; (d < distance) && (i < 30); i++, tempVector1.add(tempVector2), d += 0.125){
 				model temp = obstacleMap.isOccupied2(tempVector1);
 				if(temp == null)
 					continue;
@@ -745,9 +745,9 @@ public class annihilator extends solidObject {
 			
 			//find the angle between target and itself
 			if(clearToShoot){
-				targetAngle = 90 + (int)(180 * Math.atan((centre.z - playerTank.bodyCenter.z)/(centre.x - playerTank.bodyCenter.x)) / Math.PI);
+				targetAngle = 90 + (int)(180 * Math.atan((centre.z - playerTank.bodyCenter.z) / (centre.x - playerTank.bodyCenter.x)) / Math.PI);
 				if(playerTank.bodyCenter.x > turretCenter.x  && targetAngle <= 180)
-					targetAngle+=180;
+					targetAngle += 180;
 
 			}else{
 				targetAngle = bodyAngle;
@@ -786,7 +786,7 @@ public class annihilator extends solidObject {
 			if(clearToShoot && distance < 1.5){
 				if(distance < 1.4)
 					forward = false;
-				if(distance >=1.4)
+				if(distance >= 1.4)
 					if(randomNumber2 > 50)
 						forward = false;
 			}
@@ -798,22 +798,22 @@ public class annihilator extends solidObject {
 			}
 			
 			if(forward){
-				targetAngleBody = 90 + (int)(180 * Math.atan((centre.z - playerTank.bodyCenter.z)/(centre.x - playerTank.bodyCenter.x)) / Math.PI);
+				targetAngleBody = 90 + (int)(180 * Math.atan((centre.z - playerTank.bodyCenter.z) / (centre.x - playerTank.bodyCenter.x)) / Math.PI);
 				if(playerTank.bodyCenter.x > centre.x  && targetAngleBody <= 180)
-					targetAngleBody+=180;
+					targetAngleBody += 180;
 				
 				//the enemy tank will occasionly (~once every 10 secs)perfom a 90 degree change in moving angle if:
 				//1. it cant see the target tank and the target is within 1.2 unit away
 				//2. it got stucked and the target is within 1.2 units away
 				//3. blocked by a wall and the target is within 3 units away
 				
-				if(!clearToShoot && (distance < 1.2 || (obstacleType == 6 && distance < 2.5)) || stuckCount ==10){
+				if(!clearToShoot && (distance < 1.2 || (obstacleType == 6 && distance < 2.5)) || stuckCount == 10){
 					if(stuckCount == 10){
 						if(randomNumber2 > 50)
 							randomNumber2 = 50;
 						else
 							randomNumber2 = 51;
-						stuckCount=0;
+						stuckCount = 0;
 					}
 						
 					if(randomNumber2 > 50)
@@ -822,11 +822,11 @@ public class annihilator extends solidObject {
 						targetAngleBody -= 90;
 					
 					
-					targetAngleBody = (targetAngleBody + 360)%360;
+					targetAngleBody = (targetAngleBody + 360) % 360;
 				}
 				
 				
-				int newPosition = (int)(boundary2D.xPos*4) + (129-(int)(boundary2D.yPos*4))*80;
+				int newPosition = (int)(boundary2D.xPos*4) + (129 - (int)(boundary2D.yPos * 4)) * 80;
 				
 					
 				//check whether the next move will embed into obstacles
@@ -861,7 +861,7 @@ public class annihilator extends solidObject {
 					int angle2 = angle1 + 90;
 					
 					
-					angle2 = angle2%360;
+					angle2 = angle2 % 360;
 				
 					
 					
@@ -874,7 +874,7 @@ public class annihilator extends solidObject {
 					displacement.set(0,0,0.01);
 					displacement.rotate_XZ(angle1);
 					boundary2D.update(displacement);
-					newPosition = (int)(boundary2D.xPos*4) + (129-(int)(boundary2D.yPos*4))*80;
+					newPosition = (int)(boundary2D.xPos * 4) + (129 - (int)(boundary2D.yPos * 4)) * 80;
 					//test againt type 1 & 2 obstacles
 					if(obstacleMap.collideWithObstacle1(this, newPosition)){
 						canMoveAngle1 = false;
@@ -889,7 +889,7 @@ public class annihilator extends solidObject {
 					displacement.set(0,0,0.01);
 					displacement.rotate_XZ(angle2);
 					boundary2D.update(displacement);
-					newPosition = (int)(boundary2D.xPos*4) + (129-(int)(boundary2D.yPos*4))*80;
+					newPosition = (int)(boundary2D.xPos * 4) + (129 - (int)(boundary2D.yPos * 4)) * 80;
 					//test againt type 1 & 2 obstacles
 					if(obstacleMap.collideWithObstacle1(this, newPosition)){
 						canMoveAngle2 = false;
@@ -930,7 +930,7 @@ public class annihilator extends solidObject {
 					}else{
 						
 						//got stucked!!
-						stuckCount=10;
+						stuckCount = 10;
 						
 					
 						
@@ -941,7 +941,7 @@ public class annihilator extends solidObject {
 						
 					}
 					
-					if(Math.abs((previousTargetAngleBody + 180)%360  - targetAngleBody) <= 50){
+					if(Math.abs((previousTargetAngleBody + 180) % 360 - targetAngleBody) <= 50){
 						targetAngleBody = previousTargetAngleBody;
 					}
 					
@@ -951,7 +951,7 @@ public class annihilator extends solidObject {
 				displacement.set(0,0,0.01);
 				displacement.rotate_XZ(targetAngleBody);
 				boundary2D.update(displacement);
-				newPosition = (int)(boundary2D.xPos*4) + (129-(int)(boundary2D.yPos*4))*80;
+				newPosition = (int)(boundary2D.xPos * 4) + (129 - (int)(boundary2D.yPos * 4)) * 80;
 				
 				//test againt type 1 & 2 obstacles
 				if(obstacleMap.collideWithObstacle1(this, newPosition)){
@@ -970,7 +970,7 @@ public class annihilator extends solidObject {
 	}
 	
 	public void draw(){
-		if(countDownToDeath <3){
+		if(countDownToDeath < 3){
 			//draw body
 			for(int i = 0; i < body.length; i++){
 				body[i].draw();
@@ -996,7 +996,7 @@ public class annihilator extends solidObject {
 			engaged = true;
 			return;
 		}
-		HP-=damagePoint;
+		HP -= damagePoint;
 		engaged = true;
 	}
 	
