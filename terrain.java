@@ -25,7 +25,7 @@ public class terrain {
 	
 	public wall[] walls;
 	
-	public fence[] fences;
+	public Fence[] fences;
 	 
 	public palmTree[] palmTrees;
 	
@@ -584,76 +584,76 @@ public class terrain {
 		
 	
 		//create energy fences
-		fences = new fence[62];
-		fences[0] = new fence(10.375,  -0.9,18.125,1);
-		fences[1] = new fence(10.625,  -0.9,18.125,1);
-		fences[2] = new fence(10.875,  -0.9,18.125,1);
-		fences[3] = new fence(11.125,  -0.9,18.125,1);
+		fences = new Fence[62];
+		fences[0] = new Fence(10.375,  -0.9,18.125,1);
+		fences[1] = new Fence(10.625,  -0.9,18.125,1);
+		fences[2] = new Fence(10.875,  -0.9,18.125,1);
+		fences[3] = new Fence(11.125,  -0.9,18.125,1);
 		
-		fences[4] = new fence(8.375,  -0.9,20.125, 0);
-		fences[5] = new fence(8.375,  -0.9,20.375, 0);
-		fences[6] = new fence(8.375,  -0.9,20.625, 0);
+		fences[4] = new Fence(8.375,  -0.9,20.125, 0);
+		fences[5] = new Fence(8.375,  -0.9,20.375, 0);
+		fences[6] = new Fence(8.375,  -0.9,20.625, 0);
 		
-		fences[7] = new fence(13.875,  -0.9,20.125, 0);
-		fences[8] = new fence(13.875,  -0.9,20.375, 0);
-		fences[9] = new fence(13.875,  -0.9,20.625, 0);
+		fences[7] = new Fence(13.875,  -0.9,20.125, 0);
+		fences[8] = new Fence(13.875,  -0.9,20.375, 0);
+		fences[9] = new Fence(13.875,  -0.9,20.625, 0);
 		
-		fences[10] = new fence(10.375,  -0.9,22.875,1);
-		fences[11] = new fence(10.625,  -0.9,22.875,1);
-		fences[12] = new fence(10.875,  -0.9,22.875,1);
-		fences[13] = new fence(11.125,  -0.9,22.875,1);
+		fences[10] = new Fence(10.375,  -0.9,22.875,1);
+		fences[11] = new Fence(10.625,  -0.9,22.875,1);
+		fences[12] = new Fence(10.875,  -0.9,22.875,1);
+		fences[13] = new Fence(11.125,  -0.9,22.875,1);
 		
-		fences[14] = new fence(18.125,  -0.9,15.875,1);
-		fences[15] = new fence(18.375,  -0.9,15.875,1);
-		fences[16] = new fence(18.625,  -0.9,15.875,1);
-		fences[17] = new fence(18.875,  -0.9,16.125,0);
-		fences[18] = new fence(18.875,  -0.9,16.375,0);
-		fences[19] = new fence(18.875,  -0.9,16.625,0);
-		fences[20] = new fence(18.625,  -0.9,16.875,1);
-		fences[21] = new fence(18.375,  -0.9,16.875,1);
-		fences[22] = new fence(18.125,  -0.9,16.875,1);
-		fences[23] = new fence(17.875,  -0.9,16.625,0);
-		fences[24] = new fence(17.875,  -0.9,16.375,0);
-		fences[25] = new fence(17.875,  -0.9,16.125,0);
+		fences[14] = new Fence(18.125,  -0.9,15.875,1);
+		fences[15] = new Fence(18.375,  -0.9,15.875,1);
+		fences[16] = new Fence(18.625,  -0.9,15.875,1);
+		fences[17] = new Fence(18.875,  -0.9,16.125,0);
+		fences[18] = new Fence(18.875,  -0.9,16.375,0);
+		fences[19] = new Fence(18.875,  -0.9,16.625,0);
+		fences[20] = new Fence(18.625,  -0.9,16.875,1);
+		fences[21] = new Fence(18.375,  -0.9,16.875,1);
+		fences[22] = new Fence(18.125,  -0.9,16.875,1);
+		fences[23] = new Fence(17.875,  -0.9,16.625,0);
+		fences[24] = new Fence(17.875,  -0.9,16.375,0);
+		fences[25] = new Fence(17.875,  -0.9,16.125,0);
 		
-		fences[26] = new fence(4.125,  -0.9,13.375,1);
-		fences[27] = new fence(4.375,  -0.9,13.375,1);
-		fences[28] = new fence(4.625,  -0.9,13.375,1);
-		fences[29] = new fence(4.875,  -0.9,13.625,0);
-		fences[30] = new fence(4.875,  -0.9,13.875,0);
-		fences[31] = new fence(4.875,  -0.9,14.125,0);
-		fences[32] = new fence(4.625,  -0.9,14.375,1);
-		fences[33] = new fence(4.375,  -0.9,14.375,1);
-		fences[34] = new fence(4.125,  -0.9,14.375,1);
-		fences[35] = new fence(3.875,  -0.9,14.125,0);
-		fences[36] = new fence(3.875,  -0.9,13.875,0);
-		fences[37] = new fence(3.875,  -0.9,13.625,0);
+		fences[26] = new Fence(4.125,  -0.9,13.375,1);
+		fences[27] = new Fence(4.375,  -0.9,13.375,1);
+		fences[28] = new Fence(4.625,  -0.9,13.375,1);
+		fences[29] = new Fence(4.875,  -0.9,13.625,0);
+		fences[30] = new Fence(4.875,  -0.9,13.875,0);
+		fences[31] = new Fence(4.875,  -0.9,14.125,0);
+		fences[32] = new Fence(4.625,  -0.9,14.375,1);
+		fences[33] = new Fence(4.375,  -0.9,14.375,1);
+		fences[34] = new Fence(4.125,  -0.9,14.375,1);
+		fences[35] = new Fence(3.875,  -0.9,14.125,0);
+		fences[36] = new Fence(3.875,  -0.9,13.875,0);
+		fences[37] = new Fence(3.875,  -0.9,13.625,0);
 		
-		fences[38] = new fence(12.375,  -0.9,18.875,1);
-		fences[39] = new fence(12.625,  -0.9,18.875,1);
-		fences[40] = new fence(12.875,  -0.9,18.875,1);
-		fences[41] = new fence(13.125,  -0.9,19.125,0);
-		fences[42] = new fence(13.125,  -0.9,19.375,0);
-		fences[43] = new fence(13.125,  -0.9,19.625,0);
-		fences[44] = new fence(12.875,  -0.9,19.875,1);
-		fences[45] = new fence(12.625,  -0.9,19.875,1);
-		fences[46] = new fence(12.375,  -0.9,19.875,1);
-		fences[47] = new fence(12.125,  -0.9,19.625,0);
-		fences[48] = new fence(12.125,  -0.9,19.375,0);
-		fences[49] = new fence(12.125,  -0.9,19.125,0);
+		fences[38] = new Fence(12.375,  -0.9,18.875,1);
+		fences[39] = new Fence(12.625,  -0.9,18.875,1);
+		fences[40] = new Fence(12.875,  -0.9,18.875,1);
+		fences[41] = new Fence(13.125,  -0.9,19.125,0);
+		fences[42] = new Fence(13.125,  -0.9,19.375,0);
+		fences[43] = new Fence(13.125,  -0.9,19.625,0);
+		fences[44] = new Fence(12.875,  -0.9,19.875,1);
+		fences[45] = new Fence(12.625,  -0.9,19.875,1);
+		fences[46] = new Fence(12.375,  -0.9,19.875,1);
+		fences[47] = new Fence(12.125,  -0.9,19.625,0);
+		fences[48] = new Fence(12.125,  -0.9,19.375,0);
+		fences[49] = new Fence(12.125,  -0.9,19.125,0);
 		
-		fences[50] = new fence(12.375,  -0.9,20.875,1);
-		fences[51] = new fence(12.625,  -0.9,20.875,1);
-		fences[52] = new fence(12.875,  -0.9,20.875,1);
-		fences[53] = new fence(13.125,  -0.9,21.125,0);
-		fences[54] = new fence(13.125,  -0.9,21.375,0);
-		fences[55] = new fence(13.125,  -0.9,21.625,0);
-		fences[56] = new fence(12.875,  -0.9,21.875,1);
-		fences[57] = new fence(12.625,  -0.9,21.875,1);
-		fences[58] = new fence(12.375,  -0.9,21.875,1);
-		fences[59] = new fence(12.125,  -0.9,21.625,0);
-		fences[60] = new fence(12.125,  -0.9,21.375,0);
-		fences[61] = new fence(12.125,  -0.9,21.125,0);
+		fences[50] = new Fence(12.375,  -0.9,20.875,1);
+		fences[51] = new Fence(12.625,  -0.9,20.875,1);
+		fences[52] = new Fence(12.875,  -0.9,20.875,1);
+		fences[53] = new Fence(13.125,  -0.9,21.125,0);
+		fences[54] = new Fence(13.125,  -0.9,21.375,0);
+		fences[55] = new Fence(13.125,  -0.9,21.625,0);
+		fences[56] = new Fence(12.875,  -0.9,21.875,1);
+		fences[57] = new Fence(12.625,  -0.9,21.875,1);
+		fences[58] = new Fence(12.375,  -0.9,21.875,1);
+		fences[59] = new Fence(12.125,  -0.9,21.625,0);
+		fences[60] = new Fence(12.125,  -0.9,21.375,0);
+		fences[61] = new Fence(12.125,  -0.9,21.125,0);
 		
 		
 		//create  trees
