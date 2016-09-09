@@ -207,7 +207,7 @@ public class gameHUD {
 				
 				powerUps.init();
 				projectiles.init();
-				enemies.init();
+				Enemies.init();
 				obstacleMap.removeObstacle2(main.PT.position);
 				main.PT = new playerTank(10,-0.975,2.5);	
 				main.gameNotStart = false;
@@ -247,7 +247,7 @@ public class gameHUD {
 				
 				powerUps.init();
 				projectiles.init();
-				enemies.init();
+				Enemies.init();
 				obstacleMap.removeObstacle2(main.PT.position);
 				main.PT = new playerTank(10,-0.975,2.5);	
 				main.gameNotStart = false;

@@ -1,5 +1,5 @@
 //hold all the enimies
-public class enemies {
+public class Enemies {
 
 	public static model[] enemy;
 	

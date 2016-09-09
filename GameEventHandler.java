@@ -32,11 +32,11 @@ public class GameEventHandler {
 			}
 			
 			for(int i = 38; i < 43; i++) {
-				enemies.enemy[i].damage(-1);
+				Enemies.enemy[i].damage(-1);
 			}
 			
 			for(int i = 96; i < 107; i++) {
-				enemies.enemy[i].damage(-1);
+				Enemies.enemy[i].damage(-1);
 			}
 			
 		}
@@ -49,14 +49,14 @@ public class GameEventHandler {
 				main.Terrain.fences[i].destory();
 				main.Terrain.fences[i] = null;
 			}
-			enemies.enemy[107].damage(-1);
-			enemies.enemy[108].damage(-1);
+			Enemies.enemy[107].damage(-1);
+			Enemies.enemy[108].damage(-1);
 			
 		}
 		
 		//The game is beaten when both annihilators are destroyed
 		if(main.gameNotStart == false) {
-			if(enemies.enemy[107] == null && enemies.enemy[108] == null) {
+			if(Enemies.enemy[107] == null && Enemies.enemy[108] == null) {
 				main.win = true;
 				main.PT.HP = 100;
 			}

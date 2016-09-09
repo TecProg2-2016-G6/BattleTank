@@ -159,7 +159,7 @@ public class main extends Applet implements KeyListener, ActionListener, MouseMo
 		PT = new playerTank(1000,-0.975,2.5);	
 		
 		//init enemies
-		enemies.init();
+		Enemies.init();
 		
 		
 		//Add key handler
@@ -224,7 +224,7 @@ public class main extends Applet implements KeyListener, ActionListener, MouseMo
 		
 		Terrain.update();
 		PT.update();
-		enemies.update();
+		Enemies.update();
 		projectiles.update();
 		powerUps.update();
 		GameEventHandler.processEvent();
