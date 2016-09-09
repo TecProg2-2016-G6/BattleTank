@@ -5,7 +5,7 @@
 
 public class Geometry {
 	
-	public static boolean compareModels(model a, model b) {
+	public static boolean compareModels(Model a, Model b) {
 		
 		//Compare centre Z depth values
 			if(a.getZDepth() > b.getZDepth()){
@@ -17,7 +17,7 @@ public class Geometry {
 	}
 	
 	//Sort polygons
-	public final static void sortPolygons(polygon3D[] polygons, int start) {
+	public final static void sortPolygons(Polygon3D[] polygons, int start) {
 		
 		int length = polygons.length;
 		
@@ -26,7 +26,7 @@ public class Geometry {
 			for(int j = start; j <length - i; j++) {
 				
 				if(Geometry.comparePolygons(polygons[j], polygons[j+1])) {
-					polygon3D temp = polygons[j+1];
+					Polygon3D temp = polygons[j+1];
 					polygons[j+1] = polygons[j];
 					polygons[j] = temp;
 				}
@@ -35,9 +35,9 @@ public class Geometry {
 	}
 	
 	//Compare polygons
-	public final static boolean comparePolygons(polygon3D a, polygon3D b) {
+	public final static boolean comparePolygons(Polygon3D a, Polygon3D b) {
 		
-		vector tempVector = new vector(0,0,0);
+		Vector tempVector = new Vector(0,0,0);
 		boolean inside = true;
 		
 		if(!a.visible){
