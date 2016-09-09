@@ -6,12 +6,12 @@ public class GameHUD {
 	public static int[] rightSide;
 	
 	//string represented in number format
-	public static int[] Health, Ammo, BattleTank2, NewGame, Controls, AboutAuthor, controlDescription1,
-	controlDescription2, controlDescription3, controlDescription4, controlDescription5, controlDescription6,
-	controlDescription7, controlDescription8, controlDescription9, author1, author2,author3,author4,author5
+	public static int[] Health, Ammo, BattleTank2, NewGame, Controls, AboutAuthor, controlDescriPlayerTankion1,
+	controlDescriPlayerTankion2, controlDescriPlayerTankion3, controlDescriPlayerTankion4, controlDescriPlayerTankion5, controlDescriPlayerTankion6,
+	controlDescriPlayerTankion7, controlDescriPlayerTankion8, controlDescriPlayerTankion9, author1, author2,author3,author4,author5
 	,author6, author7, author8, author9, author10, game,over, You, Won, cheat1, cheat2, cheat3;
 
-	public static int menuOptionStatus;
+	public static int menuOPlayerTankionStatus;
 	
 	public static int gameoverMessagePosition, winMessagePosition; 
 	
@@ -27,7 +27,7 @@ public class GameHUD {
 	
 	
 	public static void init(){
-		menuOptionStatus = 1;
+		menuOPlayerTankionStatus = 1;
 		gameoverMessagePosition = 0;
 		winMessagePosition = 0;
 		loadingScreenPosition = 1234567;
@@ -58,15 +58,15 @@ public class GameHUD {
 		//Click mouse button to fire.
 		//press 1 2 3 4 to switch guns.
 		
-		controlDescription1 = new int[]{25,53,40,54,54, -1, 58, -1, 54, -1, 36, -1, 39, -1, 55,50, -1};
-		controlDescription2 = new int[]{48,50,57,40, -1, 36,53,50,56,49,39, 63};
-		controlDescription3 = new int[]{12,43,36,49,42,40, -1, 38,36,48,40,53,36, -1, 57,44,40,58};
-		controlDescription4 = new int[]{37,60, -1, 48,50,57,44,49,42, -1, 55,43,40, -1, 48,50,56,54,40};
-		controlDescription5 = new int[]{38,56,53,54,50,53, 63};
-		controlDescription6 = new int[]{12,47,44,38,46, -1, 48,50,56,54,40, -1,37,56,55,55,50,49};
-		controlDescription7 = new int[]{55,50, -1, 41, 44,53,40, 63};
-		controlDescription8 = new int[]{25,53,40,54,54, -1, 1, -1, 2, -1, 3, -1, 4, -1, 55,50};
-		controlDescription9 = new int[]{54,58,44,55,38,43, -1, 42,56,49,54, 63};
+		controlDescriPlayerTankion1 = new int[]{25,53,40,54,54, -1, 58, -1, 54, -1, 36, -1, 39, -1, 55,50, -1};
+		controlDescriPlayerTankion2 = new int[]{48,50,57,40, -1, 36,53,50,56,49,39, 63};
+		controlDescriPlayerTankion3 = new int[]{12,43,36,49,42,40, -1, 38,36,48,40,53,36, -1, 57,44,40,58};
+		controlDescriPlayerTankion4 = new int[]{37,60, -1, 48,50,57,44,49,42, -1, 55,43,40, -1, 48,50,56,54,40};
+		controlDescriPlayerTankion5 = new int[]{38,56,53,54,50,53, 63};
+		controlDescriPlayerTankion6 = new int[]{12,47,44,38,46, -1, 48,50,56,54,40, -1,37,56,55,55,50,49};
+		controlDescriPlayerTankion7 = new int[]{55,50, -1, 41, 44,53,40, 63};
+		controlDescriPlayerTankion8 = new int[]{25,53,40,54,54, -1, 1, -1, 2, -1, 3, -1, 4, -1, 55,50};
+		controlDescriPlayerTankion9 = new int[]{54,58,44,55,38,43, -1, 42,56,49,54, 63};
 		
 		//My name is Hu Pan. 
 		//I am interested in
@@ -128,7 +128,7 @@ public class GameHUD {
 		if(Main.gamePaused == false && !Main.gameNotStart)
 			drawInfo();
 		
-		if(Main.gamePaused == true || (Main.gameNotStart && menuOptionStatus != 0)){
+		if(Main.gamePaused == true || (Main.gameNotStart && menuOPlayerTankionStatus != 0)){
 			drawMenu();
 			Main.copyScreen();
 		}
@@ -161,41 +161,41 @@ public class GameHUD {
 	//handle game menu interactions
 	public static void update(){
 		if(escapePressed){
-			if(menuOptionStatus == 0){
+			if(menuOPlayerTankionStatus == 0){
 				Main.gamePaused = true;
-				menuOptionStatus = 1;
-			}else if(menuOptionStatus == 1 || menuOptionStatus == 2 || menuOptionStatus == 3){
+				menuOPlayerTankionStatus = 1;
+			}else if(menuOPlayerTankionStatus == 1 || menuOPlayerTankionStatus == 2 || menuOPlayerTankionStatus == 3){
 				Main.gamePaused = false;
-				menuOptionStatus = 0;
-			}else if(menuOptionStatus == 4 || menuOptionStatus == 5){
-				menuOptionStatus = 1;
+				menuOPlayerTankionStatus = 0;
+			}else if(menuOPlayerTankionStatus == 4 || menuOPlayerTankionStatus == 5){
+				menuOPlayerTankionStatus = 1;
 			}
 			
 		}
 		
 		if(downPressed){
-			if(menuOptionStatus == 1)
-				menuOptionStatus = 2;
-			else if(menuOptionStatus == 2)
-				menuOptionStatus = 3;
-			else if(menuOptionStatus == 3)
-				menuOptionStatus = 1;
+			if(menuOPlayerTankionStatus == 1)
+				menuOPlayerTankionStatus = 2;
+			else if(menuOPlayerTankionStatus == 2)
+				menuOPlayerTankionStatus = 3;
+			else if(menuOPlayerTankionStatus == 3)
+				menuOPlayerTankionStatus = 1;
 			
 		}
 		
 		if(upPressed){
-			if(menuOptionStatus == 1)
-				menuOptionStatus = 3;
-			else if(menuOptionStatus == 2)
-				menuOptionStatus = 1;
-			else if(menuOptionStatus == 3)
-				menuOptionStatus = 2;
+			if(menuOPlayerTankionStatus == 1)
+				menuOPlayerTankionStatus = 3;
+			else if(menuOPlayerTankionStatus == 2)
+				menuOPlayerTankionStatus = 1;
+			else if(menuOPlayerTankionStatus == 3)
+				menuOPlayerTankionStatus = 2;
 		}
 		
 		if(enterPressed){
-			if(menuOptionStatus == 1){
+			if(menuOPlayerTankionStatus == 1){
 				
-				menuOptionStatus = 0;
+				menuOPlayerTankionStatus = 0;
 				gameoverMessagePosition = 0;
 				winMessagePosition = 0;
 				loadingScreenPosition = 0;
@@ -208,25 +208,25 @@ public class GameHUD {
 				PowerUps.init();
 				Projectiles.init();
 				Enemies.init();
-				ObstacleMap.removeObstacle2(Main.PT.position);
-				Main.PT = new PlayerTank(10,-0.975,2.5);	
+				ObstacleMap.removeObstacle2(Main.PlayerTank.position);
+				Main.PlayerTank = new PlayerTank(10,-0.975,2.5);	
 				Main.gameNotStart = false;
 				Main.gamePaused = false;
 				Main.gameOver = false;
 				Main.win = false;
 				
-			}else if(menuOptionStatus == 2){
-				menuOptionStatus = 4;
-			}else if(menuOptionStatus == 3){
-				menuOptionStatus = 5;
+			}else if(menuOPlayerTankionStatus == 2){
+				menuOPlayerTankionStatus = 4;
+			}else if(menuOPlayerTankionStatus == 3){
+				menuOPlayerTankionStatus = 5;
 			}
 		}
 		
 		if(mousePressed){
 			
-			if(menuOptionStatus == 4 || menuOptionStatus == 5){
+			if(menuOPlayerTankionStatus == 4 || menuOPlayerTankionStatus == 5){
 				
-				menuOptionStatus = 1;
+				menuOPlayerTankionStatus = 1;
 				
 				mouseXpos = -1234567;
 				mouseYpos = -1234567;
@@ -235,7 +235,7 @@ public class GameHUD {
 			
 				
 			if(mouseXpos > 264 && mouseXpos < 385 && mouseYpos > 120 && mouseYpos < 144 && !(!Main.gamePaused && !Main.gameNotStart)){
-				menuOptionStatus = 0;
+				menuOPlayerTankionStatus = 0;
 				gameoverMessagePosition = 0;
 				winMessagePosition = 0;
 				loadingScreenPosition = 0;
@@ -248,8 +248,8 @@ public class GameHUD {
 				PowerUps.init();
 				Projectiles.init();
 				Enemies.init();
-				ObstacleMap.removeObstacle2(Main.PT.position);
-				Main.PT = new PlayerTank(10,-0.975,2.5);	
+				ObstacleMap.removeObstacle2(Main.PlayerTank.position);
+				Main.PlayerTank = new PlayerTank(10,-0.975,2.5);	
 				Main.gameNotStart = false;
 				Main.gamePaused = false;
 				Main.gameOver = false;
@@ -257,16 +257,16 @@ public class GameHUD {
 			}
 			
 			if(mouseXpos > 262 && mouseXpos < 385 && mouseYpos > 161 && mouseYpos < 183)
-				menuOptionStatus = 2;
+				menuOPlayerTankionStatus = 2;
 				
 			if(mouseXpos > 234 && mouseXpos < 412 && mouseYpos > 197 && mouseYpos < 222)
-				menuOptionStatus = 3;
+				menuOPlayerTankionStatus = 3;
 			
 				
-			if(menuOptionStatus == 2){
-				menuOptionStatus = 4;
-			}else if(menuOptionStatus == 3){
-				menuOptionStatus = 5;
+			if(menuOPlayerTankionStatus == 2){
+				menuOPlayerTankionStatus = 4;
+			}else if(menuOPlayerTankionStatus == 3){
+				menuOPlayerTankionStatus = 5;
 			}
 			
 		}
@@ -361,41 +361,41 @@ public class GameHUD {
 		int color  = 0x00d0d0d0;
 		TextFactory.draw(BattleTank2, 222, 57, 1, color);
 		
-		if(menuOptionStatus > 0 && menuOptionStatus <=3){
+		if(menuOPlayerTankionStatus > 0 && menuOPlayerTankionStatus <=3){
 			
-			if(menuOptionStatus == 1)
+			if(menuOPlayerTankionStatus == 1)
 				color =  0x0055ffaa;
 			else
 				color  = 0x00d0d0d0;
 			TextFactory.draw(NewGame, 265, 120, 1, color);
 			
-			if(menuOptionStatus == 2)
+			if(menuOPlayerTankionStatus == 2)
 				color =  0x0055ffaa;
 			else
 				color  = 0x00d0d0d0;
 			TextFactory.draw(Controls, 265, 160, 1, color);
 			
-			if(menuOptionStatus == 3)
+			if(menuOPlayerTankionStatus == 3)
 				color =  0x0055ffaa;
 			else
 				color  = 0x00d0d0d0;
 			TextFactory.draw(AboutAuthor, 235, 200, 1, color);	
 		}
 		
-		if(menuOptionStatus == 4){
+		if(menuOPlayerTankionStatus == 4){
 			color =  0x0055ffaa;
-			TextFactory.draw(controlDescription1, 183, 100, 1, color);	
-			TextFactory.draw(controlDescription2, 183, 122, 1, color);	
-			TextFactory.draw(controlDescription3, 183, 160, 1, color);
-			TextFactory.draw(controlDescription4, 183, 177, 1, color);
-			TextFactory.draw(controlDescription5, 183, 199, 1, color);	
-			TextFactory.draw(controlDescription6, 183, 237, 1, color);
-			TextFactory.draw(controlDescription7, 183, 259, 1, color);
-			TextFactory.draw(controlDescription8, 183, 297, 1, color);
-			TextFactory.draw(controlDescription9, 183, 319, 1, color);
+			TextFactory.draw(controlDescriPlayerTankion1, 183, 100, 1, color);	
+			TextFactory.draw(controlDescriPlayerTankion2, 183, 122, 1, color);	
+			TextFactory.draw(controlDescriPlayerTankion3, 183, 160, 1, color);
+			TextFactory.draw(controlDescriPlayerTankion4, 183, 177, 1, color);
+			TextFactory.draw(controlDescriPlayerTankion5, 183, 199, 1, color);	
+			TextFactory.draw(controlDescriPlayerTankion6, 183, 237, 1, color);
+			TextFactory.draw(controlDescriPlayerTankion7, 183, 259, 1, color);
+			TextFactory.draw(controlDescriPlayerTankion8, 183, 297, 1, color);
+			TextFactory.draw(controlDescriPlayerTankion9, 183, 319, 1, color);
 		}
 		
-		if(menuOptionStatus == 5){
+		if(menuOPlayerTankionStatus == 5){
 			color =  0x0055ffaa;
 			TextFactory.draw(author1, 183, 100, 1, color);	
 			TextFactory.draw(author2, 183, 122, 1, color);	
@@ -461,7 +461,7 @@ public class GameHUD {
 			yPos++;
 		}
 		
-		Integer integer = new Integer((int)((double)Main.PT.HP *100/150));
+		Integer integer = new Integer((int)((double)Main.PlayerTank.HP *100/150));
 		TextFactory.drawString(integer.toString(), 134, 427, 1, 0x00d0d0d0);
 		TextFactory.draw(Health, 32, 427, 1, 0x00d0d0d0);
 		
@@ -508,7 +508,7 @@ public class GameHUD {
 		}
 		
 		
-		integer = new Integer(Main.PT.currentAmmo);
+		integer = new Integer(Main.PlayerTank.currentAmmo);
 		TextFactory.drawString(integer.toString(), 554, 427, 1, 0x00d0d0d0);
 		TextFactory.draw(Ammo, 482, 427, 1, 0x00d0d0d0);
 		

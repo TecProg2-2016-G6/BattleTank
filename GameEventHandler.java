@@ -58,7 +58,7 @@ public class GameEventHandler {
 		if(Main.gameNotStart == false) {
 			if(Enemies.enemy[107] == null && Enemies.enemy[108] == null) {
 				Main.win = true;
-				Main.PT.HP = 100;
+				Main.PlayerTank.HP = 100;
 			}
 				
 		}

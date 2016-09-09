@@ -25,39 +25,39 @@ public class PowerUps {
 		for(int i = 0; i < PU.length; i++){
 			if(PU[i] != null){
 				PU[i].update();
-				if(Rectangle2D.testIntersection(PU[i].boundary2D, Main.PT.boundary2D)){
+				if(Rectangle2D.testIntersection(PU[i].boundary2D, Main.PlayerTank.boundary2D)){
 					if(PU[i].type == 1){
-						if(Main.PT.shells == 0){
-							Main.PT.shells +=10;
-							Main.PT.changeWeapon(1);
+						if(Main.PlayerTank.shells == 0){
+							Main.PlayerTank.shells +=10;
+							Main.PlayerTank.changeWeapon(1);
 						}else{
-							Main.PT.shells +=10;
+							Main.PlayerTank.shells +=10;
 						}
 					}
 					if(PU[i].type == 2){
-						if(Main.PT.rockets == 0){
-							Main.PT.rockets +=10;
-							Main.PT.changeWeapon(2);
+						if(Main.PlayerTank.rockets == 0){
+							Main.PlayerTank.rockets +=10;
+							Main.PlayerTank.changeWeapon(2);
 							
 						}else{
-							Main.PT.rockets +=10;
+							Main.PlayerTank.rockets +=10;
 						}
 					}
 					if(PU[i].type == 3){
-						if(Main.PT.slugs == 0){
-							Main.PT.slugs +=10;
-							Main.PT.changeWeapon(3);
+						if(Main.PlayerTank.slugs == 0){
+							Main.PlayerTank.slugs +=10;
+							Main.PlayerTank.changeWeapon(3);
 						}else{
-							Main.PT.slugs +=10;
+							Main.PlayerTank.slugs +=10;
 						}
 					}
 					
 					if(PU[i].type == 4){
-						if(Main.PT.plasma == 0){
-							Main.PT.plasma +=10;
-							Main.PT.changeWeapon(4);
+						if(Main.PlayerTank.plasma == 0){
+							Main.PlayerTank.plasma +=10;
+							Main.PlayerTank.changeWeapon(4);
 						}else{
-							Main.PT.plasma +=10;
+							Main.PlayerTank.plasma +=10;
 						}
 					}
 						

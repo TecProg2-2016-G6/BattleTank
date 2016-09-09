@@ -10,8 +10,8 @@ import java.awt.image.*;
 public class Main extends Applet implements KeyListener, ActionListener, MouseMotionListener, MouseListener{
 	
 	private static final long serialVersionUID = 1L;
-	public Ticker t;
-	public int sleepTime;
+	public Ticker ticker;
+	public int sleePlayerTankime;
 	public static int[] screen;
 	public static int[] stencilBuffer;
 	public static int[] stencilBuffer2;
@@ -30,7 +30,7 @@ public class Main extends Applet implements KeyListener, ActionListener, MouseMo
 	public static long lastTime;
 	public static long tm;
 	
-	public static PlayerTank PT;
+	public static PlayerTank PlayerTank;
 	
 	//flag which indicate whether the user has terminated the current applet
 	public static boolean appletDestoried;
@@ -156,7 +156,7 @@ public class Main extends Applet implements KeyListener, ActionListener, MouseMo
 		Projectiles.init();
 		
 		//init player tank
-		PT = new PlayerTank(1000,-0.975,2.5);	
+		PlayerTank = new PlayerTank(1000,-0.975,2.5);	
 		
 		//init enemies
 		Enemies.init();
@@ -170,12 +170,12 @@ public class Main extends Applet implements KeyListener, ActionListener, MouseMo
 
 		//Add ticker
 		timer = 0;
-		sleepTime = 35;
+		sleePlayerTankime = 35;
 		tm = System.currentTimeMillis();
-		t = new Ticker(sleepTime);
-		t.addActionListener(this);
+		ticker = new Ticker(sleePlayerTankime);
+		ticker.addActionListener(this);
 		
-		t.start();
+		ticker.start();
 		
 		System.out.println("Started!");
 		System.gc();
@@ -183,7 +183,7 @@ public class Main extends Applet implements KeyListener, ActionListener, MouseMo
 	
 	//free resources when the browser decides to end the applet
 	public void destroy(){
-		t.stop();
+		ticker.stop();
 		System.gc();
 		
 		appletDestoried = true;
@@ -204,13 +204,13 @@ public class Main extends Applet implements KeyListener, ActionListener, MouseMo
 		
 		//cap frame rate to around 30
 		timer++;
-		tm+=sleepTime;	
+		tm+=sleePlayerTankime;	
 		long temp = Math.max(0, tm - System.currentTimeMillis());
 		if(temp == 0)
 			temp = (long)(lastTime*0.5);
 		if(temp > 33)
 			temp = 33;
-		t.setDelay((int)temp);
+		ticker.setDelay((int)temp);
 		lastTime = temp;
 		
 		//handle input
@@ -223,7 +223,7 @@ public class Main extends Applet implements KeyListener, ActionListener, MouseMo
 		ModelDrawList.makeList();
 		
 		Terrain.update();
-		PT.update();
+		PlayerTank.update();
 		Enemies.update();
 		Projectiles.update();
 		PowerUps.update();

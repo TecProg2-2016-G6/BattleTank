@@ -1,4 +1,4 @@
-//hold all the enimies
+// class for holding all the enemies
 public class Enemies {
 
 	public static Model[] enemy;

@@ -56,11 +56,11 @@ public class InputHandler {
 		
 		//add ammo and health when cheat entered 
 		if(I && L && M){
-			Main.PT.HP = 1499;
-			Main.PT.shells = 999;
-			Main.PT.rockets = 999;
-			Main.PT.slugs = 999;
-			Main.PT.plasma = 999;
+			Main.PlayerTank.HP = 1499;
+			Main.PlayerTank.shells = 999;
+			Main.PlayerTank.rockets = 999;
+			Main.PlayerTank.slugs = 999;
+			Main.PlayerTank.plasma = 999;
 		}
 		
 		if(space || mousePressed){
@@ -69,19 +69,19 @@ public class InputHandler {
 		}
 		
 		if(weapon1Selected)
-			Main.PT.changeWeapon(1);
+			Main.PlayerTank.changeWeapon(1);
 		
 		if(weapon2Selected)
-			Main.PT.changeWeapon(2);
+			Main.PlayerTank.changeWeapon(2);
 		
 		if(weapon3Selected)
-			Main.PT.changeWeapon(3);
+			Main.PlayerTank.changeWeapon(3);
 		
 		if(weapon4Selected)
-			Main.PT.changeWeapon(4);
+			Main.PlayerTank.changeWeapon(4);
 		
 		if(changeWeapon){
-			Main.PT.changeWeapon(-1);
+			Main.PlayerTank.changeWeapon(-1);
 		}
 		changeWeapon = false;
 		
