@@ -227,7 +227,7 @@ public class main extends Applet implements KeyListener, ActionListener, MouseMo
 		enemies.update();
 		projectiles.update();
 		powerUps.update();
-		gameEventHandler.processEvent();
+		GameEventHandler.processEvent();
 	
 		
 		
