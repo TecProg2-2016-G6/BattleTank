@@ -546,7 +546,7 @@ public class mediumTank extends solidObject{
 			countDownToDeath++;
 			if(countDownToDeath >= 3){
 				if(countDownToDeath == 3){
-					projectiles.register(new explosion(centre.x, centre.y, centre.z, 1.7));
+					projectiles.register(new Explosion(centre.x, centre.y, centre.z, 1.7));
 					powerUps.register(new powerUp(centre.x, -0.875, centre.z, 1));
 				}
 				obstacleMap.removeObstacle2(position);

@@ -523,7 +523,7 @@ public class missileLauncher extends solidObject{
 				rasterizer.rasterize(shadowTurret);
 			}
 			
-			geometry.sortPolygons(polygons, 1);
+			Geometry.sortPolygons(polygons, 1);
 		}
 		
 		//handle attack event
@@ -562,7 +562,7 @@ public class missileLauncher extends solidObject{
 			countDownToDeath++;
 			if(countDownToDeath >= 3){
 				if(countDownToDeath == 3){
-					projectiles.register(new explosion(centre.x, centre.y, centre.z, 1.7));
+					projectiles.register(new Explosion(centre.x, centre.y, centre.z, 1.7));
 					powerUps.register(new powerUp(centre.x, -0.875, centre.z, 2));
 				}
 				obstacleMap.removeObstacle2(position);

@@ -29,7 +29,7 @@ public class powerPlant extends solidObject{
 	public int position1, position2, position3,position4;
 	
 	//explosions generated when power plant is destroyed
-	public explosion[] explosions;
+	public Explosion[] explosions;
 	
 	public powerPlant(double x, double y, double z){
 		//init model
@@ -71,7 +71,7 @@ public class powerPlant extends solidObject{
 		
 		
 		//Generate explosion positions;
-		explosions = new explosion[11];
+		explosions = new Explosion[11];
 		
 		
 		makePolygons();
@@ -494,63 +494,63 @@ public class powerPlant extends solidObject{
 			
 			
 			if(countDownToDeath == 10){
-				explosions[0] = new explosion(centre.x, centre.y, centre.z, 1.7);
+				explosions[0] = new Explosion(centre.x, centre.y, centre.z, 1.7);
 				explosions[0].explicitDrawing = true;
 			}
 			
 			if(countDownToDeath == 13){
-				explosions[1] = new explosion(centre.x+0.2, centre.y, centre.z, 1.7);
+				explosions[1] = new Explosion(centre.x+0.2, centre.y, centre.z, 1.7);
 				explosions[1].explicitDrawing = true;
 			}
 			
 			if(countDownToDeath == 16){
-				explosions[2] = new explosion(centre.x+0.1, centre.y-0.1, centre.z+0.1, 1.7);
+				explosions[2] = new Explosion(centre.x+0.1, centre.y-0.1, centre.z+0.1, 1.7);
 				explosions[2].explicitDrawing = true;
 			}
 			
 			if(countDownToDeath == 16){
-				explosions[3] = new explosion(centre.x, centre.y-0.2, centre.z, 1.7);
+				explosions[3] = new Explosion(centre.x, centre.y-0.2, centre.z, 1.7);
 				explosions[3].explicitDrawing = true;
 			}
 			
 			if(countDownToDeath == 19){
-				explosions[4] = new explosion(centre.x-0.1, centre.y, centre.z+0.15, 1.7);
+				explosions[4] = new Explosion(centre.x-0.1, centre.y, centre.z+0.15, 1.7);
 				explosions[4].explicitDrawing = true;
 			}
 			
 			if(countDownToDeath == 19){
-				explosions[4] = new explosion(centre.x, centre.y+0.1, centre.z+0.15, 1.7);
+				explosions[4] = new Explosion(centre.x, centre.y+0.1, centre.z+0.15, 1.7);
 				explosions[4].explicitDrawing = true;
 			}
 			
 			if(countDownToDeath == 19){
-				explosions[5] = new explosion(centre.x-0.05, centre.y+0.05, centre.z, 1.7);
+				explosions[5] = new Explosion(centre.x-0.05, centre.y+0.05, centre.z, 1.7);
 				explosions[5].explicitDrawing = true;
 			}
 			
 			if(countDownToDeath == 19){
-				explosions[6] = new explosion(centre.x+0.01, centre.y+0.05, centre.z-0.01, 1.7);
+				explosions[6] = new Explosion(centre.x+0.01, centre.y+0.05, centre.z-0.01, 1.7);
 				explosions[6].explicitDrawing = true;
 			}
 			
 			
 			if(countDownToDeath == 22){
-				explosions[7] = new explosion(centre.x+0.01, centre.y+0.15, centre.z-0.01, 1.7);
+				explosions[7] = new Explosion(centre.x+0.01, centre.y+0.15, centre.z-0.01, 1.7);
 				explosions[7].explicitDrawing = true;
 			}
 			
 			if(countDownToDeath == 22){
-				explosions[8] = new explosion(centre.x+0.15, centre.y+0.1, centre.z+0.1, 1.7);
+				explosions[8] = new Explosion(centre.x+0.15, centre.y+0.1, centre.z+0.1, 1.7);
 				explosions[8].explicitDrawing = true;
 			}
 			
 			if(countDownToDeath == 22){
-				explosions[9] = new explosion(centre.x-0.15, centre.y-0.03, centre.z+0.1, 1.7);
+				explosions[9] = new Explosion(centre.x-0.15, centre.y-0.03, centre.z+0.1, 1.7);
 				explosions[9].explicitDrawing = true;
 			}
 			
 			if(countDownToDeath == 25){
-				explosions[10] = new explosion(centre.x, centre.y+0.05, centre.z, 3.5);
+				explosions[10] = new Explosion(centre.x, centre.y+0.05, centre.z, 3.5);
 				explosions[10].explicitDrawing = true;
 			}
 			

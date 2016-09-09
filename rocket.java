@@ -210,7 +210,7 @@ public class rocket extends solidObject {
 			lifeSpan = -1;
 			// generate explosion
 			centre.add(direction);
-			explosion theExplosion = new explosion(centre.x, centre.y,
+			Explosion theExplosion = new Explosion(centre.x, centre.y,
 					centre.z, 1);
 			theExplosion.damage = 10;
 			projectiles.register(theExplosion);
@@ -258,7 +258,7 @@ public class rocket extends solidObject {
 		// down to zero, it will explode and cause damage.
 		if (lifeSpan < 0) {
 			// generate explosion
-			explosion theExplosion = new explosion(centre.x, centre.y,
+			Explosion theExplosion = new Explosion(centre.x, centre.y,
 					centre.z, 1);
 			theExplosion.damage = 10;
 			projectiles.register(theExplosion);

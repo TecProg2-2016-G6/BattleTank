@@ -1,95 +1,101 @@
 
-public class explosion extends solidObject{
+public class Explosion extends solidObject {
 	
-	//size of the explosion 
-	double size;
+	// Size of the explosion 
+	double size = 0;
 	
-	//which explosion sprite to use
-	public int spriteIndex;
+	// Which explosion sprite to use
+	public int spriteIndex = 0;
 	
-	//current frame Index;
+	// Current frame Index;
 	public int frameIndex = 0;
 	
-	//current aura index;
+	// Current aura index;
 	public int auraIndex = 0;
 	
-	//default damage = 5;
+	// Default damage = 5;
 	public int damage = 5;
 	
-	//type of explosion 0 = normal   1 = plasma
+	// Type of explosion 0 = normal   1 = plasma
 	public int type;
 	
-	//centre of explosion in tile map
+	// Centre of explosion in tile map
 	public int groundZero;
 	
-	//Enable this boolean if this explosion has be to drawn explicitly
+	// Enable this boolean if this explosion has be to drawn explicitly
 	public boolean explicitDrawing;
 	
 	public polygon3D explosionAura;
 	
-	public explosion(double x, double y, double z, double size){
-		start = new vector(x,y,z);
+	public Explosion(double xAxis, double yAxys, double zAxys, double size) {
+		
+		int random = gameData.getRandom();
+		
+		start = new vector(xAxis,yAxys,zAxys);
 		iDirection = new vector(1,0,0);
 		jDirection = new vector(0,1,0);
 		kDirection = new vector(0,0,1);
+		lifeSpan = 16;
 		
-		int random = gameData.getRandom();
-		if(random >= 75 )
+		//Create 2D boundary
+		boundary2D = new rectangle2D(xAxis - 0.1, zAxys + 0.1, 0.2, 0.2);
+		
+		//Find centre of explosion
+		groundZero = (int)(xAxis*4) + (129-(int)(zAxys*4))*80;
+		 
+		if(random >= 75 ) {			
 			spriteIndex = 17;
-		else if(random >= 50 )
+		}else if(random >= 50 ) {			
 			spriteIndex = 18;
-		else if(random >= 25)
+		}else if(random >= 25) {
 			spriteIndex = 19;
-		else
+		}else{
 			spriteIndex = 20;
-
-		if(size > 1)
-			spriteIndex = 18;
+		}
 		
+		if(size > 1){
+			spriteIndex = 18;
+		}
 		
 		vector[] v = new vector[]{put(-0.3, 0, 0.3), put(0.3, 0, 0.3), put(0.3, 0, -0.3),put(-0.3, 0, -0.3)};
-		if(size > 3)
+		
+		if(size > 3){
 			v = new vector[]{put(-0.12, 0, 0.12), put(0.12, 0, 0.12), put(0.12, 0, -0.12),put(-0.12, 0, -0.12)};
+		}
 		
 		explosionAura = new polygon3D(v, v[0], v[1], v[3], main.textures[21], 1, 1, 2);
 		
 		this.size = size;
 		
-		//boundary of this model has a cubic shape (ie length ~= width ~= height)
-		modelType = 4;  
+		//Boundary of this model has a cubic shape (ie length ~= width ~= height)		
 		makeBoundary(0.001, 0.001, 0.001);
 		
-		//create 2D boundary
-		boundary2D = new rectangle2D(x - 0.1, z + 0.1, 0.2, 0.2);
-		
-		lifeSpan = 16;
-		
-		//find centre of the model in world coordinate
+		//Find centre of the model in world coordinate
 		findCentre();
 		
-		//find centre of explosion
-		groundZero = (int)(x*4) + (129-(int)(z*4))*80;
+		
 	}
 	
-	//animate explosion scene
-	public void update(){
-		//always visible
+	//Animate explosion scene
+	public void update() {
+		//Make always visible
 		visible = true;
 		
-		if(explosionAura != null && damage != 0){
+		if(explosionAura != null && damage != 0) {
 			explosionAura.update();
-			if(explosionAura.visible){
+			
+			if(explosionAura.visible) {
 				explosionAura.myTexture.Texture = explosionAura.myTexture.lightMapData[auraIndex];
 				rasterizer.rasterize(explosionAura);
 			}
 		}
 		auraIndex++;
 		
-		//send to draw list
+		//Send to draw list
 		if(!explicitDrawing)
 			modelDrawList.register(this);
 		
-		//find centre in camera coordinate
+		//Find centre in camera coordinate
 		
 		tempCentre.set(centre);
 		tempCentre.subtract(camera.position);
@@ -97,8 +103,8 @@ public class explosion extends solidObject{
 		tempCentre.rotate_YZ(camera.YZ_angle);
 		
 		
-		//damage nearby units
-		if(lifeSpan == 15 && damage != 0){
+		//Damage nearby units
+		if(lifeSpan == 15 && damage != 0) {
 			obstacleMap.damageType2Obstacles(damage, boundary2D, groundZero);
 		}
 		
@@ -110,18 +116,15 @@ public class explosion extends solidObject{
 		}
 	}
 	
-	//draw  explosion scene
-	public void draw(){
-		//calculate explosion size
+	//Draw  explosion scene
+	public void draw() {
 		
+		//Calculate explosion size
 		tempCentre.updateLocation();
 		double ratio = size*2/tempCentre.z;
 		
 		
-		//draw sprite
-		
-		
-		
+		//Drawing sprite	
 		rasterizer.temp = this.type; 
 		rasterizer.renderExplosionSprite(main.textures[spriteIndex].explosions[frameIndex],ratio, tempCentre.screenX, tempCentre.screenY, 64, 64);
 		
@@ -129,8 +132,8 @@ public class explosion extends solidObject{
 		
 	}
 	
-	//return the 2D boundary of this model
-	public rectangle2D getBoundary2D(){
+	//Return the 2D boundary of this model
+	public rectangle2D getBoundary2D() {
 		return boundary2D;
 	}
 }

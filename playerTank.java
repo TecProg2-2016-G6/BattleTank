@@ -859,8 +859,8 @@ public class playerTank extends solidObject{
 		}
 		
 		if(currentWeapon == 4){
-			geometry.sortPolygons(nukeCannonRear, 0);
-			geometry.sortPolygons(nukeCannonFront, 0);
+			Geometry.sortPolygons(nukeCannonRear, 0);
+			Geometry.sortPolygons(nukeCannonFront, 0);
 			
 			int index = 0;
 			
@@ -1123,7 +1123,7 @@ public class playerTank extends solidObject{
 		HP-=(damagePoint * 0.8);
 		if(HP <= 0){
 			HP = 0;
-			projectiles.register(new explosion(centre.x, centre.y, centre.z, 1.7));
+			projectiles.register(new Explosion(centre.x, centre.y, centre.z, 1.7));
 			centre.x = 1000;
 			
 			main.gameOver =  true;

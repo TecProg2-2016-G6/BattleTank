@@ -526,7 +526,7 @@ public class stealthTank extends solidObject{
 					body[i].update();
 					bodyInvisible[i].update();
 				}
-				geometry.sortPolygons(body, 2);
+				Geometry.sortPolygons(body, 2);
 				
 				//update shadow for tank body
 				tempVector1.set(centre);
@@ -678,7 +678,7 @@ public class stealthTank extends solidObject{
 			countDownToDeath++;
 			if(countDownToDeath >= 3){
 				if(countDownToDeath == 3){
-					projectiles.register(new explosion(centre.x, centre.y, centre.z, 1.7));
+					projectiles.register(new Explosion(centre.x, centre.y, centre.z, 1.7));
 					powerUps.register(new powerUp(centre.x, -0.875, centre.z, 3));
 				}
 				obstacleMap.removeObstacle2(position);
