@@ -184,12 +184,12 @@ public class enemies {
 		temp3 = (stealthTank)enemy[106];
 		temp3.active = false;
 		
-		enemy[107] = new annihilator(12.625, -0.975, 21.375, 90);
-		annihilator temp4 = (annihilator)enemy[107];
+		enemy[107] = new Annihilator(12.625, -0.975, 21.375, 90);
+		Annihilator temp4 = (Annihilator)enemy[107];
 		temp4.active = false;
 		
-		enemy[108] = new annihilator(12.625, -0.975, 19.375, 90);
-		temp4 = (annihilator)enemy[108];
+		enemy[108] = new Annihilator(12.625, -0.975, 19.375, 90);
+		temp4 = (Annihilator)enemy[108];
 		temp4.active = false;
 		
 	}
