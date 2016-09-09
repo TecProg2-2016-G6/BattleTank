@@ -35,7 +35,7 @@ public class modelDrawList {
 		//bubble sort
 		for(int i = 1; i < modelCount; i++){
 			for(int j = 0; j < modelCount - i; j++){
-				if(geometry.compareModels(visibleModels[j+1],visibleModels[j])){
+				if(Geometry.compareModels(visibleModels[j+1],visibleModels[j])){
 					model temp = visibleModels[j+1];
 					visibleModels[j+1] = visibleModels[j];
 					visibleModels[j] = temp;
