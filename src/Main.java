@@ -29,19 +29,19 @@ public class Main extends Applet implements KeyListener, ActionListener, MouseMo
 	
 	public static int timer;
 	public static long lastTime;
-	public static long tm;
+	public static long timeMillis;
 	
 	public static PlayerTank PlayerTank;
 	
 	//flag which indicate whether the user has terminated the current applet
-	public static boolean appletDestoried;
+	public static boolean appletDestroied;
 	
 	//game status
 	public static boolean gameNotStart, gamePaused, gameOver, win;
 	
 	public void init(){
 		gameNotStart = true;
-		appletDestoried = false;
+		appletDestroied = false;
 		screen = null;
 		stencilBuffer = null;
 		lightMap = null;
@@ -49,11 +49,11 @@ public class Main extends Applet implements KeyListener, ActionListener, MouseMo
 		
 		Camera = null;
 		Terrain = null;
-		GameData.destory();
+		GameData.destroy();
 		terrainBuffer = null;
 		System.gc();
 		
-		//Make an array of int which holds screen pixels data
+		// Make an array of int which holds screen pixels data
 		doubleBuffer =  new BufferedImage(640, 480, BufferedImage.TYPE_INT_RGB);
 		DataBuffer dest = doubleBuffer.getRaster().getDataBuffer();
 		screen = ((DataBufferInt)dest).getData();
@@ -172,7 +172,7 @@ public class Main extends Applet implements KeyListener, ActionListener, MouseMo
 		//Add ticker
 		timer = 0;
 		sleePlayerTankime = 35;
-		tm = System.currentTimeMillis();
+		timeMillis = System.currentTimeMillis();
 		ticker = new Ticker(sleePlayerTankime);
 		ticker.addActionListener(this);
 		
@@ -187,12 +187,12 @@ public class Main extends Applet implements KeyListener, ActionListener, MouseMo
 		ticker.stop();
 		System.gc();
 		
-		appletDestoried = true;
+		appletDestroied = true;
 	}
 	
 	//This method is called every time the ticker ticks (game loop)
 	public final void actionPerformed(ActionEvent e){	
-		if(appletDestoried){
+		if(appletDestroied){
 			System.gc();
 			return;
 		}
@@ -205,8 +205,8 @@ public class Main extends Applet implements KeyListener, ActionListener, MouseMo
 		
 		//cap frame rate to around 30
 		timer++;
-		tm+=sleePlayerTankime;	
-		long temp = Math.max(0, tm - System.currentTimeMillis());
+		timeMillis+=sleePlayerTankime;	
+		long temp = Math.max(0, timeMillis - System.currentTimeMillis());
 		if(temp == 0)
 			temp = (long)(lastTime*0.5);
 		if(temp > 33)
@@ -266,10 +266,10 @@ public class Main extends Applet implements KeyListener, ActionListener, MouseMo
 		
 	}
 	
-	public final void myPaint(Graphics g){		
+	public final void myPaint(Graphics graphic){		
 		//copy the pixel information to the video memory
-		Graphics2D g2 = (Graphics2D)g;
-		g2.drawImage(doubleBuffer, null, 0, 0);
+		Graphics2D graphic2D = (Graphics2D)graphic;
+		graphic2D.drawImage(doubleBuffer, null, 0, 0);
 	}
 	
 	//this method is called by the browser when the applet window needs to refresh itself

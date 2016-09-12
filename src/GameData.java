@@ -192,7 +192,7 @@ public class GameData {
 	}
 	
 	//It frees the data stored when the applet is finished
-	public static void destory(){
+	public static void destroy(){
 		random = null;
 		randomVectors = null;
 		sin = null;  
