@@ -41,7 +41,7 @@ public abstract class SolidObject implements Model{
 	}
 
 	//get centre of this model in camera coordinate
-	public final Vector getCentre(){
+	public final Vector getCameraCentre(){
 		return tempCentre;
 	}
 	
@@ -111,7 +111,7 @@ public abstract class SolidObject implements Model{
 		v.add(kDirection, k);
 	}
 	
-	public final double getZDepth(){
+	public final double getTankDepth(){
 		return tempCentre.z;
 	}
 	

@@ -371,7 +371,7 @@ public class Wall extends SolidObject{
 		return boundary2D;
 	}
 	
-	//update the model
+	// Method for updating model.
 	public void update(){
 		//find centre in camera coordinate
 		tempCentre.set(centre);
@@ -390,11 +390,11 @@ public class Wall extends SolidObject{
 		
 		ModelDrawList.register(this);
 		
-		//update boundary
+		// update boundary
 		for(int i = 0; i < 5; i++)
 			boundary[i].update();
 		
-		//update polygons
+		// update polygons
 		for(int i = 0; i < polygons.length; i++){
 			polygons[i].update();
 		}
@@ -415,6 +415,7 @@ public class Wall extends SolidObject{
 		}
 	}
 	
+	// Method for updating model.
 	public void draw(){
 		if(visible){
 			for(int i = 0; i < polygons.length; i++){

@@ -12,7 +12,7 @@ public interface Model{
 	public Rectangle2D getBoundary2D();
 	
 	//get centre of this model in camera coordinate
-	public Vector getCentre();
+	public Vector getCameraCentre();
 	
 	//get centre of this model in world coordinate
 	public Vector getRealCentre();
@@ -20,19 +20,22 @@ public interface Model{
 	//draw the polygons of the model
 	public void draw();
 	
-	//return the type of the model
-	//To be more specific:
-	//type 1 = player tank
-	//type 2 = enemy tank
-	//type 3 = rocks, and most other object that will interact with projectiles.
-	//type 4 = projectiles
-	//type 5 = powerups
-	//type 6 = walls
-	//type 7 = trees
-	public int getType();
+	/**return the type of the model
+	  * To be more specific:
+	  * type 1 = player tank
+	  * type 2 = enemy tank
+	  * type 3 = rocks, and most other object that will interact with projectiles.
+	  * type 4 = projectiles
+	  * type 5 = powerups
+	  * type 6 = walls
+	  * type 7 = trees
+	  */
 	
-	//get the z value of the centre vector
-	public double getZDepth();
+	// Method for getting the type of model
+	public int getType(); 
+	  
+	//get the depth value of the tank
+	public double getTankDepth();
 	
 	//get the current life span of the model
 	public int getLifeSpan();
