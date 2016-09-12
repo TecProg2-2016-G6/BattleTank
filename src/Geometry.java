@@ -9,7 +9,7 @@ public class Geometry {
 	public static boolean compareModels(Model a, Model b) {
 		
 		//Compare centre Z depth values
-			if(a.getZDepth() > b.getZDepth()){
+			if(a.getTankDepth() > b.getTankDepth()){
 				return true;
 			}else{
 				return false;

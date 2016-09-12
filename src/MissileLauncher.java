@@ -644,7 +644,7 @@ public class MissileLauncher extends SolidObject{
 				Model temp = ObstacleMap.isOccupied2(tempVector1);
 				if(temp == null)
 					continue;
-				obstacleType = temp.getType();
+				obstacleType = temp.getTypeOfModel();
 				if(obstacleType == 1){
 					break;
 				}else{

@@ -31,8 +31,7 @@ public interface Model{
 	  * type 7 = trees
 	  */
 	
-	// Method for getting the type of model
-	public int getType(); 
+	public int getTypeOfModel(); 
 	  
 	//get the depth value of the tank
 	public double getTankDepth();

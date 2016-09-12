@@ -753,8 +753,8 @@ public class StealthTank extends SolidObject{
 				Model temp = ObstacleMap.isOccupied2(tempVector1);
 				if(temp == null)
 					continue;
-				obstacleType = temp.getType();
-				if(temp.getType() == 1){
+				obstacleType = temp.getTypeOfModel();
+				if(temp.getTypeOfModel() == 1){
 					break;
 				}else{
 					clearToShoot = false;

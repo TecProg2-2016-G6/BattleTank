@@ -747,7 +747,7 @@ public class Annihilator extends SolidObject{
 				if(temp == null){
 					continue;
 				}
-				obstacleType = temp.getType();
+				obstacleType = temp.getTypeOfModel();
 				if(obstacleType == 1) {
 					break;
 				}else {

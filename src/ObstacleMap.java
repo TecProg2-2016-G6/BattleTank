@@ -58,7 +58,7 @@ public class ObstacleMap {
 	public static void clear(){
 		for(int i = 0; i < obstacleMap2.length; i++){
 			if(obstacleMap2[i] != null){
-				if(obstacleMap2[i].getType() == 2){
+				if(obstacleMap2[i].getTypeOfModel() == 2){
 					obstacleMap2[i] = null;
 				}
 			}
@@ -144,7 +144,7 @@ public class ObstacleMap {
 				if(obstacleMap2[temp] == null)
 					continue;
 				if(Rectangle2D.testIntersection(obstacleMap2[temp].getBoundary2D(), projectile.getBoundary2D())){
-					if(obstacleMap2[temp].getType() != 2)
+					if(obstacleMap2[temp].getTypeOfModel() != 2)
 						return true;
 					else
 						continue;
@@ -155,7 +155,7 @@ public class ObstacleMap {
 			if(!hostile){
 				if(temp < 0 || temp >= 10400)
 					continue;
-				if(obstacleMap2[temp] == null || obstacleMap2[temp].getType() == 1)
+				if(obstacleMap2[temp] == null || obstacleMap2[temp].getTypeOfModel() == 1)
 					continue;
 				if(Rectangle2D.testIntersection(obstacleMap2[temp].getBoundary2D(), projectile.getBoundary2D())){
 					return true;
@@ -195,7 +195,7 @@ public class ObstacleMap {
 				if(obstacleMap2[temp] == null)
 					continue;
 				Rectangle2D tempRect = obstacleMap2[temp].getBoundary2D();
-				if(obstacleMap2[temp].getType() == 1){
+				if(obstacleMap2[temp].getTypeOfModel() == 1){
 					tempRect = new Rectangle2D(obstacleMap2[temp].getBoundary2D().xPos - 0.01, 
 											   obstacleMap2[temp].getBoundary2D().yPos + 0.01,											
 											   0.16,
@@ -205,7 +205,7 @@ public class ObstacleMap {
 				
 				
 				if(Rectangle2D.testIntersection(tempRect, projectile.getBoundary2D())){
-					if(obstacleMap2[temp].getType() == 3 || obstacleMap2[temp].getType() == 6){
+					if(obstacleMap2[temp].getTypeOfModel() == 3 || obstacleMap2[temp].getTypeOfModel() == 6){
 						Explosion theExplosion = new Explosion(projectile.getRealCentre().x, -0.9, projectile.getRealCentre().z, 0.5); 
 						theExplosion.damage = 0;
 						theExplosion.type = 2;
@@ -214,7 +214,7 @@ public class ObstacleMap {
 						
 						return true;
 					}
-					if(obstacleMap2[temp].getType() == 1){
+					if(obstacleMap2[temp].getTypeOfModel() == 1){
 						Explosion theExplosion = new Explosion(projectile.getRealCentre().x, -0.9, projectile.getRealCentre().z, 0.5); 
 						theExplosion.damage = 0;
 						theExplosion.type = 2;
@@ -229,10 +229,10 @@ public class ObstacleMap {
 			if(!hostile){
 				if(temp < 0 || temp >= 10400)
 					continue;
-				if(obstacleMap2[temp] == null || obstacleMap2[temp].getType() == 1)
+				if(obstacleMap2[temp] == null || obstacleMap2[temp].getTypeOfModel() == 1)
 					continue;
 				if(Rectangle2D.testIntersection(obstacleMap2[temp].getBoundary2D(), projectile.getBoundary2D())){
-					if(obstacleMap2[temp].getType() == 3 || obstacleMap2[temp].getType() == 6){
+					if(obstacleMap2[temp].getTypeOfModel() == 3 || obstacleMap2[temp].getTypeOfModel() == 6){
 						Explosion theExplosion = new Explosion(projectile.getRealCentre().x, -0.9, projectile.getRealCentre().z, 0.5); 
 						theExplosion.damage = 0;
 						theExplosion.type = 2;
@@ -242,7 +242,7 @@ public class ObstacleMap {
 						
 						return true;
 					}
-					if(obstacleMap2[temp].getType() == 2){
+					if(obstacleMap2[temp].getTypeOfModel() == 2){
 						obstacleMap2[temp].damage(8);
 						Explosion theExplosion = new Explosion(projectile.getRealCentre().x, -0.9, projectile.getRealCentre().z, 0.5); 
 						theExplosion.damage = 0;
@@ -272,7 +272,7 @@ public class ObstacleMap {
 		if(index < 0 || index >= 10400){
 			return null;
 		}
-		if(obstacleMap2[index] == null || obstacleMap2[index].getType() == 2){
+		if(obstacleMap2[index] == null || obstacleMap2[index].getTypeOfModel() == 2){
 			
 			return null;
 		}
@@ -299,7 +299,7 @@ public class ObstacleMap {
 				continue;
 			}
 			
-			if(obstacleMap2[index] != null && obstacleMap2[index].getType() == 2){
+			if(obstacleMap2[index] != null && obstacleMap2[index].getTypeOfModel() == 2){
 				return obstacleMap2[index].getRealCentre();
 			}
 		}
@@ -347,7 +347,7 @@ public class ObstacleMap {
 		indexes[8] = index +81;
 		
 		for(int i = 1; i < 9; i++){
-			if(obstacleMap2[indexes[i]] != null && obstacleMap2[indexes[i]].getType() == 2 && obstacleMap2[indexes[i]] != tank){
+			if(obstacleMap2[indexes[i]] != null && obstacleMap2[indexes[i]].getTypeOfModel() == 2 && obstacleMap2[indexes[i]] != tank){
 				obstacleMap2[indexes[i]].unstuck();
 				
 			}
