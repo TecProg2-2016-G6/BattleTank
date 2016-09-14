@@ -99,9 +99,9 @@ public class Explosion extends SolidObject {
 		//Find centre in camera coordinate
 		
 		tempCentre.set(centre);
-		tempCentre.subtract(camera.position);
-		tempCentre.rotate_XZ(camera.XZ_angle);
-		tempCentre.rotate_YZ(camera.YZ_angle);
+		tempCentre.subtract(Camera.position);
+		tempCentre.rotate_XZ(Camera.XZ_angle);
+		tempCentre.rotate_YZ(Camera.YZ_angle);
 		
 		
 		//Damage nearby units

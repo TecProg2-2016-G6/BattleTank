@@ -18,7 +18,7 @@ public class Main extends Applet implements KeyListener, ActionListener, MouseMo
 	public static int[] stencilBuffer2;
 	public static short[] lightMap;
 	public BufferedImage doubleBuffer;
-	public camera Camera;
+	public Camera Camera;
 	public InputHandler myInputHandler;
 	public static Texture[] textures;
 	public static boolean[] terrainBuffer;
@@ -146,7 +146,7 @@ public class Main extends Applet implements KeyListener, ActionListener, MouseMo
 		GameHUD.init();
 		
 		//init camera
-		Camera = new camera();
+		Camera = new Camera();
 	
 		//init terrain
 		ObstacleMap.init();

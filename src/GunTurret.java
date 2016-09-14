@@ -245,9 +245,9 @@ public class GunTurret extends SolidObject{
 		//find centre in camera coordinate
 		tempCentre.set(centre);
 		tempCentre.y = -1;
-		tempCentre.subtract(camera.position);
-		tempCentre.rotate_XZ(camera.XZ_angle);
-		tempCentre.rotate_YZ(camera.YZ_angle);
+		tempCentre.subtract(Camera.position);
+		tempCentre.rotate_XZ(Camera.XZ_angle);
+		tempCentre.rotate_YZ(Camera.YZ_angle);
 		tempCentre.updateLocation();
 		
 		//test whether the model is visible by comparing the 2D position of its centre point with the screen area

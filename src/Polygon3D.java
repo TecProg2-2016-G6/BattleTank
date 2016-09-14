@@ -166,7 +166,7 @@ public class Polygon3D {
 	//update this polygon based on camera movement in each frame
 	public void update(){		
 		//back-face culling
-		tempVector1.set(camera.position);
+		tempVector1.set(Camera.position);
 		tempVector1.subtract(vertex3D[0]);
 		if(tempVector1.dot(realNormal) <= 0){
 			visible = false;
@@ -176,11 +176,11 @@ public class Polygon3D {
 		
 		//update vertex according to camera orientation
 		double x = 0,y = 0, z = 0, 
-		camX = camera.position.x, camY = camera.position.y, camZ = camera.position.z,
-		sinXZ = GameData.sin[camera.XZ_angle], 
-		cosXZ = GameData.cos[camera.XZ_angle],
-		sinYZ = GameData.sin[camera.YZ_angle], 
-		cosYZ = GameData.cos[camera.YZ_angle];
+		camX = Camera.position.x, camY = Camera.position.y, camZ = Camera.position.z,
+		sinXZ = GameData.sin[Camera.XZ_angle], 
+		cosXZ = GameData.cos[Camera.XZ_angle],
+		sinYZ = GameData.sin[Camera.YZ_angle], 
+		cosYZ = GameData.cos[Camera.YZ_angle];
 		
 		for(int i = 0; i < L; i++){
 			//shifting
@@ -216,7 +216,7 @@ public class Polygon3D {
 		bound.setSize( xMax-xMin + 1, yMax-yMin);
 			
 		//Test whether the rectangle intersects the screen.
-		visible = camera.screen.intersects(bound);
+		visible = Camera.screen.intersects(bound);
 		
 	
 		if(visible){
@@ -237,7 +237,7 @@ public class Polygon3D {
 			centre.scale(1.0/L);
 			
 			//test whether the polygon is completely inside the screen area
-			withinViewScreen = camera.screen.contains(xMin, yMin) && camera.screen.contains(xMax, yMax);
+			withinViewScreen = Camera.screen.contains(xMin, yMin) && Camera.screen.contains(xMax, yMax);
 		}
 	}
 	

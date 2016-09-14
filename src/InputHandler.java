@@ -26,16 +26,16 @@ public class InputHandler {
 		if(RIGHT){
 			PlayerTank.turnRight = true;
 			
-			camera.XZ_angle+=4;
+			Camera.XZ_angle+=4;
 			
-			if(camera.XZ_angle >359)
-				camera.XZ_angle= camera.XZ_angle - 360;
+			if(Camera.XZ_angle >359)
+				Camera.XZ_angle= Camera.XZ_angle - 360;
 		}
 		if(LEFT){
 			PlayerTank.turnLeft = true;
-			camera.XZ_angle-=4;
-			if(camera.XZ_angle <0 )
-				camera.XZ_angle= camera.XZ_angle + 360;
+			Camera.XZ_angle-=4;
+			if(Camera.XZ_angle <0 )
+				Camera.XZ_angle= Camera.XZ_angle + 360;
 		}
 		
 		if(W){
@@ -89,20 +89,20 @@ public class InputHandler {
 		//handle mouse event
 		if((xPos < 140 || (xPos < 320 && yPos > 370)) && !LEFT && cursorInApplet){
 			PlayerTank.turnLeft = true;
-			camera.XZ_angle-=4;
-			if(camera.XZ_angle <0 )
-				camera.XZ_angle= camera.XZ_angle + 360;
+			Camera.XZ_angle-=4;
+			if(Camera.XZ_angle <0 )
+				Camera.XZ_angle= Camera.XZ_angle + 360;
 		}
 		if((xPos > 490 || (xPos > 320 && yPos > 370)) && !RIGHT && cursorInApplet){
 			PlayerTank.turnRight = true;
-			camera.XZ_angle+=4;
-			if(camera.XZ_angle >359)
-				camera.XZ_angle= camera.XZ_angle - 360;
+			Camera.XZ_angle+=4;
+			if(Camera.XZ_angle >359)
+				Camera.XZ_angle= Camera.XZ_angle - 360;
 		}
 			
 		if(xPos <= 490 && xPos >= 140 &&  yPos < 410 &&!RIGHT && !LEFT && cursorInApplet){
 			int turretAngle = PlayerTank.turretAngle %360;
-			int cameraAngle = (360 - camera.XZ_angle)%360;
+			int cameraAngle = (360 - Camera.XZ_angle)%360;
 			
 			int yPos_ = 480-yPos - 59;
 			int xPos_ = 0;

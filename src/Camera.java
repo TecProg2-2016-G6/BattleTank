@@ -1,7 +1,7 @@
 package src;
 import java.awt.*;
 
-public class camera {
+public class Camera {
 	//position of the camera (third person view)
 	public static Vector position;
 	
@@ -27,7 +27,7 @@ public class camera {
 	//fly through timer
 	public int flyThroughTimer;
 	
-	public camera(){
+	public Camera(){
 		//init camera with default values
 		XZ_angle = 0;
 		position = new Vector(10,0.25,1.5);

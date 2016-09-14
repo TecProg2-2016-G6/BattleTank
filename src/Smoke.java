@@ -51,9 +51,9 @@ public class Smoke{
 				continue;
 			
 			temp.set(particles[i]);
-			temp.subtract(camera.position);
-			temp.rotate_XZ(camera.XZ_angle);
-			temp.rotate_YZ(camera.YZ_angle);
+			temp.subtract(Camera.position);
+			temp.rotate_XZ(Camera.XZ_angle);
+			temp.rotate_YZ(Camera.YZ_angle);
 			temp.updateLocation();
 			
 			if(temp.screenX >= 2 && temp.screenX <638 && temp.screenY >=0 && temp.screenY < 480){

@@ -469,9 +469,9 @@ public class PowerPlant extends SolidObject{
 		//find centre in camera coordinate
 		tempCentre.set(centre);
 		tempCentre.y = -1;
-		tempCentre.subtract(camera.position);
-		tempCentre.rotate_XZ(camera.XZ_angle);
-		tempCentre.rotate_YZ(camera.YZ_angle);
+		tempCentre.subtract(Camera.position);
+		tempCentre.rotate_XZ(Camera.XZ_angle);
+		tempCentre.rotate_YZ(Camera.YZ_angle);
 		tempCentre.updateLocation();
 		
 		//test whether the model is visible by comparing the 2D position of its centre point and the screen area
@@ -615,18 +615,18 @@ public class PowerPlant extends SolidObject{
 			}
 			
 			smokeCentresCamera[i].set(smokeCentres[i]);
-			smokeCentresCamera[i].subtract(camera.position);
-			smokeCentresCamera[i].rotate_XZ(camera.XZ_angle);
-			smokeCentresCamera[i].rotate_YZ(camera.YZ_angle);
+			smokeCentresCamera[i].subtract(Camera.position);
+			smokeCentresCamera[i].rotate_XZ(Camera.XZ_angle);
+			smokeCentresCamera[i].rotate_YZ(Camera.YZ_angle);
 			smokeCentresCamera[i].updateLocation();
 		}
 		
 		smokeBottomCamera.set(smokeBottom);
 		if(HP < 250)
 			smokeBottomCamera.set(0,0,1500);
-		smokeBottomCamera.subtract(camera.position);
-		smokeBottomCamera.rotate_XZ(camera.XZ_angle);
-		smokeBottomCamera.rotate_YZ(camera.YZ_angle);
+		smokeBottomCamera.subtract(Camera.position);
+		smokeBottomCamera.rotate_XZ(Camera.XZ_angle);
+		smokeBottomCamera.rotate_YZ(Camera.YZ_angle);
 		smokeBottomCamera.updateLocation();
 		
 		

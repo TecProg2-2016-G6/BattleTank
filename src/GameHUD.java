@@ -202,9 +202,9 @@ public class GameHUD {
 				loadingScreenPosition = 0;
 				ObstacleMap.clear();
 				
-				camera.viewDirection = new Vector(0,0,1);
-				camera.XZ_angle = 0;
-				camera.restart = true;
+				Camera.viewDirection = new Vector(0,0,1);
+				Camera.XZ_angle = 0;
+				Camera.restart = true;
 				
 				PowerUps.init();
 				Projectiles.init();
@@ -242,9 +242,9 @@ public class GameHUD {
 				loadingScreenPosition = 0;
 				ObstacleMap.clear();
 				
-				camera.viewDirection = new Vector(0,0,1);
-				camera.XZ_angle = 0;
-				camera.restart = true;
+				Camera.viewDirection = new Vector(0,0,1);
+				Camera.XZ_angle = 0;
+				Camera.restart = true;
 				
 				PowerUps.init();
 				Projectiles.init();

@@ -744,9 +744,9 @@ public class PlayerTank extends SolidObject{
 		//find centre in camera coordinate
 		tempCentre.set(centre);
 		tempCentre.y = -1;
-		tempCentre.subtract(camera.position);
-		tempCentre.rotate_XZ(camera.XZ_angle);
-		tempCentre.rotate_YZ(camera.YZ_angle);
+		tempCentre.subtract(Camera.position);
+		tempCentre.rotate_XZ(Camera.XZ_angle);
+		tempCentre.rotate_YZ(Camera.YZ_angle);
 		
 		//update body polygons
 		for(int i = 0; i < body.length; i++){
