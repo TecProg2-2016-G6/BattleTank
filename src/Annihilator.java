@@ -1,7 +1,18 @@
 package src;
-//enemy: the annihilator 
+//Class responsable for enemy Annihilator 
 
 public class Annihilator extends SolidObject{
+	
+	static final double height = 0.25;
+	
+	static final double lenght = 0.1;
+	
+	static final double weight = 0.1;
+	
+	static final double rectangleLenght = 0.23;
+	
+	static final double rectangleHeight = 0.23;
+	
 	//polygons for tank body
 	private Polygon3D[] body;
 	
@@ -87,7 +98,7 @@ public class Annihilator extends SolidObject{
 	
 	public Annihilator(double x, double y, double z, int angle) {
 		
-		//Define the center point of this model(also the centre point of tank body)
+		//Define the center point of the tank
 		start = new Vector(x,y,z);
 		iDirection = new Vector(1,0,0);
 		jDirection = new Vector(0,1,0);
@@ -95,10 +106,10 @@ public class Annihilator extends SolidObject{
 		
 		//Boundary of this model has a cubic shape (ie l = w)
 		modelType = 2;  
-		makeBoundary(0.1, 0.25, 0.1);
+		makeBoundary(lenght, height, weight);
 		
-		//Create 2D boundary
-		boundary2D = new Rectangle2D(x - 0.115, z + 0.115, 0.23, 0.23);
+		//Create 2D rectangle boundary
+		boundary2D = new Rectangle2D(x - 0.115, z + 0.115, rectangleLenght, rectangleHeight);
 		position = (int)(x * 4) + (129 - (int)(z * 4)) * 80;
 		desiredPosition = position;
 		ObstacleMap.registerObstacle2(this, position);
