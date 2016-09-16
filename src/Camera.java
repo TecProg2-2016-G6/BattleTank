@@ -76,7 +76,7 @@ public class Camera {
 			cameraPosition.add(thirdPersonDisplacement);
 
 		} else {
-			
+				
 			// Fly through this entire level when the game isn't started
 			if (flyThroughTimer > 0 && flyThroughTimer <= 60) {
 				cameraPosition.add(0, 0, 0.01);

@@ -271,7 +271,7 @@ public class Stone extends SolidObject{
 	public void update(){
 		cantreModelInCamera.set(centreModel);
 		cantreModelInCamera.y = 0.25;
-		cantreModelInCamera.subtract(Camera.absolutePosition);
+		cantreModelInCamera.subtract(Camera.absoluteCameraPosition);
 		if(cantreModelInCamera.getLength() > 5.5){
 			polygons = null;
 			isVisible = false;
