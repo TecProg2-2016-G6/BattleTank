@@ -166,7 +166,7 @@ public class Polygon3D {
 	//update this polygon based on camera movement in each frame
 	public void update(){		
 		//back-face culling
-		tempVector1.set(Camera.position);
+		tempVector1.set(Camera.cameraPosition);
 		tempVector1.subtract(vertex3D[0]);
 		if(tempVector1.dot(realNormal) <= 0){
 			visible = false;
@@ -176,7 +176,7 @@ public class Polygon3D {
 		
 		//update vertex according to camera orientation
 		double x = 0,y = 0, z = 0, 
-		camX = Camera.position.x, camY = Camera.position.y, camZ = Camera.position.z,
+		camX = Camera.cameraPosition.x, camY = Camera.cameraPosition.y, camZ = Camera.cameraPosition.z,
 		sinXZ = GameData.sin[Camera.XZ_angle], 
 		cosXZ = GameData.cos[Camera.XZ_angle],
 		sinYZ = GameData.sin[Camera.YZ_angle], 

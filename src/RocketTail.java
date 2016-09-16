@@ -58,7 +58,7 @@ public class RocketTail extends SolidObject{
 		//find centre in camera coordinate
 		cantreModelInCamera.set(centreModel);
 		cantreModelInCamera.y = -1;
-		cantreModelInCamera.subtract(Camera.position);
+		cantreModelInCamera.subtract(Camera.cameraPosition);
 		cantreModelInCamera.rotate_XZ(Camera.XZ_angle);
 		cantreModelInCamera.rotate_YZ(Camera.YZ_angle);
 	}
@@ -72,7 +72,7 @@ public class RocketTail extends SolidObject{
 		
 		for(int i = 0; i < particles.length; i++){
 			temp.set(particles[i]);
-			temp.subtract(Camera.position);
+			temp.subtract(Camera.cameraPosition);
 			temp.rotate_XZ(Camera.XZ_angle);
 			temp.rotate_YZ(Camera.YZ_angle);
 			temp.updateLocation();

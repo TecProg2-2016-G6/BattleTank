@@ -100,7 +100,7 @@ public class Helix extends SolidObject{
 		//find centre in camera coordinate
 		cantreModelInCamera.set(centreModel);
 		cantreModelInCamera.y = -1;
-		cantreModelInCamera.subtract(Camera.position);
+		cantreModelInCamera.subtract(Camera.cameraPosition);
 		cantreModelInCamera.rotate_XZ(Camera.XZ_angle);
 		cantreModelInCamera.rotate_YZ(Camera.YZ_angle);
 		
@@ -136,7 +136,7 @@ public class Helix extends SolidObject{
 		
 		for(int i = 19; i >=0; i--){
 			temp1.set(particles[i]);
-			temp1.subtract(Camera.position);
+			temp1.subtract(Camera.cameraPosition);
 			temp1.rotate_XZ(Camera.XZ_angle);
 			temp1.rotate_YZ(Camera.YZ_angle);
 			temp1.updateLocation();

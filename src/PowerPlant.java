@@ -469,7 +469,7 @@ public class PowerPlant extends SolidObject{
 		//find centre in camera coordinate
 		cantreModelInCamera.set(centreModel);
 		cantreModelInCamera.y = -1;
-		cantreModelInCamera.subtract(Camera.position);
+		cantreModelInCamera.subtract(Camera.cameraPosition);
 		cantreModelInCamera.rotate_XZ(Camera.XZ_angle);
 		cantreModelInCamera.rotate_YZ(Camera.YZ_angle);
 		cantreModelInCamera.updateLocation();
@@ -615,7 +615,7 @@ public class PowerPlant extends SolidObject{
 			}
 			
 			smokeCentresCamera[i].set(smokeCentres[i]);
-			smokeCentresCamera[i].subtract(Camera.position);
+			smokeCentresCamera[i].subtract(Camera.cameraPosition);
 			smokeCentresCamera[i].rotate_XZ(Camera.XZ_angle);
 			smokeCentresCamera[i].rotate_YZ(Camera.YZ_angle);
 			smokeCentresCamera[i].updateLocation();
@@ -624,7 +624,7 @@ public class PowerPlant extends SolidObject{
 		smokeBottomCamera.set(smokeBottom);
 		if(HP < 250)
 			smokeBottomCamera.set(0,0,1500);
-		smokeBottomCamera.subtract(Camera.position);
+		smokeBottomCamera.subtract(Camera.cameraPosition);
 		smokeBottomCamera.rotate_XZ(Camera.XZ_angle);
 		smokeBottomCamera.rotate_YZ(Camera.YZ_angle);
 		smokeBottomCamera.updateLocation();

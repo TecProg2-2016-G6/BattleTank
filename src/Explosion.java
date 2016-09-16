@@ -99,7 +99,7 @@ public class Explosion extends SolidObject {
 		//Find centre in camera coordinate
 		
 		cantreModelInCamera.set(centreModel);
-		cantreModelInCamera.subtract(Camera.position);
+		cantreModelInCamera.subtract(Camera.cameraPosition);
 		cantreModelInCamera.rotate_XZ(Camera.XZ_angle);
 		cantreModelInCamera.rotate_YZ(Camera.YZ_angle);
 		

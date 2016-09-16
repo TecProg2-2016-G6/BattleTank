@@ -204,7 +204,7 @@ public class GameHUD {
 				
 				Camera.viewDirection = new Vector(0,0,1);
 				Camera.XZ_angle = 0;
-				Camera.restart = true;
+				Camera.restartCameraPosition = true;
 				
 				PowerUps.init();
 				Projectiles.init();
@@ -244,7 +244,7 @@ public class GameHUD {
 				
 				Camera.viewDirection = new Vector(0,0,1);
 				Camera.XZ_angle = 0;
-				Camera.restart = true;
+				Camera.restartCameraPosition = true;
 				
 				PowerUps.init();
 				Projectiles.init();
