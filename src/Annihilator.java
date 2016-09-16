@@ -99,7 +99,7 @@ public class Annihilator extends SolidObject{
 	public Annihilator(double x, double y, double z, int angle) {
 		
 		//Define the center point of the tank
-		start = new Vector(x,y,z);
+		startPointInWorld = new Vector(x,y,z);
 		iDirection = new Vector(1,0,0);
 		jDirection = new Vector(0,1,0);
 		kDirection = new Vector(0,0,1);
@@ -109,7 +109,7 @@ public class Annihilator extends SolidObject{
 		makeBoundary(lenght, height, weight);
 		
 		//Create 2D rectangle boundary
-		boundary2D = new Rectangle2D(x - 0.115, z + 0.115, rectangleLenght, rectangleHeight);
+		boundaryModel2D = new Rectangle2D(x - 0.115, z + 0.115, rectangleLenght, rectangleHeight);
 		position = (int)(x * 4) + (129 - (int)(z * 4)) * 80;
 		desiredPosition = position;
 		ObstacleMap.registerObstacle2(this, position);
@@ -117,7 +117,7 @@ public class Annihilator extends SolidObject{
 		//Find centre of the model in world coordinate
 		findCentre();
 		
-		bodyCenter = centre;
+		bodyCenter = centreModel;
 		bodyAngle = angle;
 		turretAngle = angle;
 		
@@ -129,13 +129,13 @@ public class Annihilator extends SolidObject{
 		//Annihilator tank has 400 hit points
 		HP = 400;
 		
-		lifeSpan = 1;
+		lifeSpanObject = 1;
 	}
 	
 	//Create polygons for the tank body
 	private void makeBody(){
 		Vector[] v;
-		start = bodyCenter.myClone();
+		startPointInWorld = bodyCenter.myClone();
 		
 		iDirection = new Vector(0.95,0,0);
 		jDirection = new Vector(0,1,0);
@@ -210,8 +210,8 @@ public class Annihilator extends SolidObject{
 		turretCenter = put(0, 0.07, -0);
 		
 		//Create shadow for tank body
-		start.add(-0.015, 0, -0.015);
-		start.y = -1;
+		startPointInWorld.add(-0.015, 0, -0.015);
+		startPointInWorld.y = -1;
 		v = new Vector[]{put(-0.3, 0, 0.3), put(0.3, 0, 0.3), put(0.3, 0, -0.3), put(-0.3, 0, -0.3)};
 		shadowBody = new Polygon3D(v, v[0], v[1], v[3], Main.textures[14], 1, 1, 2);
 		
@@ -220,7 +220,7 @@ public class Annihilator extends SolidObject{
 	
 	//Create polygons for the tank turret
 	private void makeTurret() {
-		start = turretCenter.myClone();
+		startPointInWorld = turretCenter.myClone();
 		Vector[] v;
 		
 		iDirection = new Vector(1.6,0,0);
@@ -313,8 +313,8 @@ public class Annihilator extends SolidObject{
 		turret[22].color = color;
 		
 		//Create shadow for tank turret
-		start.add(-0.03, 0, -0.04);
-		start.y = -1;
+		startPointInWorld.add(-0.03, 0, -0.04);
+		startPointInWorld.y = -1;
 		v = new Vector[]{put(-0.18, 0, 0.18), put(0.18, 0, 0.18), put(0.18, 0, -0.18), put(-0.18, 0, -0.18)};
 		shadowTurret = new Polygon3D(v, v[0], v[1], v[3], Main.textures[61], 1, 1, 2);
 				
@@ -397,14 +397,14 @@ public class Annihilator extends SolidObject{
 		
 		
 		//Update centre
-		centre.add(displacement);
+		centreModel.add(displacement);
 		
 		//Update bundary2D
-		boundary2D.update(displacement);
+		boundaryModel2D.update(displacement);
 		
 		//Update location in the 2d tile map
 		//Validating movement is already done in  process AI part
-		int newPosition = (int)(boundary2D.xPos * 4) + (129 - (int)(boundary2D.yPos * 4)) * 80;
+		int newPosition = (int)(boundaryModel2D.xPos * 4) + (129 - (int)(boundaryModel2D.yPos * 4)) * 80;
 		
 		if(!ObstacleMap.isOccupied(newPosition)) {
 			
@@ -424,23 +424,23 @@ public class Annihilator extends SolidObject{
 		}
 		
 		//Find centre in camera coordinate
-		tempCentre.set(centre);
-		tempCentre.y = -1;
-		tempCentre.subtract(Camera.position);
-		tempCentre.rotate_XZ(Camera.XZ_angle);
-		tempCentre.rotate_YZ(Camera.YZ_angle);
-		tempCentre.updateLocation();
+		cantreModelInCamera.set(centreModel);
+		cantreModelInCamera.y = -1;
+		cantreModelInCamera.subtract(Camera.position);
+		cantreModelInCamera.rotate_XZ(Camera.XZ_angle);
+		cantreModelInCamera.rotate_YZ(Camera.YZ_angle);
+		cantreModelInCamera.updateLocation();
 		
 		//Test whether the model is visible by comparing the 2D position of its centre point with the screen
-		visible = true;
+		isVisible = true;
 		
-		if(tempCentre.z < 0.9 || tempCentre.screenY < -10 || tempCentre.screenX < -400 || tempCentre.screenX > 800) {
-			visible = false;
+		if(cantreModelInCamera.z < 0.9 || cantreModelInCamera.screenY < -10 || cantreModelInCamera.screenX < -400 || cantreModelInCamera.screenX > 800) {
+			isVisible = false;
 			isVisiblePreviousFrame = false;
 		}
 		
 		//If tank is not visible in the previous frame, its need to be reconstructed
-		if(visible) {
+		if(isVisible) {
 			if(isVisiblePreviousFrame == false) {
 				//recreate body and turret polygons
 				makeBody();
@@ -450,7 +450,7 @@ public class Annihilator extends SolidObject{
 		}
 		
 		//If visible then update the geometry to camera coordinate
-		if(visible) {
+		if(isVisible) {
 			ModelDrawList.register(this);
 			
 			if(countDownToDeath < 3) {
@@ -460,25 +460,25 @@ public class Annihilator extends SolidObject{
 					
 					//Perform vertex updates in world coordinate
 					body[i].origin.add(displacement);
-					body[i].origin.subtract(centre);
+					body[i].origin.subtract(centreModel);
 					body[i].origin.rotate_XZ(bodyAngleDelta);
-					body[i].origin.add(centre);
+					body[i].origin.add(centreModel);
 					
 					body[i].bottomEnd.add(displacement);
-					body[i].bottomEnd.subtract(centre);
+					body[i].bottomEnd.subtract(centreModel);
 					body[i].bottomEnd.rotate_XZ(bodyAngleDelta);
-					body[i].bottomEnd.add(centre);
+					body[i].bottomEnd.add(centreModel);
 					
 					body[i].rightEnd.add(displacement);
-					body[i].rightEnd.subtract(centre);
+					body[i].rightEnd.subtract(centreModel);
 					body[i].rightEnd.rotate_XZ(bodyAngleDelta);
-					body[i].rightEnd.add(centre);
+					body[i].rightEnd.add(centreModel);
 					
 					for(int j = 0; j < body[i].vertex3D.length; j++){
 						body[i].vertex3D[j].add(displacement);
-						body[i].vertex3D[j].subtract(centre);
+						body[i].vertex3D[j].subtract(centreModel);
 						body[i].vertex3D[j].rotate_XZ(bodyAngleDelta);
-						body[i].vertex3D[j].add(centre);
+						body[i].vertex3D[j].add(centreModel);
 					}
 					
 					body[i].findRealNormal();
@@ -489,7 +489,7 @@ public class Annihilator extends SolidObject{
 				}
 				
 				//Update shadow for tank body
-				tempVector1.set(centre);
+				tempVector1.set(centreModel);
 				tempVector1.add(-0.03, 0, -0.04);
 				shadowBody.origin.add(displacement);
 				shadowBody.origin.subtract(tempVector1);
@@ -667,7 +667,7 @@ public class Annihilator extends SolidObject{
 			if(Smoke == null) {
 				Smoke = new Smoke(this);
 			}else {
-				if(visible)
+				if(isVisible)
 					Smoke.update();
 			}
 		}
@@ -676,14 +676,14 @@ public class Annihilator extends SolidObject{
 			countDownToDeath++;
 			if(countDownToDeath >= 3) {
 				if(countDownToDeath == 3) {
-					Projectiles.register(new Explosion(centre.x, centre.y, centre.z, 2));
+					Projectiles.register(new Explosion(centreModel.x, centreModel.y, centreModel.z, 2));
 				
 				}
 				ObstacleMap.removeObstacle2(position);
 				Smoke.stopped = true;
 			}
 			if(countDownToDeath >= 40){
-				lifeSpan = 0;
+				lifeSpanObject = 0;
 			}
 		}
 		
@@ -698,14 +698,14 @@ public class Annihilator extends SolidObject{
 		firingRocket = false;
 		firingShell = false;
 		if(Main.timer % 10 == 0)
-			unstuck = false;
+			isBlockingOtherModel = false;
 	
 	}
 	
 	//Process AI
 	private void processAI() {
 		//Calculate distance from player's tank
-		tempVector1.set(centre);
+		tempVector1.set(centreModel);
 		tempVector1.subtract(PlayerTank.bodyCenter);
 		distance = tempVector1.getLength();
 		
@@ -772,7 +772,7 @@ public class Annihilator extends SolidObject{
 			
 			//find the angle between target and itself
 			if(clearToShoot) {
-				targetAngle = 90 + (int)(180 * Math.atan((centre.z - PlayerTank.bodyCenter.z) / (centre.x - PlayerTank.bodyCenter.x)) / Math.PI);
+				targetAngle = 90 + (int)(180 * Math.atan((centreModel.z - PlayerTank.bodyCenter.z) / (centreModel.x - PlayerTank.bodyCenter.x)) / Math.PI);
 				if(PlayerTank.bodyCenter.x > turretCenter.x  && targetAngle <= 180) {
 					targetAngle += 180;
 				}
@@ -826,15 +826,15 @@ public class Annihilator extends SolidObject{
 				}
 			}
 			
-			if(unstuck && distance > 0.8) {
+			if(isBlockingOtherModel && distance > 0.8) {
 				forward = true;
 				ObstacleMap.giveWay(this, position);
 				
 			}
 			
 			if(forward) {
-				targetAngleBody = 90 + (int)(180 * Math.atan((centre.z - PlayerTank.bodyCenter.z) / (centre.x - PlayerTank.bodyCenter.x)) / Math.PI);
-				if(PlayerTank.bodyCenter.x > centre.x  && targetAngleBody <= 180) {
+				targetAngleBody = 90 + (int)(180 * Math.atan((centreModel.z - PlayerTank.bodyCenter.z) / (centreModel.x - PlayerTank.bodyCenter.x)) / Math.PI);
+				if(PlayerTank.bodyCenter.x > centreModel.x  && targetAngleBody <= 180) {
 					targetAngleBody += 180;
 				}
 				
@@ -862,13 +862,13 @@ public class Annihilator extends SolidObject{
 				}
 				
 				
-				int newPosition = (int)(boundary2D.xPos*4) + (129 - (int)(boundary2D.yPos * 4)) * 80;
+				int newPosition = (int)(boundaryModel2D.xPos*4) + (129 - (int)(boundaryModel2D.yPos * 4)) * 80;
 				
 					
 				//check whether the next move will embed into obstacles
 				displacement.set(0,0,0.01);
 				displacement.rotate_XZ(targetAngleBody);
-				boundary2D.update(displacement);
+				boundaryModel2D.update(displacement);
 				
 				boolean canMove = true;
 				//test againt type 1 & 2 obstacles
@@ -880,12 +880,12 @@ public class Annihilator extends SolidObject{
 					canMove = false;
 				}
 				displacement.scale(-1);
-				boundary2D.update(displacement);
+				boundaryModel2D.update(displacement);
 				displacement.reset();
 				
 				
 				if(!canMove){
-					if(unstuck){
+					if(isBlockingOtherModel){
 						ObstacleMap.giveWay(this ,position);
 					}
 					
@@ -909,8 +909,8 @@ public class Annihilator extends SolidObject{
 					//check if tank is able to move freely at angle 1
 					displacement.set(0,0,0.01);
 					displacement.rotate_XZ(angle1);
-					boundary2D.update(displacement);
-					newPosition = (int)(boundary2D.xPos * 4) + (129 - (int)(boundary2D.yPos * 4)) * 80;
+					boundaryModel2D.update(displacement);
+					newPosition = (int)(boundaryModel2D.xPos * 4) + (129 - (int)(boundaryModel2D.yPos * 4)) * 80;
 					//test againt type 1 & 2 obstacles
 					if(ObstacleMap.collideWithObstacle1(this, newPosition)){
 						canMoveAngle1 = false;
@@ -918,14 +918,14 @@ public class Annihilator extends SolidObject{
 						canMoveAngle1 = false;
 					}
 					displacement.scale(-1);
-					boundary2D.update(displacement);
+					boundaryModel2D.update(displacement);
 					displacement.reset();
 					
 					//check if tank is able to move freely at angle 2
 					displacement.set(0,0,0.01);
 					displacement.rotate_XZ(angle2);
-					boundary2D.update(displacement);
-					newPosition = (int)(boundary2D.xPos * 4) + (129 - (int)(boundary2D.yPos * 4)) * 80;
+					boundaryModel2D.update(displacement);
+					newPosition = (int)(boundaryModel2D.xPos * 4) + (129 - (int)(boundaryModel2D.yPos * 4)) * 80;
 					//test againt type 1 & 2 obstacles
 					if(ObstacleMap.collideWithObstacle1(this, newPosition)){
 						canMoveAngle2 = false;
@@ -933,7 +933,7 @@ public class Annihilator extends SolidObject{
 						canMoveAngle2 = false;
 					}
 					displacement.scale(-1);
-					boundary2D.update(displacement);
+					boundaryModel2D.update(displacement);
 					displacement.reset();
 					
 				
@@ -986,8 +986,8 @@ public class Annihilator extends SolidObject{
 				//double check whether the move is valid
 				displacement.set(0,0,0.01);
 				displacement.rotate_XZ(targetAngleBody);
-				boundary2D.update(displacement);
-				newPosition = (int)(boundary2D.xPos * 4) + (129 - (int)(boundary2D.yPos * 4)) * 80;
+				boundaryModel2D.update(displacement);
+				newPosition = (int)(boundaryModel2D.xPos * 4) + (129 - (int)(boundaryModel2D.yPos * 4)) * 80;
 				
 				//test againt type 1 & 2 obstacles
 				if(ObstacleMap.collideWithObstacle1(this, newPosition)){
@@ -998,7 +998,7 @@ public class Annihilator extends SolidObject{
 					
 				}
 				displacement.scale(-1);
-				boundary2D.update(displacement);
+				boundaryModel2D.update(displacement);
 				displacement.reset();
 			}
 		}
@@ -1022,7 +1022,7 @@ public class Annihilator extends SolidObject{
 		
 
 		//draw smoke tail
-		if(Smoke != null && visible)
+		if(Smoke != null && isVisible)
 			Smoke.draw();
 	}
 	
@@ -1038,7 +1038,7 @@ public class Annihilator extends SolidObject{
 	
 	//return the 2D boundary of this model
 	public Rectangle2D getBoundary2D(){
-		return boundary2D;
+		return boundaryModel2D;
 	}
 
 }

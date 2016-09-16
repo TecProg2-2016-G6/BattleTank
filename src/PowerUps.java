@@ -26,7 +26,7 @@ public class PowerUps {
 		for(int i = 0; i < PU.length; i++){
 			if(PU[i] != null){
 				PU[i].update();
-				if(Rectangle2D.testIntersection(PU[i].boundary2D, Main.PlayerTank.boundary2D)){
+				if(Rectangle2D.testIntersection(PU[i].boundaryModel2D, Main.PlayerTank.boundaryModel2D)){
 					if(PU[i].type == 1){
 						if(Main.PlayerTank.shells == 0){
 							Main.PlayerTank.shells +=10;

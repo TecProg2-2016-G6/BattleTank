@@ -21,8 +21,8 @@ public class Helix extends SolidObject{
 	public Vector temp2 = new Vector(0,0,0);
 	
 	public Helix(Vector centre, int angle){
-		start = centre.myClone();
-		this.centre = centre;
+		startPointInWorld = centre.myClone();
+		this.centreModel = centre;
 		angle+=360;
 		angle%=360;
 	
@@ -39,7 +39,7 @@ public class Helix extends SolidObject{
 		makeBoundary(0.01, 0.025, 0.01);
 		
 		//create 2D boundary
-		boundary2D = new Rectangle2D(start.x - 0.01, start.z + 0.01, 0.02, 0.02);	
+		boundaryModel2D = new Rectangle2D(startPointInWorld.x - 0.01, startPointInWorld.z + 0.01, 0.02, 0.02);	
 		
 		//init particles and particle directions
 		particles = new Vector[20];
@@ -67,23 +67,23 @@ public class Helix extends SolidObject{
 			
 		}
 		
-		lifeSpan = 40;
+		lifeSpanObject = 40;
 	}
 	
 	
 	//return the 2D boundary of this model
 	public Rectangle2D getBoundary2D(){
-		return boundary2D;
+		return boundaryModel2D;
 	}
 	
 	
 	public void update(){
-		visible = true;
+		isVisible = true;
 		
-		lifeSpan--;
+		lifeSpanObject--;
 		
-		if(lifeSpan == 0){
-			lifeSpan = -1;
+		if(lifeSpanObject == 0){
+			lifeSpanObject = -1;
 			return;
 		}
 		
@@ -91,18 +91,18 @@ public class Helix extends SolidObject{
 		
 		//update boundary
 		for(int i = 0; i < 5; i++)
-			boundary[i].update();
+			boundaryModel[i].update();
 		
 		//animate particles
 		for(int i = 0; i < particles.length; i++)
 			particles[i].add(directions[i]);
 		
 		//find centre in camera coordinate
-		tempCentre.set(centre);
-		tempCentre.y = -1;
-		tempCentre.subtract(Camera.position);
-		tempCentre.rotate_XZ(Camera.XZ_angle);
-		tempCentre.rotate_YZ(Camera.YZ_angle);
+		cantreModelInCamera.set(centreModel);
+		cantreModelInCamera.y = -1;
+		cantreModelInCamera.subtract(Camera.position);
+		cantreModelInCamera.rotate_XZ(Camera.XZ_angle);
+		cantreModelInCamera.rotate_YZ(Camera.YZ_angle);
 		
 	}
 	
@@ -113,7 +113,7 @@ public class Helix extends SolidObject{
 		int alpha = 0;
 		
 		//find the size of the particle
-		double size = 1/tempCentre.z;
+		double size = 1/cantreModelInCamera.z;
 	
 		int spriteIndex = 0;
 		if(size < 0.3){
@@ -149,11 +149,11 @@ public class Helix extends SolidObject{
 				
 				
 				//cauculate alpha value of each particle
-				if(lifeSpan > 30)
+				if(lifeSpanObject > 30)
 					alpha = 55;
 				else{
 					alpha = 200;
-					alpha = alpha - alpha*lifeSpan/30 + 55;
+					alpha = alpha - alpha*lifeSpanObject/30 + 55;
 				}
 				
 				

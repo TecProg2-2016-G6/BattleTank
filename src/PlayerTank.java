@@ -91,7 +91,7 @@ public class PlayerTank extends SolidObject{
 		plasma = 0;
 		
 		//define the center point of this model(also the centre point of tank body)
-		start = new Vector(x,y,z);
+		startPointInWorld = new Vector(x,y,z);
 		iDirection = new Vector(1,0,0);
 		jDirection = new Vector(0,0.95,0);
 		kDirection = new Vector(0,0,1.05);
@@ -104,7 +104,7 @@ public class PlayerTank extends SolidObject{
 		makeBoundary(0.1, 0.25, 0.1);
 		
 		//create 2D boundary
-		boundary2D = new Rectangle2D(x - 0.07, z + 0.07, 0.14, 0.14);
+		boundaryModel2D = new Rectangle2D(x - 0.07, z + 0.07, 0.14, 0.14);
 		position = (int)(x*4) + (129-(int)(z*4))*80;
 		ObstacleMap.registerObstacle2(this, position);
 		
@@ -113,7 +113,7 @@ public class PlayerTank extends SolidObject{
 		//find centre of the model in world coordinate
 		findCentre();
 		
-		bodyCenter = centre;
+		bodyCenter = centreModel;
 	
 		makeBody();
 		makeTurretCannon();
@@ -125,7 +125,7 @@ public class PlayerTank extends SolidObject{
 	
 	//return the 2D boundary of this model
 	public Rectangle2D getBoundary2D(){
-		return boundary2D;
+		return boundaryModel2D;
 	}
 	
 	//create polygons for the tank body
@@ -170,15 +170,15 @@ public class PlayerTank extends SolidObject{
 		turretCenter = put(0, 0.055, -0.02);
 		
 		//create shadow for tank body
-		start.add(-0.025, 0, -0.02);
-		start.y = -1;
+		startPointInWorld.add(-0.025, 0, -0.02);
+		startPointInWorld.y = -1;
 		v = new Vector[]{put(-0.2, 0, 0.2), put(0.2, 0, 0.2), put(0.2, 0, -0.2), put(-0.2, 0, -0.2)};
 		shadowBody = new Polygon3D(v, v[0], v[1], v[3], Main.textures[14], 1, 1, 2);
 	}
 	
 	//create polygons for the tank turret (cannon turret)
 	public void makeTurretCannon(){
-		start = turretCenter.myClone();
+		startPointInWorld = turretCenter.myClone();
 		Vector[] v;
 		turret = new Polygon3D[10];
 		
@@ -222,15 +222,15 @@ public class PlayerTank extends SolidObject{
 		turret[9] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[13], 0.2,0.2,6);
 		
 		//create shadow for tank turret (cannon)
-		start.add(-0.04, 0, -0.04);
-		start.y = -1;
+		startPointInWorld.add(-0.04, 0, -0.04);
+		startPointInWorld.y = -1;
 		v = new Vector[]{put(-0.2, 0, 0.2), put(0.2, 0, 0.2), put(0.2, 0, -0.2), put(-0.2, 0, -0.2)};
 		shadowTurret = new Polygon3D(v, v[0], v[1], v[3], Main.textures[15], 1, 1, 2);
 	}
 	
 	//create polygons for the tank turret (rocket turret)
 	public void makeTurretRocket(){
-		start = turretCenter.myClone();
+		startPointInWorld = turretCenter.myClone();
 		Vector[] v;
 		turret = new Polygon3D[35];
 		
@@ -258,8 +258,8 @@ public class PlayerTank extends SolidObject{
 		
 		double r = 0.015;
 		double theta = Math.PI/8;
-		tempVector1.set(start);
-		start = put(0.068,0,0);
+		tempVector1.set(startPointInWorld);
+		startPointInWorld = put(0.068,0,0);
 		
 		for(int i = 0; i < 16; i++){
 			v = new Vector[]{put(r*Math.cos(i*theta), r*Math.sin(i*theta), -0.03),
@@ -270,8 +270,8 @@ public class PlayerTank extends SolidObject{
 			turret[i + 4] = new Polygon3D(v, v[0], v[1], v [3],  Main.textures[25], 0.1,0.1,6);
 		}
 		
-		start.set(tempVector1);
-		start = put(0.068,0,0.01);
+		startPointInWorld.set(tempVector1);
+		startPointInWorld = put(0.068,0,0.01);
 		
 		for(int i = 0; i < 8; i++){
 			v = new Vector[]{put(r*Math.cos(i*theta), r*Math.sin(i*theta), -0.004),
@@ -282,8 +282,8 @@ public class PlayerTank extends SolidObject{
 			turret[i + 20] = new Polygon3D(v, v[0], v[1], v [3],  Main.textures[26], 0.1,0.1,6);
 		}
 		
-		start.set(tempVector1);
-		start = put(0.068,0,0);
+		startPointInWorld.set(tempVector1);
+		startPointInWorld = put(0.068,0,0);
 		
 		v = new Vector[16];
 		for(int i = 1; i < 17; i++)
@@ -292,7 +292,7 @@ public class PlayerTank extends SolidObject{
 		
 		
 		
-		start.set(tempVector1);
+		startPointInWorld.set(tempVector1);
 		v = new Vector[]{put(0, 0.025, 0.18), put(0.004, 0.022, 0.18), put(0.007, 0.022, 0.06), put(0, 0.025, 0.06)};
 		turret[29] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[13], 0.1,1,6);
 		
@@ -312,15 +312,15 @@ public class PlayerTank extends SolidObject{
 		turret[34] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[13], 0.6,0.3,6);
 		
 		//create shadow for tank turret (cannon)
-		start.add(-0.04, 0, -0.04);
-		start.y = -1;
+		startPointInWorld.add(-0.04, 0, -0.04);
+		startPointInWorld.y = -1;
 		v = new Vector[]{put(-0.2, 0, 0.2), put(0.2, 0, 0.2), put(0.2, 0, -0.2), put(-0.2, 0, -0.2)};
 		shadowTurret = new Polygon3D(v, v[0], v[1], v[3], Main.textures[15], 1, 1, 2);
 	}
 	
 	//create polygons for the tank turret (railgun turret)
 	public void makeTurretRailgun(){
-		start = turretCenter.myClone();
+		startPointInWorld = turretCenter.myClone();
 		Vector[] v;
 		turret = new Polygon3D[72];
 		
@@ -334,8 +334,8 @@ public class PlayerTank extends SolidObject{
 		
 		double r = 0.025;
 		double theta = Math.PI/16;
-		tempVector1.set(start);
-		start = put(0,0,0.12);
+		tempVector1.set(startPointInWorld);
+		startPointInWorld = put(0,0,0.12);
 		
 		for(int i = 0; i < 32; i++){
 			v = new Vector[]{put(r*Math.cos(i*theta), r*Math.sin(i*theta), -0.06),
@@ -361,7 +361,7 @@ public class PlayerTank extends SolidObject{
 		
 		
 		
-		start.set(tempVector1);
+		startPointInWorld.set(tempVector1);
 		v = new Vector[]{put(-0.04, 0.035, 0.06), put(0.04, 0.035, 0.06), put(0.05, 0.035, 0.04), put(0.05, 0.035, -0.03), put(0.03, 0.035, -0.07),  put(-0.03, 0.035, -0.07),put(-0.05, 0.035, -0.03), put(-0.05, 0.035, 0.04)};
 		turret[64] = new Polygon3D(v, put(-0.04, 0.035, 0.19), put(0.04, 0.035, 0.19), put(-0.04, 0.035, 0.09), Main.textures[13], 0.8,0.8,6);
 		
@@ -387,14 +387,14 @@ public class PlayerTank extends SolidObject{
 		turret[71] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[13], 0.2,0.2,6);
 		
 		//create shadow for tank turret (railgun)
-		start.add(-0.04, 0, -0.04);
-		start.y = -1;
+		startPointInWorld.add(-0.04, 0, -0.04);
+		startPointInWorld.y = -1;
 		v = new Vector[]{put(-0.5, 0, 0.2), put(0.5, 0, 0.2), put(0.5, 0, -0.2), put(-0.5, 0, -0.2)};
 		shadowTurret = new Polygon3D(v, v[0], v[1], v[3], Main.textures[15], 1, 1, 2);
 	}
 	
 	public void makeTurretNuke(){
-		start = turretCenter.myClone();
+		startPointInWorld = turretCenter.myClone();
 		Vector[] v;
 		turret = new Polygon3D[171];
 		int polyIndex = 0;
@@ -428,9 +428,9 @@ public class PlayerTank extends SolidObject{
 		double r = 0.012;
 		int theta = 20;
 		
-		tempVector1.set(start);
+		tempVector1.set(startPointInWorld);
 		
-		start = put(0.017,0.017,0.1);
+		startPointInWorld = put(0.017,0.017,0.1);
 		nukeCannonRear = new Polygon3D[72];
 		for(int i = 0; i < 18; i++){
 			v = new Vector[]{put(r*GameData.cos[i*theta], r*GameData.sin[i*theta], -0.04),
@@ -441,8 +441,8 @@ public class PlayerTank extends SolidObject{
 			nukeCannonRear[i] = new Polygon3D(v, v[0], v[1], v [3],  Main.textures[13], 0.001,0.01,6);
 		}
 		
-		start.set(tempVector1);
-		start = put(-0.017,0.017,0.1);
+		startPointInWorld.set(tempVector1);
+		startPointInWorld = put(-0.017,0.017,0.1);
 		for(int i = 0; i < 18; i++){
 			v = new Vector[]{put(r*GameData.cos[i*theta], r*GameData.sin[i*theta], -0.04),
 							 put(r*GameData.cos[(i+1)*theta], r*GameData.sin[(i+1)*theta], -0.04),
@@ -452,8 +452,8 @@ public class PlayerTank extends SolidObject{
 			nukeCannonRear[i + 18] = new Polygon3D(v, v[0], v[1], v [3],  Main.textures[13], 0.001,0.01,6);
 		}
 		
-		start.set(tempVector1);
-		start = put(-0.017,-0.017,0.1);
+		startPointInWorld.set(tempVector1);
+		startPointInWorld = put(-0.017,-0.017,0.1);
 		for(int i = 0; i < 18; i++){
 			v = new Vector[]{put(r*GameData.cos[i*theta], r*GameData.sin[i*theta], -0.04),
 							 put(r*GameData.cos[(i+1)*theta], r*GameData.sin[(i+1)*theta], -0.04),
@@ -463,8 +463,8 @@ public class PlayerTank extends SolidObject{
 			nukeCannonRear[i + 36] = new Polygon3D(v, v[0], v[1], v [3],  Main.textures[13], 0.001,0.01,6);
 		}
 		
-		start.set(tempVector1);
-		start = put(0.017,-0.017,0.1);
+		startPointInWorld.set(tempVector1);
+		startPointInWorld = put(0.017,-0.017,0.1);
 		for(int i = 0; i < 18; i++){
 			v = new Vector[]{put(r*GameData.cos[i*theta], r*GameData.sin[i*theta], -0.04),
 							 put(r*GameData.cos[(i+1)*theta], r*GameData.sin[(i+1)*theta], -0.04),
@@ -474,7 +474,7 @@ public class PlayerTank extends SolidObject{
 			nukeCannonRear[i + 54] = new Polygon3D(v, v[0], v[1], v [3],  Main.textures[13], 0.001,0.01,6);
 		}
 		
-		start.set(tempVector1);
+		startPointInWorld.set(tempVector1);
 		r = 0.045;
 		nukeCannonMiddle = new Polygon3D[19];
 		
@@ -494,8 +494,8 @@ public class PlayerTank extends SolidObject{
 		
 		
 		r = 0.012;
-		tempVector1.set(start);
-		start = put(0.017,0.017,0.1);
+		tempVector1.set(startPointInWorld);
+		startPointInWorld = put(0.017,0.017,0.1);
 		nukeCannonFront = new Polygon3D[72];
 		for(int i = 0; i < 18; i++){
 			v = new Vector[]{put(r*GameData.cos[i*theta], r*GameData.sin[i*theta], 0.07),
@@ -506,8 +506,8 @@ public class PlayerTank extends SolidObject{
 			nukeCannonFront[i] = new Polygon3D(v, v[0], v[1], v [3],  Main.textures[13], 0.001,0.01,6);
 		}
 		
-		start.set(tempVector1);
-		start = put(-0.017,0.017,0.1);
+		startPointInWorld.set(tempVector1);
+		startPointInWorld = put(-0.017,0.017,0.1);
 		for(int i = 0; i < 18; i++){
 			v = new Vector[]{put(r*GameData.cos[i*theta], r*GameData.sin[i*theta], 0.07),
 							 put(r*GameData.cos[(i+1)*theta], r*GameData.sin[(i+1)*theta], 0.07),
@@ -517,8 +517,8 @@ public class PlayerTank extends SolidObject{
 			nukeCannonFront[i + 18] = new Polygon3D(v, v[0], v[1], v [3],  Main.textures[13], 0.001,0.01,6);
 		}
 		
-		start.set(tempVector1);
-		start = put(-0.017,-0.017,0.1);
+		startPointInWorld.set(tempVector1);
+		startPointInWorld = put(-0.017,-0.017,0.1);
 		for(int i = 0; i < 18; i++){
 			v = new Vector[]{put(r*GameData.cos[i*theta], r*GameData.sin[i*theta], 0.07),
 							 put(r*GameData.cos[(i+1)*theta], r*GameData.sin[(i+1)*theta], 0.07),
@@ -528,8 +528,8 @@ public class PlayerTank extends SolidObject{
 			nukeCannonFront[i + 36] = new Polygon3D(v, v[0], v[1], v [3],  Main.textures[13], 0.001,0.01,6);
 		}
 		
-		start.set(tempVector1);
-		start = put(0.017,-0.017,0.1);
+		startPointInWorld.set(tempVector1);
+		startPointInWorld = put(0.017,-0.017,0.1);
 		for(int i = 0; i < 18; i++){
 			v = new Vector[]{put(r*GameData.cos[i*theta], r*GameData.sin[i*theta], 0.07),
 							 put(r*GameData.cos[(i+1)*theta], r*GameData.sin[(i+1)*theta], 0.07),
@@ -559,7 +559,7 @@ public class PlayerTank extends SolidObject{
 		polyIndex = 163;
 		
 		//turret body
-		start = turretCenter.myClone();
+		startPointInWorld = turretCenter.myClone();
 		
 		iDirection.set(1,0,0);
 		jDirection.set(0,0.95,0);
@@ -596,8 +596,8 @@ public class PlayerTank extends SolidObject{
 		v = new Vector[]{put(0.04, 0, 0.06), put(0.05, 0, 0.04), put(0.05, 0.035, 0.04), put(0.04, 0.035, 0.06)};
 		turret[7 + polyIndex] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[13], 0.2,0.2,6);
 		
-		start.add(-0.05, 0, -0.02);
-		start.y = -1;
+		startPointInWorld.add(-0.05, 0, -0.02);
+		startPointInWorld.y = -1;
 		v = new Vector[]{put(-0.7, 0, 0.2), put(0.7, 0, 0.2), put(0.7, 0, -0.2), put(-0.7, 0, -0.2)};
 		shadowTurret = new Polygon3D(v, v[0], v[1], v[3], Main.textures[15], 1, 1, 2);
 	}
@@ -623,7 +623,7 @@ public class PlayerTank extends SolidObject{
 		//System.out.println(position);
 		
 		//the player tank is always rendered visible		
-		visible = true;
+		isVisible = true;
 		ModelDrawList.register(this);
 		
 		//Process user's commands:
@@ -696,30 +696,30 @@ public class PlayerTank extends SolidObject{
 		
 		
 		//update centre
-		centre.add(displacement);
+		centreModel.add(displacement);
 		
 		//update bundary2D
-		boundary2D.update(displacement);
+		boundaryModel2D.update(displacement);
 		
 		//Test if the tank  with other objects.
 		//If the result is positive, then move back to last known good location.
-		int newPosition = (int)(boundary2D.xPos*4) + (129-(int)(boundary2D.yPos*4))*80;
+		int newPosition = (int)(boundaryModel2D.xPos*4) + (129-(int)(boundaryModel2D.yPos*4))*80;
 		
 		if(ObstacleMap.collideWithObstacle1(this, newPosition)){
 			displacement.scale(-1);
-			boundary2D.update(displacement);
-			centre.add(displacement);
+			boundaryModel2D.update(displacement);
+			centreModel.add(displacement);
 			displacement.set(0,0,0);
 		}else if(ObstacleMap.collideWithObstacle2(this, newPosition)){
 			displacement.scale(-1);
-			boundary2D.update(displacement);
-			centre.add(displacement);
+			boundaryModel2D.update(displacement);
+			centreModel.add(displacement);
 			displacement.set(0,0,0);
 		}else if(outSideBorder()){
 			//test tank position against island border
 			displacement.scale(-1);
-			boundary2D.update(displacement);
-			centre.add(displacement);
+			boundaryModel2D.update(displacement);
+			centreModel.add(displacement);
 			displacement.set(0,0,0);
 		}else{
 			//if no collision is detected, update tile index
@@ -735,42 +735,42 @@ public class PlayerTank extends SolidObject{
 		//update 3D boundary
 		for(int i = 0; i < 5; i++){
 			for(int j = 0; j < 4; j++)
-				boundary[i].vertex3D[j].add(displacement);
-			boundary[i].update();
+				boundaryModel[i].vertex3D[j].add(displacement);
+			boundaryModel[i].update();
 		}
 		
 		
 		
 		//find centre in camera coordinate
-		tempCentre.set(centre);
-		tempCentre.y = -1;
-		tempCentre.subtract(Camera.position);
-		tempCentre.rotate_XZ(Camera.XZ_angle);
-		tempCentre.rotate_YZ(Camera.YZ_angle);
+		cantreModelInCamera.set(centreModel);
+		cantreModelInCamera.y = -1;
+		cantreModelInCamera.subtract(Camera.position);
+		cantreModelInCamera.rotate_XZ(Camera.XZ_angle);
+		cantreModelInCamera.rotate_YZ(Camera.YZ_angle);
 		
 		//update body polygons
 		for(int i = 0; i < body.length; i++){
 			//perform vertex updates in world coordinate
 			body[i].origin.add(displacement);
-			body[i].origin.subtract(centre);
+			body[i].origin.subtract(centreModel);
 			body[i].origin.rotate_XZ(bodyAngleDelta);
-			body[i].origin.add(centre);
+			body[i].origin.add(centreModel);
 			
 			body[i].bottomEnd.add(displacement);
-			body[i].bottomEnd.subtract(centre);
+			body[i].bottomEnd.subtract(centreModel);
 			body[i].bottomEnd.rotate_XZ(bodyAngleDelta);
-			body[i].bottomEnd.add(centre);
+			body[i].bottomEnd.add(centreModel);
 			
 			body[i].rightEnd.add(displacement);
-			body[i].rightEnd.subtract(centre);
+			body[i].rightEnd.subtract(centreModel);
 			body[i].rightEnd.rotate_XZ(bodyAngleDelta);
-			body[i].rightEnd.add(centre);
+			body[i].rightEnd.add(centreModel);
 			
 			for(int j = 0; j < body[i].vertex3D.length; j++){
 				body[i].vertex3D[j].add(displacement);
-				body[i].vertex3D[j].subtract(centre);
+				body[i].vertex3D[j].subtract(centreModel);
 				body[i].vertex3D[j].rotate_XZ(bodyAngleDelta);
-				body[i].vertex3D[j].add(centre);
+				body[i].vertex3D[j].add(centreModel);
 			}
 			
 			body[i].findRealNormal();
@@ -781,7 +781,7 @@ public class PlayerTank extends SolidObject{
 		}
 		
 		//update shadow for tank body
-		tempVector1.set(centre);
+		tempVector1.set(centreModel);
 		tempVector1.add(-0.03, 0, -0.02);
 		shadowBody.origin.add(displacement);
 		shadowBody.origin.subtract(tempVector1);
@@ -817,9 +817,9 @@ public class PlayerTank extends SolidObject{
 		//update turret center
 		turretCenter.add(displacement);
 		tempVector1.set(turretCenter);
-		turretCenter.subtract(centre);
+		turretCenter.subtract(centreModel);
 		turretCenter.rotate_XZ(bodyAngleDelta);
-		turretCenter.add(centre);
+		turretCenter.add(centreModel);
 		tempVector2.set(turretCenter);
 		tempVector2.subtract(tempVector1);
 		
@@ -1056,9 +1056,9 @@ public class PlayerTank extends SolidObject{
 		int length = Terrain.border.vertex3D.length;
 		for(int i = 0; i < length; i++){
 			tempVector1.set(Terrain.border.vertex3D[i]);
-			tempVector1.subtract(centre);
+			tempVector1.subtract(centreModel);
 			tempVector2.set(Terrain.border.vertex3D[(i+1+length)%length]);
-			tempVector2.subtract(centre);
+			tempVector2.subtract(centreModel);
 			double dot = tempVector1.dot(tempVector2);
 			dot = dot/(tempVector1.getLength())/(tempVector2.getLength());
 			angle+=Math.acos(dot);
@@ -1124,8 +1124,8 @@ public class PlayerTank extends SolidObject{
 		HP-=(damagePoint * 0.8);
 		if(HP <= 0){
 			HP = 0;
-			Projectiles.register(new Explosion(centre.x, centre.y, centre.z, 1.7));
-			centre.x = 1000;
+			Projectiles.register(new Explosion(centreModel.x, centreModel.y, centreModel.z, 1.7));
+			centreModel.x = 1000;
 			
 			Main.gameOver =  true;
 		}

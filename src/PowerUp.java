@@ -20,7 +20,7 @@ public class PowerUp extends SolidObject{
 		this.type = type;
 		
 		//define the center point of this model
-		start = new Vector(x,y,z);
+		startPointInWorld = new Vector(x,y,z);
 		
 		iDirection = new Vector(0.65,0,0);
 		jDirection = new Vector(0,0.65,0);
@@ -33,13 +33,13 @@ public class PowerUp extends SolidObject{
 		makeBoundary(0.01, 0.025, 0.01);
 		
 		//create 2D boundary
-		boundary2D = new Rectangle2D(x - 0.01, z + 0.01, 0.02, 0.02);	
+		boundaryModel2D = new Rectangle2D(x - 0.01, z + 0.01, 0.02, 0.02);	
 		
 		
 		//find centre of the model in world coordinate
 		findCentre();
 		
-		lifeSpan = 1;
+		lifeSpanObject = 1;
 		
 		makeBody();
 		
@@ -102,35 +102,35 @@ public class PowerUp extends SolidObject{
 		v = new Vector[]{put(0.07, -0.09, 0.04), put(0.07, -0.09, -0.04), put(0.07, -0.01, -0.04), put(0.07, -0.01, 0.04)};
 		polygons[9] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[textureIndexA], 1,1,6);
 		
-		double temp = start.y;
-		start.y = -1;
+		double temp = startPointInWorld.y;
+		startPointInWorld.y = -1;
 		
 		kDirection.scale(0.8);
 		iDirection.scale(0.9);
 		iDirection.rotate_XZ(90);
 		kDirection.rotate_XZ(90);
-		start.add(-0.05, 0, -0.05);
+		startPointInWorld.add(-0.05, 0, -0.05);
 		v = new Vector[]{put(-0.17, 0, 0.17), put(0.17, 0, 0.17), put(0.17, 0, -0.17),put(-0.17, 0, -0.17)};
 		shadow = new Polygon3D(v, v[0], v[1],v[3], Main.textures[14], 1,1,2);
-		start.y = temp;
-		start.add(0.05, 0, 0.05);
+		startPointInWorld.y = temp;
+		startPointInWorld.add(0.05, 0, 0.05);
 	}
 	
 	public void update(){
 		//find centre in camera coordinate
-		tempCentre.set(centre);
-		tempCentre.y = -1;
-		tempCentre.subtract(Camera.position);
-		tempCentre.rotate_XZ(Camera.XZ_angle);
-		tempCentre.rotate_YZ(Camera.YZ_angle);
-		tempCentre.updateLocation();
+		cantreModelInCamera.set(centreModel);
+		cantreModelInCamera.y = -1;
+		cantreModelInCamera.subtract(Camera.position);
+		cantreModelInCamera.rotate_XZ(Camera.XZ_angle);
+		cantreModelInCamera.rotate_YZ(Camera.YZ_angle);
+		cantreModelInCamera.updateLocation();
 		
 		//test whether the model is visible by comparing the 2D position of its centre point and the screen area
-		if(tempCentre.z < 0.5 || tempCentre.screenY < -30 || tempCentre.screenX < -400 || tempCentre.screenX >800){
-			visible = false;
+		if(cantreModelInCamera.z < 0.5 || cantreModelInCamera.screenY < -30 || cantreModelInCamera.screenX < -400 || cantreModelInCamera.screenX >800){
+			isVisible = false;
 			return;
 		}
-		visible = true;
+		isVisible = true;
 		
 		ModelDrawList.register(this);
 		
@@ -139,27 +139,27 @@ public class PowerUp extends SolidObject{
 		double height = 0.006* GameData.sin[theta];
 		
 		for(int i = 0; i < polygons.length; i++){
-			polygons[i].origin.subtract(start);
+			polygons[i].origin.subtract(startPointInWorld);
 			polygons[i].origin.rotate_XZ(3);
-			polygons[i].origin.add(start);
+			polygons[i].origin.add(startPointInWorld);
 			polygons[i].origin.y+=height;
 
-			polygons[i].rightEnd.subtract(start);
+			polygons[i].rightEnd.subtract(startPointInWorld);
 			polygons[i].rightEnd.rotate_XZ(3);
-			polygons[i].rightEnd.add(start);
+			polygons[i].rightEnd.add(startPointInWorld);
 			polygons[i].rightEnd.y+=height;
 
-			polygons[i].bottomEnd.subtract(start);
+			polygons[i].bottomEnd.subtract(startPointInWorld);
 			polygons[i].bottomEnd.rotate_XZ(3);
-			polygons[i].bottomEnd.add(start);
+			polygons[i].bottomEnd.add(startPointInWorld);
 			polygons[i].bottomEnd.y+=height;
 			
 			for(int j = 0; j < polygons[i].vertex3D.length; j++){
 				
 			
-				polygons[i].vertex3D[j].subtract(start);
+				polygons[i].vertex3D[j].subtract(startPointInWorld);
 				polygons[i].vertex3D[j].rotate_XZ(3);
-				polygons[i].vertex3D[j].add(start);
+				polygons[i].vertex3D[j].add(startPointInWorld);
 				polygons[i].vertex3D[j].y+=height;
 			}
 			
@@ -172,7 +172,7 @@ public class PowerUp extends SolidObject{
 		
 		//update boundary
 		for(int i = 0; i < 5; i++)
-			boundary[i].update();
+			boundaryModel[i].update();
 		
 		
 		displacement.set(-0.003 * (GameData.sin[theta]), 0, -0.003* (GameData.sin[theta]));
@@ -215,7 +215,7 @@ public class PowerUp extends SolidObject{
 	
 	public Rectangle2D getBoundary2D(){
 		
-		return boundary2D;
+		return boundaryModel2D;
 	}
 	
 	public void draw(){

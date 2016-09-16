@@ -6,16 +6,16 @@ public interface Model{
 	public void update();
 	
 	//get a rough 3D boundary of the model in camera coordinate
-	public Polygon3D[] getBoundary();
+	public Polygon3D[] getBoundaryModelInCameraCoordinate();
 	
 	//get  2D boundary of this model (will be used for collision detection)
 	public Rectangle2D getBoundary2D();
 	
 	//get centre of this model in camera coordinate
-	public Vector getCameraCentre();
+	public Vector getCentreModelInCameraCoordinate();
 	
 	//get centre of this model in world coordinate
-	public Vector getRealCentre();
+	public Vector getRealCentreModelWorld();
 	
 	//draw the polygons of the model
 	public void draw();

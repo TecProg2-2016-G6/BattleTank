@@ -14,7 +14,7 @@ public class Shell extends SolidObject{
 	private int type; 
 	
 	public Shell(double x, double y, double z, int angle, boolean isHostile, int type){
-		start = new Vector(x,y,z);
+		startPointInWorld = new Vector(x,y,z);
 		this.type = type;
 		
 		iDirection = new Vector(0.8,0,0);
@@ -29,7 +29,7 @@ public class Shell extends SolidObject{
 		makeBoundary(0.01, 0.025, 0.01);
 		
 		//create 2D boundary
-		boundary2D = new Rectangle2D(x - 0.005, z + 0.005, 0.01, 0.01);
+		boundaryModel2D = new Rectangle2D(x - 0.005, z + 0.005, 0.01, 0.01);
 		
 		//adjust orientation of the model
 		iDirection.rotate_XZ(angle);
@@ -37,7 +37,7 @@ public class Shell extends SolidObject{
 		
 		//find the move direction, it will never change during the shell's lifespan, shell moves at 0.13 unit per frame
 		direction = new Vector(0,0,0.13);
-		lifeSpan = 14;
+		lifeSpanObject = 14;
 
 		direction.rotate_XZ(angle);
 		
@@ -86,7 +86,7 @@ public class Shell extends SolidObject{
 		
 		
 		kDirection.scale(-0.08);
-		start.add(kDirection);
+		startPointInWorld.add(kDirection);
 		kDirection.scale(-(double)1/0.08);
 		
 		iDirection.scale(0.85);
@@ -115,7 +115,7 @@ public class Shell extends SolidObject{
 		kDirection.scale(1.4);
 		
 		kDirection.scale(-0.11);
-		start.add(kDirection);
+		startPointInWorld.add(kDirection);
 		kDirection.scale(-(double)1/0.11);
 		
 		iDirection.scale(0.8);
@@ -142,7 +142,7 @@ public class Shell extends SolidObject{
 		}
 		
 		kDirection.scale(-0.11);
-		start.add(kDirection);
+		startPointInWorld.add(kDirection);
 		kDirection.scale(-(double)1/0.11);
 		
 		iDirection.scale(0.75);
@@ -171,30 +171,30 @@ public class Shell extends SolidObject{
 	
 	//return the 2D boundary of this model
 	public Rectangle2D getBoundary2D(){
-		return boundary2D;
+		return boundaryModel2D;
 	}
 	
 	//update the model 
 	public void update(){
 		//shells fired by enemy tanks will always be close to the player tank(camera position),
 		//so they are considered visible all the time
-		visible = true;
+		isVisible = true;
 		
 		//Within its life span, if the shell hits some hard object such as a rock or a tank,
 		//it explodes. 
-		lifeSpan--;
+		lifeSpanObject--;
 		
 		//update bundary2D
-		boundary2D.update(direction);
+		boundaryModel2D.update(direction);
 		
 		//check whether the shell emembeded into other objects.
-		int position = (int)(boundary2D.xPos*4) + (129-(int)(boundary2D.yPos*4))*80;
+		int position = (int)(boundaryModel2D.xPos*4) + (129-(int)(boundaryModel2D.yPos*4))*80;
 		if(ObstacleMap.projectileCollideObstacle2(this, position, isHostile)){
-			lifeSpan = -1;
+			lifeSpanObject = -1;
 			//generate explosion
 			direction.scale(0.5);
-			centre.add(direction);
-			Explosion e = new Explosion(centre.x, centre.y, centre.z, 1);
+			centreModel.add(direction);
+			Explosion e = new Explosion(centreModel.x, centreModel.y, centreModel.z, 1);
 			e.type = this.type;
 			if(type == 1)
 				e.damage = 10;
@@ -209,21 +209,21 @@ public class Shell extends SolidObject{
 		ModelDrawList.register(this);
 		
 		//update centre
-		centre.add(direction);
+		centreModel.add(direction);
 		
 		//update boundary to camera coordinate
 		for(int i = 0; i < 5; i++){
 			for(int j = 0; j < 4; j++)
-				boundary[i].vertex3D[j].add(direction);
-			boundary[i].update();
+				boundaryModel[i].vertex3D[j].add(direction);
+			boundaryModel[i].update();
 		}
 		
 		//find centre in camera coordinate
-		tempCentre.set(centre);
-		tempCentre.y = -1;
-		tempCentre.subtract(Camera.position);
-		tempCentre.rotate_XZ(Camera.XZ_angle);
-		tempCentre.rotate_YZ(Camera.YZ_angle);
+		cantreModelInCamera.set(centreModel);
+		cantreModelInCamera.y = -1;
+		cantreModelInCamera.subtract(Camera.position);
+		cantreModelInCamera.rotate_XZ(Camera.XZ_angle);
+		cantreModelInCamera.rotate_YZ(Camera.YZ_angle);
 		
 	
 		//update polygons to camera coordinate
@@ -241,9 +241,9 @@ public class Shell extends SolidObject{
 		
 		//the total life span of shell is about 11 game frames. When its life Span counts 
 		//down to zero, it will explode and cause damage.
-		if(lifeSpan < 0){
+		if(lifeSpanObject < 0){
 			//generate explosion
-			Explosion e = new Explosion(centre.x, centre.y, centre.z, 1);
+			Explosion e = new Explosion(centreModel.x, centreModel.y, centreModel.z, 1);
 			e.type = this.type;
 			if(type == 1)
 				e.damage = 10;
@@ -255,7 +255,7 @@ public class Shell extends SolidObject{
 	//draw the model
 	public void draw(){
 		for(int i = 0; i < polygons.length; i++){
-			if(lifeSpan > 10 && i == 4)
+			if(lifeSpanObject > 10 && i == 4)
 				break;
 			polygons[i].draw();
 		}

@@ -16,7 +16,7 @@ public class Wall extends SolidObject{
 	public int open;
 	
 	public Wall(double x, double y, double z, int orientation, int open){
-		start = new Vector(x,y,z);
+		startPointInWorld = new Vector(x,y,z);
 		iDirection = new Vector(1,0,0);
 		jDirection = new Vector(0,1,0);
 		kDirection = new Vector(0,0,1);
@@ -30,24 +30,24 @@ public class Wall extends SolidObject{
 		
 		//create 2D boundary
 		if(orientation == 0 || orientation ==6){
-			boundary2D = new Rectangle2D(x - 0.09, z + 0.17, 0.18, 0.34);
+			boundaryModel2D = new Rectangle2D(x - 0.09, z + 0.17, 0.18, 0.34);
 			ObstacleMap.registerObstacle2(this, (int)(x*4) + (129-(int)(z*4))*80);
 		
 		}
 		
 		if(orientation == 1 || orientation ==7){
-			boundary2D = new Rectangle2D(x - 0.17, z + 0.09, 0.34, 0.18);
+			boundaryModel2D = new Rectangle2D(x - 0.17, z + 0.09, 0.34, 0.18);
 			ObstacleMap.registerObstacle2(this, (int)(x*4) + (129-(int)(z*4))*80);
 		
 		}
 		
 		if(orientation == 2 || orientation == 3 || orientation == 4 || orientation == 5){
-			boundary2D = new Rectangle2D(x - 0.09, z + 0.09, 0.18, 0.18);
+			boundaryModel2D = new Rectangle2D(x - 0.09, z + 0.09, 0.18, 0.18);
 			ObstacleMap.registerObstacle2(this, (int)(x*4) + (129-(int)(z*4))*80);
 		}
 		
 		if(orientation == 8 || orientation == 9 || orientation == 10 || orientation == 11){
-			boundary2D = new Rectangle2D(x - 0.09, z + 0.09, 0.16, 0.18);
+			boundaryModel2D = new Rectangle2D(x - 0.09, z + 0.09, 0.16, 0.18);
 			ObstacleMap.registerObstacle2(this, (int)(x*4) + (129-(int)(z*4))*80);
 		}
 		
@@ -89,7 +89,7 @@ public class Wall extends SolidObject{
 				polygons[3] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[41], 1,1,6);
 			}
 			
-			start.add(-0.06,0,-0.07);
+			startPointInWorld.add(-0.06,0,-0.07);
 			iDirection.scale(1.5);
 			kDirection.scale(1.6);
 			v = new Vector[]{put(-0.125, -0.1, 0.125), put(0.125, -0.1, 0.125),put(0.125, -0.1, -0.125),put(-0.125, -0.1, -0.125)};
@@ -118,7 +118,7 @@ public class Wall extends SolidObject{
 			}
 			
 			
-			start.add(-0.06,0,-0.052);
+			startPointInWorld.add(-0.06,0,-0.052);
 			iDirection.scale(2);
 			kDirection.scale(1.2);
 			v = new Vector[]{put(-0.125, -0.1, 0.125), put(0.125, -0.1, 0.125),put(0.125, -0.1, -0.125),put(-0.125, -0.1, -0.125)};
@@ -146,16 +146,16 @@ public class Wall extends SolidObject{
 			v = new Vector[]{put(-0.04, 0.14, -0.04), put(0.04, 0.14, -0.04), put(0.04, 0.14, -0.125), put(-0.04, 0.14, -0.125)};
 			polygons[5] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[41], 1,1,6);
 			
-			start.add(-0.06,0,-0.15);
+			startPointInWorld.add(-0.06,0,-0.15);
 			iDirection.scale(1.5);
 			kDirection.scale(1.6);
 			v = new Vector[]{put(-0.125, -0.1, 0.125), put(0.125, -0.1, 0.125),put(0.125, -0.1, -0.125),put(-0.125, -0.1, -0.125)};
 			shadow = new Polygon3D(v, v[0], v[1],v[3], Main.textures[42], 1,1,2);
 			
-			start.add(0.06,0,0.15);
+			startPointInWorld.add(0.06,0,0.15);
 			iDirection.scale(1.0/1.5);
 			kDirection.scale(1.0/1.6);
-			start.add(-0.14,0,-0.052);
+			startPointInWorld.add(-0.14,0,-0.052);
 			iDirection.scale(2);
 			kDirection.scale(1.2);
 			v = new Vector[]{put(-0.125, -0.1, 0.125), put(0.125, -0.1, 0.125),put(0.125, -0.1, -0.125),put(-0.125, -0.1, -0.125)};
@@ -189,7 +189,7 @@ public class Wall extends SolidObject{
 			v = new Vector[]{put(-0.04, 0.14, -0.04), put(0.04, 0.14, -0.04), put(0.04, 0.14, -0.125), put(-0.04, 0.14, -0.125)};
 			polygons[6] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[41], 1,1,6);
 			
-			start.add(-0.06,0,-0.16);
+			startPointInWorld.add(-0.06,0,-0.16);
 			iDirection.scale(1.5);
 			kDirection.scale(1.6);
 			v = new Vector[]{put(-0.125, -0.1, 0.125), put(0.125, -0.1, 0.125),put(0.125, -0.1, -0.125),put(-0.125, -0.1, -0.125)};
@@ -224,7 +224,7 @@ public class Wall extends SolidObject{
 			v = new Vector[]{put(-0.04, 0.14, 0.125), put(0.04, 0.14, 0.125), put(0.04, 0.14, -0.04), put(-0.04, 0.14, -0.04)};
 			polygons[6] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[41], 1,1,6);
 			
-			start.add(-0.145,0,-0.052);
+			startPointInWorld.add(-0.145,0,-0.052);
 			iDirection.scale(2);
 			kDirection.scale(1.2);
 			v = new Vector[]{put(-0.125, -0.1, 0.125), put(0.125, -0.1, 0.125),put(0.125, -0.1, -0.125),put(-0.125, -0.1, -0.125)};
@@ -237,7 +237,7 @@ public class Wall extends SolidObject{
 		if(orientation == 5){
 			polygons = new Polygon3D[6];
 			
-			start.add(0.045,0,0);
+			startPointInWorld.add(0.045,0,0);
 			v = new Vector[]{put(-0.005, 0.14, 0.04),put(-0.005, 0.14, 0.125),put(-0.005, -0.1, 0.125), put(-0.005, -0.1, 0.04)};
 			polygons[0] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[41], 1,1,6);
 			
@@ -257,7 +257,7 @@ public class Wall extends SolidObject{
 			polygons[5] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[41], 1,1,6);
 		
 		
-			start.add(-0.00,0,0.03);
+			startPointInWorld.add(-0.00,0,0.03);
 			iDirection.scale(1.9);
 			kDirection.scale(2);
 			v = new Vector[]{put(-0.125, -0.1, 0.125), put(0.125, -0.1, 0.125),put(0.125, -0.1, -0.125),put(-0.125, -0.1, -0.125)};
@@ -279,7 +279,7 @@ public class Wall extends SolidObject{
 			v = new Vector[]{put(0.04, -0.04, 0.09),put(0.04, -0.04, 0.125), put(0.04, -0.1, 0.125), put(0.04, -0.1, 0.09)};
 			polygons[3] = new Polygon3D(v, put(0.04, -0.025, 0.08), put(0.04, -0.025, 0.128), put(0.04, -0.11, 0.08), Main.textures[45], 1,1,3);
 			
-			start.add(-0.06,0,-0.07);
+			startPointInWorld.add(-0.06,0,-0.07);
 			iDirection.scale(1.5);
 			kDirection.scale(1.6);
 			v = new Vector[]{put(-0.125, -0.1, 0.125), put(0.125, -0.1, 0.125),put(0.125, -0.1, -0.125),put(-0.125, -0.1, -0.125)};
@@ -298,7 +298,7 @@ public class Wall extends SolidObject{
 			
 		
 			
-				start.add(-0.06,0,-0.052);
+				startPointInWorld.add(-0.06,0,-0.052);
 			iDirection.scale(2);
 			kDirection.scale(1.2);
 			v = new Vector[]{put(-0.125, -0.1, 0.125), put(0.125, -0.1, 0.125),put(0.125, -0.1, -0.125),put(-0.125, -0.1, -0.125)};
@@ -309,27 +309,27 @@ public class Wall extends SolidObject{
 			polygons = new Polygon3D[5];
 			
 			if(orientation == 8){
-				centre.x += 0.055;
-				centre.z += 0.055;
-				start.add(0.055,0,0.055);
+				centreModel.x += 0.055;
+				centreModel.z += 0.055;
+				startPointInWorld.add(0.055,0,0.055);
 			}
 			
 			if(orientation == 9){
-				centre.x -= 0.055;
-				centre.z += 0.055;
-				start.add(-0.055,0,0.055);
+				centreModel.x -= 0.055;
+				centreModel.z += 0.055;
+				startPointInWorld.add(-0.055,0,0.055);
 			}
 			
 			if(orientation == 10){
-				centre.x -= 0.055;
-				centre.z-= 0.055;
-				start.add(-0.055,0,-0.055);
+				centreModel.x -= 0.055;
+				centreModel.z-= 0.055;
+				startPointInWorld.add(-0.055,0,-0.055);
 			}
 			
 			if(orientation == 11){
-				centre.x += 0.055;
-				centre.z-= 0.055;
-				start.add(0.055,0,-0.055);
+				centreModel.x += 0.055;
+				centreModel.z-= 0.055;
+				startPointInWorld.add(0.055,0,-0.055);
 			}
 			
 			v = new Vector[]{put(-0.07, 0.14,-0.07), put(0.07, 0.14,-0.07), put(0.07, -0.1,-0.07),put(-0.07, -0.1,-0.07)};
@@ -350,7 +350,7 @@ public class Wall extends SolidObject{
 			
 			iDirection.scale(1.2);
 			kDirection.scale(1.2);
-			start.add(-0.04,0,-0.055);
+			startPointInWorld.add(-0.04,0,-0.055);
 			v = new Vector[]{put(-0.125, -0.1, 0.125), put(0.125, -0.1, 0.125),put(0.125, -0.1, -0.125),put(-0.125, -0.1, -0.125)};
 			shadow = new Polygon3D(v, v[0], v[1],v[3], Main.textures[47], 1,1,2);
 		}
@@ -368,31 +368,31 @@ public class Wall extends SolidObject{
 	
 	//return the 2D boundary of this model
 	public Rectangle2D getBoundary2D(){
-		return boundary2D;
+		return boundaryModel2D;
 	}
 	
 	// Method for updating model.
 	public void update(){
 		//find centre in camera coordinate
-		tempCentre.set(centre);
-		tempCentre.y = -1;
-		tempCentre.subtract(Camera.position);
-		tempCentre.rotate_XZ(Camera.XZ_angle);
-		tempCentre.rotate_YZ(Camera.YZ_angle);
-		tempCentre.updateLocation();
+		cantreModelInCamera.set(centreModel);
+		cantreModelInCamera.y = -1;
+		cantreModelInCamera.subtract(Camera.position);
+		cantreModelInCamera.rotate_XZ(Camera.XZ_angle);
+		cantreModelInCamera.rotate_YZ(Camera.YZ_angle);
+		cantreModelInCamera.updateLocation();
 		
 		//test whether the model is visible by comparing the 2D position of its centre point and the screen area
-		if(tempCentre.z < 0.5 || tempCentre.screenY < -30 || tempCentre.screenX < -400 || tempCentre.screenX >800){
-			visible = false;
+		if(cantreModelInCamera.z < 0.5 || cantreModelInCamera.screenY < -30 || cantreModelInCamera.screenX < -400 || cantreModelInCamera.screenX >800){
+			isVisible = false;
 			return;
 		}
-		visible = true;
+		isVisible = true;
 		
 		ModelDrawList.register(this);
 		
 		// update boundary
 		for(int i = 0; i < 5; i++)
-			boundary[i].update();
+			boundaryModel[i].update();
 		
 		// update polygons
 		for(int i = 0; i < polygons.length; i++){
@@ -417,7 +417,7 @@ public class Wall extends SolidObject{
 	
 	// Method for updating model.
 	public void draw(){
-		if(visible){
+		if(isVisible){
 			for(int i = 0; i < polygons.length; i++){
 				polygons[i].draw();
 			}

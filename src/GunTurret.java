@@ -65,7 +65,7 @@ public class GunTurret extends SolidObject{
 	//constructor
 	public GunTurret(double x, double y, double z, int angle){
 		//define the centre point of this model(also the centre point of tank body)
-		start = new Vector(x,y,z);
+		startPointInWorld = new Vector(x,y,z);
 		iDirection = new Vector(0.7,0,0);
 		jDirection = new Vector(0,0.7,0);
 		kDirection = new Vector(0,0,0.7);
@@ -75,15 +75,15 @@ public class GunTurret extends SolidObject{
 		makeBoundary(0.1, 0.25, 0.1);
 		
 		//create 2D boundary
-		boundary2D = new Rectangle2D(x - 0.13, z + 0.13, 0.26, 0.26);
+		boundaryModel2D = new Rectangle2D(x - 0.13, z + 0.13, 0.26, 0.26);
 		position = (int)(x*4) + (129-(int)(z*4))*80;
 		ObstacleMap.registerObstacle2(this, position);
 		
 		//find centre of the model in world coordinate
 		findCentre();
 		
-		turretCenter = start.myClone();
-		bodyCenter = centre;
+		turretCenter = startPointInWorld.myClone();
+		bodyCenter = centreModel;
 		turretAngle = angle;
 		
 		makeBody();
@@ -92,7 +92,7 @@ public class GunTurret extends SolidObject{
 		//gun Turret has 75 hit points
 		HP = 75;
 		
-		lifeSpan = 1;
+		lifeSpanObject = 1;
 	}
 	
 	//create polygons for gun turret lower part
@@ -116,10 +116,10 @@ public class GunTurret extends SolidObject{
 		v = new Vector[]{put(-0.09, 0.09, 0.09), put(0.09, 0.09, 0.09) ,put(0.09, 0.09, -0.09), put(-0.09, 0.09, -0.09)};
 		body[4] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[41], 1,1,6);
 		
-		tempVector1 = start.myClone();
+		tempVector1 = startPointInWorld.myClone();
 		
 		iDirection.scale(1.2);
-		start.add(0,0,-0.03);
+		startPointInWorld.add(0,0,-0.03);
 		v = new Vector[]{put(-0.2, 0, 0.2), put(0.2, 0, 0.2),put(0.2, 0, -0.2),put(-0.2, 0, -0.2)};
 		shadowBody = new Polygon3D(v, v[0], v[1],v[3], Main.textures[50], 1,1,2);
 		
@@ -130,7 +130,7 @@ public class GunTurret extends SolidObject{
 			
 		}
 		
-		start.set(tempVector1);
+		startPointInWorld.set(tempVector1);
 		iDirection.scale(0.8333333333);
 		
 	}
@@ -169,7 +169,7 @@ public class GunTurret extends SolidObject{
 		double r = 0.016;
 		double r1 = 0.012;
 		double theta = Math.PI/8;
-		start.add(0,0.1,0);
+		startPointInWorld.add(0,0.1,0);
 		
 		
 		for(int i = 0; i < 16; i++){
@@ -189,7 +189,7 @@ public class GunTurret extends SolidObject{
 			v[16 - i] = put(r1*Math.cos(i*theta), r1*Math.sin(i*theta), -0.22);
 		turret[21] = new Polygon3D(v, v[0], v[1], v [3],  Main.textures[23], 1,1,6);
 		
-		start.add(0,-0.1,0);
+		startPointInWorld.add(0,-0.1,0);
 		
 		v = new Vector[]{put(-0.08, 0.16, 0.08), put(0.08, 0.16, 0.08), put(0.04, 0.16, -0.08), put(-0.04, 0.16, -0.08)};
 		turret[20] = new Polygon3D(v, v[0], v[1], put(-0.08, 0.16, -0.08), Main.textures[51], 1,1,6);
@@ -197,11 +197,11 @@ public class GunTurret extends SolidObject{
 		
 		
 		//create shadow for tank turret (cannon)
-		start.add(-0.05, 0, -0.05);
-		start.y = -1;
+		startPointInWorld.add(-0.05, 0, -0.05);
+		startPointInWorld.y = -1;
 		v = new Vector[]{put(0.5, 0, -0.27), put(-0.5, 0, -0.27), put(-0.5, 0, 0.27), put(0.5, 0, 0.27)};
 		shadowTurret = new Polygon3D(v, v[0], v[1], v[3], Main.textures[15], 1, 1, 2);
-		start.add(0.05, 0, 0.05);
+		startPointInWorld.add(0.05, 0, 0.05);
 		
 		iDirection.rotate_XZ(180);
 		kDirection.rotate_XZ(180);
@@ -243,22 +243,22 @@ public class GunTurret extends SolidObject{
 		
 		
 		//find centre in camera coordinate
-		tempCentre.set(centre);
-		tempCentre.y = -1;
-		tempCentre.subtract(Camera.position);
-		tempCentre.rotate_XZ(Camera.XZ_angle);
-		tempCentre.rotate_YZ(Camera.YZ_angle);
-		tempCentre.updateLocation();
+		cantreModelInCamera.set(centreModel);
+		cantreModelInCamera.y = -1;
+		cantreModelInCamera.subtract(Camera.position);
+		cantreModelInCamera.rotate_XZ(Camera.XZ_angle);
+		cantreModelInCamera.rotate_YZ(Camera.YZ_angle);
+		cantreModelInCamera.updateLocation();
 		
 		//test whether the model is visible by comparing the 2D position of its centre point with the screen area
-		visible = true;
-		if(tempCentre.z < 0.9 || tempCentre.screenY < -10 || tempCentre.screenX < -400 || tempCentre.screenX >800){
-			visible = false;
+		isVisible = true;
+		if(cantreModelInCamera.z < 0.9 || cantreModelInCamera.screenY < -10 || cantreModelInCamera.screenX < -400 || cantreModelInCamera.screenX >800){
+			isVisible = false;
 			isVisiblePreviousFrame = false;
 		}
 		
 		//if this model is not visible in the previous frame, its need to be reconstructed
-		if(visible){
+		if(isVisible){
 			if(isVisiblePreviousFrame == false){
 				//recreate turret polygons
 				makeTurret();
@@ -267,12 +267,12 @@ public class GunTurret extends SolidObject{
 		}
 		
 		//if visible then update the geometry to camera coordinate
-		if(visible){
+		if(isVisible){
 			ModelDrawList.register(this);
 			
 			//update boundary
 			for(int i = 0; i < 5; i++)
-				boundary[i].update();	
+				boundaryModel[i].update();	
 			
 			
 			
@@ -362,24 +362,24 @@ public class GunTurret extends SolidObject{
 				Vector direction = new Vector(0,0,1);
 				direction.rotate_XZ(turretAngle);
 				direction.scale(0.06);
-				Projectiles.register(new Shell(centre.x+direction.x, centre.y,centre.z+direction.z, turretAngle ,true, 1));
+				Projectiles.register(new Shell(centreModel.x+direction.x, centreModel.y,centreModel.z+direction.z, turretAngle ,true, 1));
 			}
 		}
 		
 		if(HP <= 37){
 			if(Smoke == null){
-				tempVector1 = getRealCentre().myClone();
+				tempVector1 = getRealCentreModelWorld().myClone();
 				tempVector1.y += 0.1;
 				Smoke = new Smoke(tempVector1.myClone());
 			}else{
-				if(visible)
+				if(isVisible)
 					Smoke.update();
 			}
 		}
 		
 		if(HP <= 0){
 			if(!destoried){
-				Projectiles.register(new Explosion(centre.x, centre.y, centre.z, 2));
+				Projectiles.register(new Explosion(centreModel.x, centreModel.y, centreModel.z, 2));
 				modelType = 6; 
 				Smoke.stopped = true;
 			}
@@ -396,7 +396,7 @@ public class GunTurret extends SolidObject{
 	
 	private void processAI(){
 //		calculate distance from player's tank
-		tempVector1.set(centre);
+		tempVector1.set(centreModel);
 		tempVector1.subtract(PlayerTank.bodyCenter);
 		distance = tempVector1.getLength();
 		
@@ -442,7 +442,7 @@ public class GunTurret extends SolidObject{
 			
 			//find the angle between target and itself
 			if(clearToShoot){
-				targetAngle = 90 + (int)(180 * Math.atan((centre.z - PlayerTank.bodyCenter.z)/(centre.x - PlayerTank.bodyCenter.x)) / Math.PI);
+				targetAngle = 90 + (int)(180 * Math.atan((centreModel.z - PlayerTank.bodyCenter.z)/(centreModel.x - PlayerTank.bodyCenter.x)) / Math.PI);
 				if(PlayerTank.bodyCenter.x > turretCenter.x  && targetAngle <= 180)
 					targetAngle+=180;
 
@@ -486,14 +486,14 @@ public class GunTurret extends SolidObject{
 		}
 		
 		//draw smoke tail
-		if(Smoke != null && visible)
+		if(Smoke != null && isVisible)
 			Smoke.draw();
 	
 	}
 	
     //return the 2D boundary of this model
 	public Rectangle2D getBoundary2D(){
-		return boundary2D;
+		return boundaryModel2D;
 	}
 	
 	public void damage(int damagePoint){

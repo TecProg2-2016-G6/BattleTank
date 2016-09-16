@@ -29,7 +29,7 @@ public class Rocket extends SolidObject {
 	private Vector tempVector2 = new Vector(0, 0, 0);
 
 	public Rocket(double x, double y, double z, int angle, boolean isHostile) {
-		start = new Vector(x, y, z);
+		startPointInWorld = new Vector(x, y, z);
 		this.angle = angle;
 
 		iDirection = new Vector(1, 0, 0);
@@ -43,7 +43,7 @@ public class Rocket extends SolidObject {
 		makeBoundary(0.01, 0.025, 0.01);
 
 		// create 2D boundary
-		boundary2D = new Rectangle2D(x - 0.005, z + 0.005, 0.01, 0.01);
+		boundaryModel2D = new Rectangle2D(x - 0.005, z + 0.005, 0.01, 0.01);
 
 		// adjust orientation of the model
 		iDirection.rotate_XZ(angle);
@@ -54,7 +54,7 @@ public class Rocket extends SolidObject {
 		direction = new Vector(0, 0, 0.075);
 		direction.rotate_XZ(angle);
 
-		lifeSpan = 38;
+		lifeSpanObject = 38;
 
 		// find centre of the model in world coordinate
 		findCentre();
@@ -114,7 +114,7 @@ public class Rocket extends SolidObject {
 
 	// return the 2D boundary of this model
 	public Rectangle2D getBoundary2D() {
-		return boundary2D;
+		return boundaryModel2D;
 	}
 
 	// update the model
@@ -122,12 +122,12 @@ public class Rocket extends SolidObject {
 		// rockets fired by enemy/player tanks will most likely within the view
 		// plane,
 		// so they are considered visible all the time
-		visible = true;
+		isVisible = true;
 
 		// Within its life span, if the rocket hits some hard object such as a
 		// rock or a tank,
 		// it explodes.
-		lifeSpan--;
+		lifeSpanObject--;
 
 		// update rocket aura
 		if (rocketAura != null) {
@@ -173,9 +173,9 @@ public class Rocket extends SolidObject {
 
 		// find direction based on the target location
 		int targetAngle = 90 + (int) (180 * Math
-				.atan((centre.z - targetLocation.z)
-						/ (centre.x - targetLocation.x)) / Math.PI);
-		if (targetLocation.x > centre.x && targetAngle <= 180)
+				.atan((centreModel.z - targetLocation.z)
+						/ (centreModel.x - targetLocation.x)) / Math.PI);
+		if (targetLocation.x > centreModel.x && targetAngle <= 180)
 			targetAngle += 180;
 
 		angleDelta = targetAngle - angle;
@@ -202,17 +202,17 @@ public class Rocket extends SolidObject {
 		direction.rotate_XZ(angleDelta);
 
 		// update bundary2D
-		boundary2D.update(direction);
+		boundaryModel2D.update(direction);
 
 		// check whether the rocket emembeded into other objects.
-		int position = (int) (boundary2D.xPos * 4)
-				+ (129 - (int) (boundary2D.yPos * 4)) * 80;
+		int position = (int) (boundaryModel2D.xPos * 4)
+				+ (129 - (int) (boundaryModel2D.yPos * 4)) * 80;
 		if (ObstacleMap.projectileCollideObstacle2(this, position, isHostile)) {
-			lifeSpan = -1;
+			lifeSpanObject = -1;
 			// generate explosion
-			centre.add(direction);
-			Explosion theExplosion = new Explosion(centre.x, centre.y,
-					centre.z, 1);
+			centreModel.add(direction);
+			Explosion theExplosion = new Explosion(centreModel.x, centreModel.y,
+					centreModel.z, 1);
 			theExplosion.damage = 10;
 			Projectiles.register(theExplosion);
 			return;
@@ -222,20 +222,20 @@ public class Rocket extends SolidObject {
 		ModelDrawList.register(this);
 
 		// update centre
-		centre.add(direction);
+		centreModel.add(direction);
 
 		// find centre in camera coordinate
-		tempCentre.set(centre);
-		tempCentre.y = -1;
-		tempCentre.subtract(Camera.position);
-		tempCentre.rotate_XZ(Camera.XZ_angle);
-		tempCentre.rotate_YZ(Camera.YZ_angle);
+		cantreModelInCamera.set(centreModel);
+		cantreModelInCamera.y = -1;
+		cantreModelInCamera.subtract(Camera.position);
+		cantreModelInCamera.rotate_XZ(Camera.XZ_angle);
+		cantreModelInCamera.rotate_YZ(Camera.YZ_angle);
 
 		// update 3D boundary
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 4; j++)
-				boundary[i].vertex3D[j].add(direction);
-			boundary[i].update();
+				boundaryModel[i].vertex3D[j].add(direction);
+			boundaryModel[i].update();
 		}
 
 		// update polygons
@@ -243,9 +243,9 @@ public class Rocket extends SolidObject {
 			// update polygons in world coordinate
 			for (int j = 0; j < polygons[i].vertex3D.length; j++) {
 				polygons[i].vertex3D[j].add(direction);
-				polygons[i].vertex3D[j].subtract(centre);
+				polygons[i].vertex3D[j].subtract(centreModel);
 				polygons[i].vertex3D[j].rotate_XZ(angleDelta);
-				polygons[i].vertex3D[j].add(centre);
+				polygons[i].vertex3D[j].add(centreModel);
 			}
 
 			polygons[i].findRealNormal();
@@ -257,20 +257,20 @@ public class Rocket extends SolidObject {
 
 		// When its life Span counts
 		// down to zero, it will explode and cause damage.
-		if (lifeSpan < 0) {
+		if (lifeSpanObject < 0) {
 			// generate explosion
-			Explosion theExplosion = new Explosion(centre.x, centre.y,
-					centre.z, 1);
+			Explosion theExplosion = new Explosion(centreModel.x, centreModel.y,
+					centreModel.z, 1);
 			theExplosion.damage = 10;
 			Projectiles.register(theExplosion);
 			return;
 		}
 		if (Main.timer % 2 == 0) {
-			centre.subtract(direction);
+			centreModel.subtract(direction);
 			
-			Projectiles.register(new RocketTail(centre));
+			Projectiles.register(new RocketTail(centreModel));
 			
-			centre.add(direction);
+			centreModel.add(direction);
 		}
 	}
 

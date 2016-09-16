@@ -15,8 +15,8 @@ public class RocketTail extends SolidObject{
 	public Vector[] directions;
 	
 	public RocketTail(Vector centre){
-		start = centre.myClone();
-		this.centre = centre;
+		startPointInWorld = centre.myClone();
+		this.centreModel = centre;
 		
 		iDirection = new Vector(1,0,0);
 		jDirection = new Vector(0,1,0);
@@ -35,32 +35,32 @@ public class RocketTail extends SolidObject{
 			directions[i].scale(0.8);
 		}
 		
-		lifeSpan = 35;
+		lifeSpanObject = 35;
 		
 		temp = new Vector(0,0,0);
 	}
 	
 	public void update(){
-		visible = true;
+		isVisible = true;
 		
-		lifeSpan--;
+		lifeSpanObject--;
 		
 		ModelDrawList.register(this);
 		
 		//update boundary
 		for(int i = 0; i < 5; i++)
-			boundary[i].update();
+			boundaryModel[i].update();
 		
 		//animate particles
 		for(int i = 0; i < 15; i++)
 			particles[i].add(directions[i]);
 		
 		//find centre in camera coordinate
-		tempCentre.set(centre);
-		tempCentre.y = -1;
-		tempCentre.subtract(Camera.position);
-		tempCentre.rotate_XZ(Camera.XZ_angle);
-		tempCentre.rotate_YZ(Camera.YZ_angle);
+		cantreModelInCamera.set(centreModel);
+		cantreModelInCamera.y = -1;
+		cantreModelInCamera.subtract(Camera.position);
+		cantreModelInCamera.rotate_XZ(Camera.XZ_angle);
+		cantreModelInCamera.rotate_YZ(Camera.YZ_angle);
 	}
 	
 	//draw the particle system
@@ -84,7 +84,7 @@ public class RocketTail extends SolidObject{
 				
 				//cauculate alpha value of each particle
 				factor = 200;
-				factor = factor - factor*lifeSpan/50 + 55;
+				factor = factor - factor*lifeSpanObject/50 + 55;
 				
 				//find the size of the particle
 				double size = 1/temp.z;
@@ -121,7 +121,7 @@ public class RocketTail extends SolidObject{
 	
 	//return the 2D boundary of this model
 	public Rectangle2D getBoundary2D(){
-		return boundary2D;
+		return boundaryModel2D;
 	}
 	
 }

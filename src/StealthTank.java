@@ -97,7 +97,7 @@ public class StealthTank extends SolidObject{
 	
 	public StealthTank(double x, double y, double z, int angle){
 		//define the center point of this model(also the centre point of tank body)
-		start = new Vector(x,y,z);
+		startPointInWorld = new Vector(x,y,z);
 		iDirection = new Vector(1,0,0);
 		jDirection = new Vector(0,1,0);
 		kDirection = new Vector(0,0,1);
@@ -111,7 +111,7 @@ public class StealthTank extends SolidObject{
 		makeBoundary(0.1, 0.25, 0.1);
 		
 		//create 2D boundary
-		boundary2D = new Rectangle2D(x - 0.1, z + 0.1, 0.2, 0.2);
+		boundaryModel2D = new Rectangle2D(x - 0.1, z + 0.1, 0.2, 0.2);
 		position = (int)(x*4) + (129-(int)(z*4))*80;
 		ObstacleMap.registerObstacle2(this, position);
 		
@@ -119,7 +119,7 @@ public class StealthTank extends SolidObject{
 		//find centre of the model in world coordinate
 		findCentre();
 		
-		bodyCenter = centre;
+		bodyCenter = centreModel;
 		bodyAngle = angle;
 		turretAngle = angle;
 		
@@ -131,11 +131,11 @@ public class StealthTank extends SolidObject{
 		//stealth tank has 16 hitpoints
 		HP = 16;
 		
-		lifeSpan = 1;
+		lifeSpanObject = 1;
 	}
 	
 	private void makeBody(){
-		start = bodyCenter.myClone();
+		startPointInWorld = bodyCenter.myClone();
 		iDirection = new Vector(1.1,0,0);
 		jDirection = new Vector(0,1,0);
 		kDirection = new Vector(0,0,1.1);
@@ -170,8 +170,8 @@ public class StealthTank extends SolidObject{
 		
 		
 		
-		tempVector1.set(start);
-		start = put(0,0,0.01);
+		tempVector1.set(startPointInWorld);
+		startPointInWorld = put(0,0,0.01);
 		
 		v = new Vector[]{put(-0.065, 0.03,0.1), put(-0.04, 0.03,0.1), put(-0.04, 0.03,0.03), put(-0.065, 0.03,0.03)};
 		body[7] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[35], 0.3,0.5,6);
@@ -200,8 +200,8 @@ public class StealthTank extends SolidObject{
 		v = new Vector[]{put(-0.065, -0.01,0.031), put(-0.065, 0.01,0.029), put(-0.04, 0.01,0.029), put(-0.04, -0.01,0.031)};
 		body[15] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[12], 0.3,0.5,6);
 		
-		start.set(tempVector1);
-		start = put(0,0,-0.12);
+		startPointInWorld.set(tempVector1);
+		startPointInWorld = put(0,0,-0.12);
 		
 		v = new Vector[]{put(-0.065, 0.03,0.1), put(-0.04, 0.03,0.1), put(-0.04, 0.03,0.03), put(-0.065, 0.03,0.03)};
 		body[16] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[35], 0.3,0.5,6);
@@ -230,8 +230,8 @@ public class StealthTank extends SolidObject{
 		v = new Vector[]{put(-0.065, -0.01,0.031), put(-0.065, 0.01,0.029), put(-0.04, 0.01,0.029), put(-0.04, -0.01,0.031)};
 		body[24] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[12], 0.3,0.5,6);
 		
-		start.set(tempVector1);
-		start = put(0.105,0,-0.12);
+		startPointInWorld.set(tempVector1);
+		startPointInWorld = put(0.105,0,-0.12);
 		
 		v = new Vector[]{put(-0.065, 0.03,0.1), put(-0.04, 0.03,0.1), put(-0.04, 0.03,0.03), put(-0.065, 0.03,0.03)};
 		body[25] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[35], 0.3,0.5,6);
@@ -260,8 +260,8 @@ public class StealthTank extends SolidObject{
 		v = new Vector[]{put(-0.065, -0.01,0.031), put(-0.065, 0.01,0.029), put(-0.04, 0.01,0.029), put(-0.04, -0.01,0.031)};
 		body[33] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[12], 0.3,0.5,6);
 		
-		start.set(tempVector1);
-		start = put(0.105,0,0.01);
+		startPointInWorld.set(tempVector1);
+		startPointInWorld = put(0.105,0,0.01);
 		
 		v = new Vector[]{put(-0.065, 0.03,0.1), put(-0.04, 0.03,0.1), put(-0.04, 0.03,0.03), put(-0.065, 0.03,0.03)};
 		body[34] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[35], 0.3,0.5,6);
@@ -293,13 +293,13 @@ public class StealthTank extends SolidObject{
 		for(int i = 0; i < body.length; i++)
 			bodyInvisible[i] = new Polygon3D(body[i].vertex3D, new Vector(0,0,0), new Vector(0,0,0), new Vector(0,0,0), null, 1 , 1, 8);
 		
-		start.set(tempVector1);
-		start.add(-0.015, 0, -0.01);
-		start.y = -1;
+		startPointInWorld.set(tempVector1);
+		startPointInWorld.add(-0.015, 0, -0.01);
+		startPointInWorld.y = -1;
 		v = new Vector[]{put(-0.12, 0, 0.14), put(0.12, 0, 0.14), put(0.12, 0, -0.14), put(-0.12, 0, -0.14)};
 		shadowBody = new Polygon3D(v, v[0], v[1], v[3], Main.textures[36], 1, 1, 2);
 		
-		start.set(tempVector1);
+		startPointInWorld.set(tempVector1);
 		turretCenter = put(0, 0.08, -0.0);
 	}
 	
@@ -307,7 +307,7 @@ public class StealthTank extends SolidObject{
 		turret = new Polygon3D[66];
 		turretInvisible = new Polygon3D[66];
 		Vector[] v;
-		start = turretCenter.myClone();
+		startPointInWorld = turretCenter.myClone();
 		
 		iDirection = new Vector(1,0,0);
 		jDirection = new Vector(0,1,0);
@@ -367,8 +367,8 @@ public class StealthTank extends SolidObject{
 		turret[65].color = color;
 		
 		//create shadow for tank turret
-		start.add(-0.03, 0, -0.025);
-		start.y = -1;
+		startPointInWorld.add(-0.03, 0, -0.025);
+		startPointInWorld.y = -1;
 		v = new Vector[]{put(-0.14, 0, 0.14), put(0.14, 0, 0.14), put(0.14, 0, -0.14), put(-0.14, 0, -0.14)};
 		shadowTurret = new Polygon3D(v, v[0], v[1], v[3], Main.textures[37], 1, 1, 2);
 		
@@ -444,7 +444,7 @@ public class StealthTank extends SolidObject{
 		
 		//update location in the 2d tile map
 		//validating movement is already done in  process AI part
-		int newPosition = (int)(boundary2D.xPos*4) + (129-(int)(boundary2D.yPos*4))*80;
+		int newPosition = (int)(boundaryModel2D.xPos*4) + (129-(int)(boundaryModel2D.yPos*4))*80;
 		if(!ObstacleMap.isOccupied(newPosition)){
 			ObstacleMap.removeObstacle2(position);
 			ObstacleMap.registerObstacle2(this, newPosition);
@@ -452,11 +452,11 @@ public class StealthTank extends SolidObject{
 		}
 		
 		//update centre
-		centre.add(displacement);
+		centreModel.add(displacement);
 		
 		
 		//update bundary2D
-		boundary2D.update(displacement);
+		boundaryModel2D.update(displacement);
 		
 		//update 3D boundary
 		//for(int i = 0; i < 5; i++){
@@ -466,22 +466,22 @@ public class StealthTank extends SolidObject{
 		//}
 		
 		//find centre in camera coordinate
-		tempCentre.set(centre);
-		tempCentre.y = -1;
-		tempCentre.subtract(Camera.position);
-		tempCentre.rotate_XZ(Camera.XZ_angle);
-		tempCentre.rotate_YZ(Camera.YZ_angle);
-		tempCentre.updateLocation();
+		cantreModelInCamera.set(centreModel);
+		cantreModelInCamera.y = -1;
+		cantreModelInCamera.subtract(Camera.position);
+		cantreModelInCamera.rotate_XZ(Camera.XZ_angle);
+		cantreModelInCamera.rotate_YZ(Camera.YZ_angle);
+		cantreModelInCamera.updateLocation();
 		
 		//test whether the model is visible by comparing the 2D position of its centre point with the screen area
-		visible = true;
-		if(tempCentre.z < 0.9 || tempCentre.screenY < -10 || tempCentre.screenX < -400 || tempCentre.screenX >800){
-			visible = false;
+		isVisible = true;
+		if(cantreModelInCamera.z < 0.9 || cantreModelInCamera.screenY < -10 || cantreModelInCamera.screenX < -400 || cantreModelInCamera.screenX >800){
+			isVisible = false;
 			isVisiblePreviousFrame = false;
 		}
 		
 		//if tank is not visible in the previous frame, its need to be reconstructed
-		if(visible){
+		if(isVisible){
 			if(isVisiblePreviousFrame == false){
 				//recreate body and turret polygons
 				makeBody();
@@ -491,7 +491,7 @@ public class StealthTank extends SolidObject{
 		}
 		
 		//if visible then update the geometry to camera coordinate
-		if(visible){
+		if(isVisible){
 			ModelDrawList.register(this);
 			if(countDownToDeath <3){
 				
@@ -499,25 +499,25 @@ public class StealthTank extends SolidObject{
 				for(int i = 0; i < body.length; i++){
 					//perform vertex updates in world coordinate
 					body[i].origin.add(displacement);
-					body[i].origin.subtract(centre);
+					body[i].origin.subtract(centreModel);
 					body[i].origin.rotate_XZ(bodyAngleDelta);
-					body[i].origin.add(centre);
+					body[i].origin.add(centreModel);
 					
 					body[i].bottomEnd.add(displacement);
-					body[i].bottomEnd.subtract(centre);
+					body[i].bottomEnd.subtract(centreModel);
 					body[i].bottomEnd.rotate_XZ(bodyAngleDelta);
-					body[i].bottomEnd.add(centre);
+					body[i].bottomEnd.add(centreModel);
 					
 					body[i].rightEnd.add(displacement);
-					body[i].rightEnd.subtract(centre);
+					body[i].rightEnd.subtract(centreModel);
 					body[i].rightEnd.rotate_XZ(bodyAngleDelta);
-					body[i].rightEnd.add(centre);
+					body[i].rightEnd.add(centreModel);
 					
 					for(int j = 0; j < body[i].vertex3D.length; j++){
 						body[i].vertex3D[j].add(displacement);
-						body[i].vertex3D[j].subtract(centre);
+						body[i].vertex3D[j].subtract(centreModel);
 						body[i].vertex3D[j].rotate_XZ(bodyAngleDelta);
-						body[i].vertex3D[j].add(centre);
+						body[i].vertex3D[j].add(centreModel);
 					}
 					
 					body[i].findRealNormal();
@@ -530,7 +530,7 @@ public class StealthTank extends SolidObject{
 				Geometry.sortPolygons(body, 2);
 				
 				//update shadow for tank body
-				tempVector1.set(centre);
+				tempVector1.set(centreModel);
 				tempVector1.add(-0.015, 0, -0.01);
 				shadowBody.origin.add(displacement);
 				shadowBody.origin.subtract(tempVector1);
@@ -647,7 +647,7 @@ public class StealthTank extends SolidObject{
 				Vector direction = new Vector(0,0,1);
 				direction.rotate_XZ(turretAngle);
 				direction.scale(0.1);
-				new RailgunTail(new Vector(centre.x+direction.x, centre.y + 0.08,centre.z+direction.z), turretAngle, true);
+				new RailgunTail(new Vector(centreModel.x+direction.x, centreModel.y + 0.08,centreModel.z+direction.z), turretAngle, true);
 				
 			}
 		}
@@ -655,7 +655,7 @@ public class StealthTank extends SolidObject{
 		
 		
 		
-		if(t <= 30 && visible){
+		if(t <= 30 && isVisible){
 			int alpha = 255*t/30;
 			for(int i = 0; i < body.length; i++)
 				body[i].alpha = alpha;
@@ -670,7 +670,7 @@ public class StealthTank extends SolidObject{
 			if(Smoke == null){
 				Smoke = new Smoke(this);
 			}else{
-				if(visible)
+				if(isVisible)
 					Smoke.update();
 			}
 		}
@@ -679,14 +679,14 @@ public class StealthTank extends SolidObject{
 			countDownToDeath++;
 			if(countDownToDeath >= 3){
 				if(countDownToDeath == 3){
-					Projectiles.register(new Explosion(centre.x, centre.y, centre.z, 1.7));
-					PowerUps.register(new PowerUp(centre.x, -0.875, centre.z, 3));
+					Projectiles.register(new Explosion(centreModel.x, centreModel.y, centreModel.z, 1.7));
+					PowerUps.register(new PowerUp(centreModel.x, -0.875, centreModel.z, 3));
 				}
 				ObstacleMap.removeObstacle2(position);
 				Smoke.stopped = true;
 			}
 			if(countDownToDeath >=40)
-				lifeSpan = 0;
+				lifeSpanObject = 0;
 		}
 		
 		//reset action flag
@@ -698,13 +698,13 @@ public class StealthTank extends SolidObject{
 		displacement.reset();
 		firing = false;
 		if(Main.timer%10 == 0)
-			unstuck = false;
+			isBlockingOtherModel = false;
 	}
 	
 	
 	private void processAI(){
 		//calculate distance from player's tank
-		tempVector1.set(centre);
+		tempVector1.set(centreModel);
 		tempVector1.subtract(PlayerTank.bodyCenter);
 		distance = tempVector1.getLength();
 		
@@ -740,7 +740,7 @@ public class StealthTank extends SolidObject{
 			
 			//test whether there is a type obstacle 2 between medium tank and player tank
 			//firing a vision ray from medium tank toward player tank
-			tempVector1.set(centre);
+			tempVector1.set(centreModel);
 			tempVector2.set(PlayerTank.bodyCenter);
 			tempVector2.subtract(tempVector1);
 			tempVector2.unit();
@@ -765,7 +765,7 @@ public class StealthTank extends SolidObject{
 			
 			//find the angle between target and itself
 			if(clearToShoot){
-				targetAngle = 90 + (int)(180 * Math.atan((centre.z - PlayerTank.bodyCenter.z)/(centre.x - PlayerTank.bodyCenter.x)) / Math.PI);
+				targetAngle = 90 + (int)(180 * Math.atan((centreModel.z - PlayerTank.bodyCenter.z)/(centreModel.x - PlayerTank.bodyCenter.x)) / Math.PI);
 				if(PlayerTank.bodyCenter.x > turretCenter.x  && targetAngle <= 180)
 					targetAngle+=180;
 
@@ -817,15 +817,15 @@ public class StealthTank extends SolidObject{
 				forward = false;
 			}
 			
-			if(unstuck && distance > 0.8){
+			if(isBlockingOtherModel && distance > 0.8){
 				forward = true;
 				ObstacleMap.giveWay(this, position);
 				
 			}
 			
 			if(forward){
-				targetAngleBody = 90 + (int)(180 * Math.atan((centre.z - PlayerTank.bodyCenter.z)/(centre.x - PlayerTank.bodyCenter.x)) / Math.PI);
-				if(PlayerTank.bodyCenter.x > centre.x  && targetAngleBody <= 180)
+				targetAngleBody = 90 + (int)(180 * Math.atan((centreModel.z - PlayerTank.bodyCenter.z)/(centreModel.x - PlayerTank.bodyCenter.x)) / Math.PI);
+				if(PlayerTank.bodyCenter.x > centreModel.x  && targetAngleBody <= 180)
 					targetAngleBody+=180;
 				
 				//the enemy tank will occasionly (~once every 10 secs)perfom a 90 degree change in moving angle if:
@@ -855,8 +855,8 @@ public class StealthTank extends SolidObject{
 				//check whether the next move will embed into obstacles
 				displacement.set(0,0,0.01);
 				displacement.rotate_XZ(targetAngleBody);
-				boundary2D.update(displacement);
-				int newPosition = (int)(boundary2D.xPos*4) + (129-(int)(boundary2D.yPos*4))*80;
+				boundaryModel2D.update(displacement);
+				int newPosition = (int)(boundaryModel2D.xPos*4) + (129-(int)(boundaryModel2D.yPos*4))*80;
 				boolean canMove = true;
 				//test againt type 1 & 2 obstacles
 				if(ObstacleMap.collideWithObstacle1(this, newPosition)){
@@ -867,12 +867,12 @@ public class StealthTank extends SolidObject{
 					canMove = false;
 				}
 				displacement.scale(-1);
-				boundary2D.update(displacement);
+				boundaryModel2D.update(displacement);
 				displacement.reset();
 				
 				
 				if(!canMove){
-					if(unstuck){
+					if(isBlockingOtherModel){
 						ObstacleMap.giveWay(this ,position);
 					}
 					
@@ -896,8 +896,8 @@ public class StealthTank extends SolidObject{
 					//check if tank is able to move freely at angle 1
 					displacement.set(0,0,0.01);
 					displacement.rotate_XZ(angle1);
-					boundary2D.update(displacement);
-					newPosition = (int)(boundary2D.xPos*4) + (129-(int)(boundary2D.yPos*4))*80;
+					boundaryModel2D.update(displacement);
+					newPosition = (int)(boundaryModel2D.xPos*4) + (129-(int)(boundaryModel2D.yPos*4))*80;
 					//test againt type 1 & 2 obstacles
 					if(ObstacleMap.collideWithObstacle1(this, newPosition)){
 						canMoveAngle1 = false;
@@ -905,14 +905,14 @@ public class StealthTank extends SolidObject{
 						canMoveAngle1 = false;
 					}
 					displacement.scale(-1);
-					boundary2D.update(displacement);
+					boundaryModel2D.update(displacement);
 					displacement.reset();
 					
 					//check if tank is able to move freelly at angle 2
 					displacement.set(0,0,0.01);
 					displacement.rotate_XZ(angle2);
-					boundary2D.update(displacement);
-					newPosition = (int)(boundary2D.xPos*4) + (129-(int)(boundary2D.yPos*4))*80;
+					boundaryModel2D.update(displacement);
+					newPosition = (int)(boundaryModel2D.xPos*4) + (129-(int)(boundaryModel2D.yPos*4))*80;
 					//test againt type 1 & 2 obstacles
 					if(ObstacleMap.collideWithObstacle1(this, newPosition)){
 						canMoveAngle2 = false;
@@ -920,7 +920,7 @@ public class StealthTank extends SolidObject{
 						canMoveAngle2 = false;
 					}
 					displacement.scale(-1);
-					boundary2D.update(displacement);
+					boundaryModel2D.update(displacement);
 					displacement.reset();
 					
 				
@@ -973,8 +973,8 @@ public class StealthTank extends SolidObject{
 				//double check whether the move is valid
 				displacement.set(0,0,0.01);
 				displacement.rotate_XZ(targetAngleBody);
-				boundary2D.update(displacement);
-				newPosition = (int)(boundary2D.xPos*4) + (129-(int)(boundary2D.yPos*4))*80;
+				boundaryModel2D.update(displacement);
+				newPosition = (int)(boundaryModel2D.xPos*4) + (129-(int)(boundaryModel2D.yPos*4))*80;
 				
 				//test againt type 1 & 2 obstacles
 				if(ObstacleMap.collideWithObstacle1(this, newPosition)){
@@ -985,7 +985,7 @@ public class StealthTank extends SolidObject{
 					
 				}
 				displacement.scale(-1);
-				boundary2D.update(displacement);
+				boundaryModel2D.update(displacement);
 				displacement.reset();
 			}
 		}
@@ -1038,12 +1038,12 @@ public class StealthTank extends SolidObject{
 		}
 		
 		//draw smoke tail
-		if(Smoke != null && visible)
+		if(Smoke != null && isVisible)
 			Smoke.draw();
 	}
 	
 	public Rectangle2D getBoundary2D(){
-		return boundary2D;
+		return boundaryModel2D;
 	}
 	
 	public void damage(int damagePoint){

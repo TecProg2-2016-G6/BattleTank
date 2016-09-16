@@ -13,7 +13,7 @@ public class PalmTree extends SolidObject{
 	public PalmTree(double x, double y, double z, int angle){
 		this.angle = angle;
 		
-		start = new Vector(x,y,z);
+		startPointInWorld = new Vector(x,y,z);
 		
 		iDirection = new Vector(0.7+0.3*1.1,0,0);
 		jDirection = new Vector(0,0.8+0.3,0);
@@ -24,7 +24,7 @@ public class PalmTree extends SolidObject{
 		makeBoundary(0.1, 0.25, 0.1);
 		
 		//create 2D boundary
-		boundary2D = new Rectangle2D(x - 0.005, z + 0.005, 0.01, 0.01);
+		boundaryModel2D = new Rectangle2D(x - 0.005, z + 0.005, 0.01, 0.01);
 		ObstacleMap.registerObstacle1(this, (int)(x*4) + (129-(int)(z*4))*80);
 		
 		
@@ -41,18 +41,18 @@ public class PalmTree extends SolidObject{
 	
 	//return the 2D boundary of this model
 	public Rectangle2D getBoundary2D(){
-		return boundary2D;
+		return boundaryModel2D;
 	}
 	
 	//Construct polygons for this model.
 	//The polygon data is hard-coded here
 	private void makePolygons(){
 		Vector[] v;
-		double x = start.x;
-		double y = start.y;
-		double z = start.z;
+		double x = startPointInWorld.x;
+		double y = startPointInWorld.y;
+		double z = startPointInWorld.z;
 		
-		start.add(0,-0.25,0);
+		startPointInWorld.add(0,-0.25,0);
 		polygons = new Polygon3D[38]; 
 		
 		//body
@@ -81,7 +81,7 @@ public class PalmTree extends SolidObject{
 		polygons[7] = new Polygon3D(v, v[0], v[1], v [2], Main.textures[5], 0.1,0.5,6);
 		
 		//leaves
-		start.add(0.005, 0,0);
+		startPointInWorld.add(0.005, 0,0);
 		v = new Vector[]{put(0.015, 0.3, 0.01), put(0, 0.3, 0), put(0, 0.34, 0.05), put(0.015, 0.32, 0.05)};
 		polygons[8] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[9], 1,1,6);
 		
@@ -188,12 +188,12 @@ public class PalmTree extends SolidObject{
 		jDirection = new Vector(0,0.5,0);
 		kDirection = new Vector(0,0,0.7+0.3*0.7);
 		
-		start.add(0.03, 0, 0);
+		startPointInWorld.add(0.03, 0, 0);
 		
 		v = new Vector[]{put(-0.5, 0, 0.4), put(0.4, 0, 0.4), put(0.4, 0, -0.5),put(-0.5, 0, -0.5)};
 		shadow = new Polygon3D(v, v[0], v[1],v[3], Main.textures[10], 1,1,2);
 		
-		start.set(x,y,z);
+		startPointInWorld.set(x,y,z);
 		iDirection = new Vector(0.7+0.3*1.1,0,0);
 		jDirection = new Vector(0,0.8+0.3,0);
 		kDirection = new Vector(0,0,0.7+0.3*1.1);
@@ -205,33 +205,33 @@ public class PalmTree extends SolidObject{
 	//update the model 
 	public void update(){
 		
-		tempCentre.set(centre);
-		tempCentre.y = 0.25;
-		tempCentre.subtract(Camera.absolutePosition);
-		if(tempCentre.getLength() > 5.5){
+		cantreModelInCamera.set(centreModel);
+		cantreModelInCamera.y = 0.25;
+		cantreModelInCamera.subtract(Camera.absolutePosition);
+		if(cantreModelInCamera.getLength() > 5.5){
 			polygons = null;
-			visible = false;
+			isVisible = false;
 			return;
 		}
 		
 		//find centre in camera coordinate
-		tempCentre.set(centre);
-		tempCentre.y = -1;
-		tempCentre.subtract(Camera.position);
-		tempCentre.rotate_XZ(Camera.XZ_angle);
-		tempCentre.rotate_YZ(Camera.YZ_angle);
-		tempCentre.updateLocation();
+		cantreModelInCamera.set(centreModel);
+		cantreModelInCamera.y = -1;
+		cantreModelInCamera.subtract(Camera.position);
+		cantreModelInCamera.rotate_XZ(Camera.XZ_angle);
+		cantreModelInCamera.rotate_YZ(Camera.YZ_angle);
+		cantreModelInCamera.updateLocation();
 		
 		
 		
 		
 		//test whether the model is visible by comparing the 2D position of its centre point with the screen area
-		if(tempCentre.z < 0.9 || tempCentre.screenY < -10 || (tempCentre.screenX < -60 && tempCentre.z > 3) || (tempCentre.screenX >700 &&  tempCentre.z > 3)){
+		if(cantreModelInCamera.z < 0.9 || cantreModelInCamera.screenY < -10 || (cantreModelInCamera.screenX < -60 && cantreModelInCamera.z > 3) || (cantreModelInCamera.screenX >700 &&  cantreModelInCamera.z > 3)){
 			
-			visible = false;
+			isVisible = false;
 			return;
 		}
-		visible = true;
+		isVisible = true;
 		
 		ModelDrawList.register(this);
 		

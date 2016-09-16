@@ -34,7 +34,7 @@ public class PowerPlant extends SolidObject{
 	
 	public PowerPlant(double x, double y, double z){
 		//init model
-		start = new Vector(x,y,z);
+		startPointInWorld = new Vector(x,y,z);
 		iDirection = new Vector(1.1,0,0);
 		jDirection = new Vector(0,1,0);
 		kDirection = new Vector(0,0,1.1);
@@ -49,7 +49,7 @@ public class PowerPlant extends SolidObject{
 		makeBoundary(0.25, 0.5, 0.25);
 		
 		//create 2D boundary
-		boundary2D = new Rectangle2D(x - 0.2, z + 0.2, 0.4, 0.4);
+		boundaryModel2D = new Rectangle2D(x - 0.2, z + 0.2, 0.4, 0.4);
 		//power plant occupy 4 tiles
 		position1 = (int)((x-0.125)*4) + (129-(int)((z+0.125)*4))*80;
 		position2 = (int)((x+0.125)*4) + (129-(int)((z+0.125)*4))*80;
@@ -67,7 +67,7 @@ public class PowerPlant extends SolidObject{
 		
 		//find centre of the model in world coordinate
 		findCentre();
-		centre.set(start);
+		centreModel.set(startPointInWorld);
 		
 		
 		
@@ -93,7 +93,7 @@ public class PowerPlant extends SolidObject{
 		smokeBottom = put(-0.065,0.4,0.08);
 		smokeBottomCamera = new Vector(0,0,0);
 		
-		lifeSpan = 1;
+		lifeSpanObject = 1;
 		
 		
 	}
@@ -158,7 +158,7 @@ public class PowerPlant extends SolidObject{
 		
 		
 		double delta = Math.PI/8;
-		start.add(-0.05,0,0);
+		startPointInWorld.add(-0.05,0,0);
 		r = 0.085;
 		double r2 = 0.06;
 		for(int i = 0; i < 16; i++){
@@ -185,7 +185,7 @@ public class PowerPlant extends SolidObject{
 			
 			polygons[i + index] = new Polygon3D(v, tempVector0,tempVector1, tempVector3,  Main.textures[41], 0.25,1,6);
 		}
-		start.add(0.05,0,-0);
+		startPointInWorld.add(0.05,0,-0);
 		index+=16;
 		
 		r = 0.2;
@@ -277,7 +277,7 @@ public class PowerPlant extends SolidObject{
 		
 		index +=18;
 		
-		start.add(-0.05,0,0);
+		startPointInWorld.add(-0.05,0,0);
 		r = 0.05;
 		r2 = 0.05;
 		for(int i = 0; i < 16; i++){
@@ -308,10 +308,10 @@ public class PowerPlant extends SolidObject{
 			
 			polygons[i + index] = new Polygon3D(v, tempVector0,tempVector1, tempVector3,  Main.textures[41], 0.25,1,6);
 		}
-		start.add(0.05,0,-0);
+		startPointInWorld.add(0.05,0,-0);
 		index+=16;
 		
-		start.add(-0.05,0,0);
+		startPointInWorld.add(-0.05,0,0);
 		r = 0.06;
 		r2 = 0.058;
 		for(int i = 0; i < 16; i++){
@@ -338,7 +338,7 @@ public class PowerPlant extends SolidObject{
 			
 			polygons[i + index] = new Polygon3D(v, tempVector0,tempVector1, tempVector3,  Main.textures[41], 0.25,0.25,6);
 		}
-		start.add(0.05,0,-0);
+		startPointInWorld.add(0.05,0,-0);
 		index+=16;
 		
 		
@@ -346,7 +346,7 @@ public class PowerPlant extends SolidObject{
 		
 		
 		
-		start.add(-0.05,0,0);
+		startPointInWorld.add(-0.05,0,0);
 		r = 0.058;
 		r2 = 0.059;
 		for(int i = 0; i < 16; i++){
@@ -373,13 +373,13 @@ public class PowerPlant extends SolidObject{
 			
 			polygons[i + index] = new Polygon3D(v, tempVector0,tempVector1, tempVector3,  Main.textures[41], 0.25,0.25,6);
 		}
-		start.add(0.05,0,-0);
+		startPointInWorld.add(0.05,0,-0);
 		index+=16;
 		
 		
 		
 		
-		start.add(-0.05,0,0);
+		startPointInWorld.add(-0.05,0,0);
 		r = 0.059;
 		r2 = 0.06;
 		for(int i = 0; i < 16; i++){
@@ -406,10 +406,10 @@ public class PowerPlant extends SolidObject{
 			
 			polygons[i + index] = new Polygon3D(v, tempVector0,tempVector1, tempVector3,  Main.textures[41], 0.25,0.25,6);
 		}
-		start.add(0.05,0,-0);
+		startPointInWorld.add(0.05,0,-0);
 		index+=16;
 		
-		start.add(-0.05,0,0);
+		startPointInWorld.add(-0.05,0,0);
 		r = 0.05;
 		r2 = 0.06;
 		for(int i = 0; i < 16; i++){
@@ -437,7 +437,7 @@ public class PowerPlant extends SolidObject{
 			
 			polygons[i + index] = new Polygon3D(v, tempVector0,tempVector1, tempVector3,  Main.textures[41], 0.25,0.25,6);
 		}
-		start.add(0.05,0,-0);
+		startPointInWorld.add(0.05,0,-0);
 		index+=16;
 		
 		for(int i = 90; i < 170; i++){
@@ -451,7 +451,7 @@ public class PowerPlant extends SolidObject{
 		iDirection.scale(1.1);
 		kDirection.scale(0.85);
 		
-		start.add(0.02,0,-0.085);
+		startPointInWorld.add(0.02,0,-0.085);
 		
 		v = new Vector[]{put(-0.5, 0, 0.4), put(0.4, 0, 0.4), put(0.4, 0, -0.5),put(-0.5, 0, -0.5)};
 		shadow = new Polygon3D(v, v[0], v[1],v[3], Main.textures[56], 1,1,2);
@@ -461,30 +461,30 @@ public class PowerPlant extends SolidObject{
 	
 	//return the 2D boundary of this model
 	public Rectangle2D getBoundary2D(){
-		return boundary2D;
+		return boundaryModel2D;
 	}
 	
 	//update the model 
 	public void update(){
 		//find centre in camera coordinate
-		tempCentre.set(centre);
-		tempCentre.y = -1;
-		tempCentre.subtract(Camera.position);
-		tempCentre.rotate_XZ(Camera.XZ_angle);
-		tempCentre.rotate_YZ(Camera.YZ_angle);
-		tempCentre.updateLocation();
+		cantreModelInCamera.set(centreModel);
+		cantreModelInCamera.y = -1;
+		cantreModelInCamera.subtract(Camera.position);
+		cantreModelInCamera.rotate_XZ(Camera.XZ_angle);
+		cantreModelInCamera.rotate_YZ(Camera.YZ_angle);
+		cantreModelInCamera.updateLocation();
 		
 		//test whether the model is visible by comparing the 2D position of its centre point and the screen area
-		if(tempCentre.z < 0.5 || tempCentre.screenY < -30 || tempCentre.screenX < -400 || tempCentre.screenX >800){
-			visible = false;
+		if(cantreModelInCamera.z < 0.5 || cantreModelInCamera.screenY < -30 || cantreModelInCamera.screenX < -400 || cantreModelInCamera.screenX >800){
+			isVisible = false;
 			return;
 		}
-		visible = true;
+		isVisible = true;
 		ModelDrawList.register(this);
 		
 		//update boundary
 		for(int i = 0; i < 5; i++)
-			boundary[i].update();
+			boundaryModel[i].update();
 		
 		
 		
@@ -495,63 +495,63 @@ public class PowerPlant extends SolidObject{
 			
 			
 			if(countDownToDeath == 10){
-				explosions[0] = new Explosion(centre.x, centre.y, centre.z, 1.7);
+				explosions[0] = new Explosion(centreModel.x, centreModel.y, centreModel.z, 1.7);
 				explosions[0].explicitDrawing = true;
 			}
 			
 			if(countDownToDeath == 13){
-				explosions[1] = new Explosion(centre.x+0.2, centre.y, centre.z, 1.7);
+				explosions[1] = new Explosion(centreModel.x+0.2, centreModel.y, centreModel.z, 1.7);
 				explosions[1].explicitDrawing = true;
 			}
 			
 			if(countDownToDeath == 16){
-				explosions[2] = new Explosion(centre.x+0.1, centre.y-0.1, centre.z+0.1, 1.7);
+				explosions[2] = new Explosion(centreModel.x+0.1, centreModel.y-0.1, centreModel.z+0.1, 1.7);
 				explosions[2].explicitDrawing = true;
 			}
 			
 			if(countDownToDeath == 16){
-				explosions[3] = new Explosion(centre.x, centre.y-0.2, centre.z, 1.7);
+				explosions[3] = new Explosion(centreModel.x, centreModel.y-0.2, centreModel.z, 1.7);
 				explosions[3].explicitDrawing = true;
 			}
 			
 			if(countDownToDeath == 19){
-				explosions[4] = new Explosion(centre.x-0.1, centre.y, centre.z+0.15, 1.7);
+				explosions[4] = new Explosion(centreModel.x-0.1, centreModel.y, centreModel.z+0.15, 1.7);
 				explosions[4].explicitDrawing = true;
 			}
 			
 			if(countDownToDeath == 19){
-				explosions[4] = new Explosion(centre.x, centre.y+0.1, centre.z+0.15, 1.7);
+				explosions[4] = new Explosion(centreModel.x, centreModel.y+0.1, centreModel.z+0.15, 1.7);
 				explosions[4].explicitDrawing = true;
 			}
 			
 			if(countDownToDeath == 19){
-				explosions[5] = new Explosion(centre.x-0.05, centre.y+0.05, centre.z, 1.7);
+				explosions[5] = new Explosion(centreModel.x-0.05, centreModel.y+0.05, centreModel.z, 1.7);
 				explosions[5].explicitDrawing = true;
 			}
 			
 			if(countDownToDeath == 19){
-				explosions[6] = new Explosion(centre.x+0.01, centre.y+0.05, centre.z-0.01, 1.7);
+				explosions[6] = new Explosion(centreModel.x+0.01, centreModel.y+0.05, centreModel.z-0.01, 1.7);
 				explosions[6].explicitDrawing = true;
 			}
 			
 			
 			if(countDownToDeath == 22){
-				explosions[7] = new Explosion(centre.x+0.01, centre.y+0.15, centre.z-0.01, 1.7);
+				explosions[7] = new Explosion(centreModel.x+0.01, centreModel.y+0.15, centreModel.z-0.01, 1.7);
 				explosions[7].explicitDrawing = true;
 			}
 			
 			if(countDownToDeath == 22){
-				explosions[8] = new Explosion(centre.x+0.15, centre.y+0.1, centre.z+0.1, 1.7);
+				explosions[8] = new Explosion(centreModel.x+0.15, centreModel.y+0.1, centreModel.z+0.1, 1.7);
 				explosions[8].explicitDrawing = true;
 			}
 			
 			if(countDownToDeath == 22){
-				explosions[9] = new Explosion(centre.x-0.15, centre.y-0.03, centre.z+0.1, 1.7);
+				explosions[9] = new Explosion(centreModel.x-0.15, centreModel.y-0.03, centreModel.z+0.1, 1.7);
 				explosions[9].explicitDrawing = true;
 			}
 			
 			if(countDownToDeath == 25){
-				explosions[10] = new Explosion(centre.x, centre.y+0.05, centre.z, 3.5);
+				explosions[10] = new Explosion(centreModel.x, centreModel.y+0.05, centreModel.z, 3.5);
 				explosions[10].explicitDrawing = true;
 			}
 			
@@ -560,7 +560,7 @@ public class PowerPlant extends SolidObject{
 			for(int i = 0; i < explosions.length; i++){
 				if(explosions[i] != null){
 					
-					if(explosions[i].lifeSpan < 0){
+					if(explosions[i].lifeSpanObject < 0){
 						explosions[i] = null;
 						
 						continue;
@@ -578,13 +578,13 @@ public class PowerPlant extends SolidObject{
 				ObstacleMap.removeObstacle2(position3);
 				ObstacleMap.removeObstacle2(position4);
 				
-				PowerUps.register(new PowerUp(centre.x, -0.875, centre.z + 0.1, 4));
-				PowerUps.register(new PowerUp(centre.x - 0.09, -0.875, centre.z-0.05, 4));
-				PowerUps.register(new PowerUp(centre.x + 0.09, -0.875, centre.z-0.05, 4));
+				PowerUps.register(new PowerUp(centreModel.x, -0.875, centreModel.z + 0.1, 4));
+				PowerUps.register(new PowerUp(centreModel.x - 0.09, -0.875, centreModel.z-0.05, 4));
+				PowerUps.register(new PowerUp(centreModel.x + 0.09, -0.875, centreModel.z-0.05, 4));
 			}
 			
 			if(countDownToDeath > 35){
-				lifeSpan = 0;
+				lifeSpanObject = 0;
 				
 			}
 			
@@ -642,7 +642,7 @@ public class PowerPlant extends SolidObject{
 	
 	//draw the model
 	public void draw(){
-		if(visible){
+		if(isVisible){
 			
 			if(countDownToDeath < 30)
 				for(int i = 0; i < polygons.length; i++){

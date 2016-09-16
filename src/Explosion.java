@@ -32,14 +32,14 @@ public class Explosion extends SolidObject {
 		
 		int random = GameData.getRandom();
 		
-		start = new Vector(xAxis,yAxys,zAxys);
+		startPointInWorld = new Vector(xAxis,yAxys,zAxys);
 		iDirection = new Vector(1,0,0);
 		jDirection = new Vector(0,1,0);
 		kDirection = new Vector(0,0,1);
-		lifeSpan = 16;
+		lifeSpanObject = 16;
 		
 		//Create 2D boundary
-		boundary2D = new Rectangle2D(xAxis - 0.1, zAxys + 0.1, 0.2, 0.2);
+		boundaryModel2D = new Rectangle2D(xAxis - 0.1, zAxys + 0.1, 0.2, 0.2);
 		
 		//Find centre of explosion
 		groundZero = (int)(xAxis*4) + (129-(int)(zAxys*4))*80;
@@ -80,7 +80,7 @@ public class Explosion extends SolidObject {
 	//Animate explosion scene
 	public void update() {
 		//Make always visible
-		visible = true;
+		isVisible = true;
 		
 		if(explosionAura != null && damage != 0) {
 			explosionAura.update();
@@ -98,21 +98,21 @@ public class Explosion extends SolidObject {
 		
 		//Find centre in camera coordinate
 		
-		tempCentre.set(centre);
-		tempCentre.subtract(Camera.position);
-		tempCentre.rotate_XZ(Camera.XZ_angle);
-		tempCentre.rotate_YZ(Camera.YZ_angle);
+		cantreModelInCamera.set(centreModel);
+		cantreModelInCamera.subtract(Camera.position);
+		cantreModelInCamera.rotate_XZ(Camera.XZ_angle);
+		cantreModelInCamera.rotate_YZ(Camera.YZ_angle);
 		
 		
 		//Damage nearby units
-		if(lifeSpan == 15 && damage != 0) {
-			ObstacleMap.damageType2Obstacles(damage, boundary2D, groundZero);
+		if(lifeSpanObject == 15 && damage != 0) {
+			ObstacleMap.damageType2Obstacles(damage, boundaryModel2D, groundZero);
 		}
 		
-		lifeSpan--;
+		lifeSpanObject--;
 		
-		if(lifeSpan == 0){
-			lifeSpan = -1;
+		if(lifeSpanObject == 0){
+			lifeSpanObject = -1;
 			return;
 		}
 	}
@@ -121,13 +121,13 @@ public class Explosion extends SolidObject {
 	public void draw() {
 		
 		//Calculate explosion size
-		tempCentre.updateLocation();
-		double ratio = size*2/tempCentre.z;
+		cantreModelInCamera.updateLocation();
+		double ratio = size*2/cantreModelInCamera.z;
 		
 		
 		//Drawing sprite	
 		Rasterizer.temp = this.type; 
-		Rasterizer.renderExplosionSprite(Main.textures[spriteIndex].explosions[frameIndex],ratio, tempCentre.screenX, tempCentre.screenY, 64, 64);
+		Rasterizer.renderExplosionSprite(Main.textures[spriteIndex].explosions[frameIndex],ratio, cantreModelInCamera.screenX, cantreModelInCamera.screenY, 64, 64);
 		
 		frameIndex++;
 		
@@ -135,6 +135,6 @@ public class Explosion extends SolidObject {
 	
 	//Return the 2D boundary of this model
 	public Rectangle2D getBoundary2D() {
-		return boundary2D;
+		return boundaryModel2D;
 	}
 }

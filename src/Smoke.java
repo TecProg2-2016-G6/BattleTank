@@ -23,7 +23,7 @@ public class Smoke{
 		this.emitter = emitter;
 		
 		if(emitter != null)
-			soruceCentre = emitter.getRealCentre();
+			soruceCentre = emitter.getRealCentreModelWorld();
 		
 		//init particles
 		particles = new Vector[40];

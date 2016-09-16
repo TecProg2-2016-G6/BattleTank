@@ -29,7 +29,7 @@ public class Stone extends SolidObject{
 		this.textureIndex = textureIndex;
 		this.testCollision = testCollision;
 		
-		start = new Vector(x,y,z);
+		startPointInWorld = new Vector(x,y,z);
 		iDirection = new Vector(1,0,0);
 		jDirection = new Vector(0,1,0);
 		kDirection = new Vector(0,0,1);
@@ -45,7 +45,7 @@ public class Stone extends SolidObject{
 		makeBoundary(0.25*scale, 0.5*scale, 0.25*scale);
 		
 		//create 2D boundary
-		boundary2D = new Rectangle2D(x - 0.2*scale, z + 0.2*scale, 0.4*scale, 0.4*scale);
+		boundaryModel2D = new Rectangle2D(x - 0.2*scale, z + 0.2*scale, 0.4*scale, 0.4*scale);
 		//underwater rocks are excluded from collision tests,because the player will never reach them
 		if(testCollision){
 			if(scale != 1)
@@ -71,7 +71,7 @@ public class Stone extends SolidObject{
 	
 	//return the 2D boundary of this model
 	public Rectangle2D getBoundary2D(){
-		return boundary2D;
+		return boundaryModel2D;
 	}
 	
 	//Construct polygons for this model.
@@ -79,9 +79,9 @@ public class Stone extends SolidObject{
 	private void makePolygons(int type, int textureIndex){
 		Vector[] v;
 		
-		double x = start.x;
-		double y = start.y;
-		double z = start.z;
+		double x = startPointInWorld.x;
+		double y = startPointInWorld.y;
+		double z = startPointInWorld.z;
 		
 		if(type == 1){
 			polygons = new Polygon3D[8];
@@ -203,7 +203,7 @@ public class Stone extends SolidObject{
 		
 		if(type == 4){
 			jDirection.scale(1.3);
-			start.add(0,0.03,0);
+			startPointInWorld.add(0,0.03,0);
 			
 			polygons = new Polygon3D[15];
 			v = new Vector[]{put(0, 0, -0.1), put(0.1, -0.1, -0.2), put(-0.1, -0.1, -0.2)};
@@ -251,10 +251,10 @@ public class Stone extends SolidObject{
 			v = new Vector[]{put(0, 0, -0.1), put(-0.08, 0, -0), put(-0.09, 0, 0.1), put(0.06, 0, 0.06),put(0.11, 0, -0.09)};
 			polygons[14] = new Polygon3D(v, put(-1, 0, 0), put(0, 0, 0), put(-1,0, -1), Main.textures[textureIndex], 3,3,6);
 			
-			start.add(0,-0.03,0);
+			startPointInWorld.add(0,-0.03,0);
 		}
 		
-		start = new Vector(x,y,z);
+		startPointInWorld = new Vector(x,y,z);
 		iDirection = new Vector(1,0,0);
 		jDirection = new Vector(0,1,0);
 		kDirection = new Vector(0,0,1);
@@ -269,31 +269,31 @@ public class Stone extends SolidObject{
 	
 	//update the model 
 	public void update(){
-		tempCentre.set(centre);
-		tempCentre.y = 0.25;
-		tempCentre.subtract(Camera.absolutePosition);
-		if(tempCentre.getLength() > 5.5){
+		cantreModelInCamera.set(centreModel);
+		cantreModelInCamera.y = 0.25;
+		cantreModelInCamera.subtract(Camera.absolutePosition);
+		if(cantreModelInCamera.getLength() > 5.5){
 			polygons = null;
-			visible = false;
+			isVisible = false;
 			return;
 		}
 		
 		
 		//find centre in camera coordinate
-		tempCentre.set(centre);
-		tempCentre.y = -1;
-		tempCentre.subtract(Camera.position);
-		tempCentre.rotate_XZ(Camera.XZ_angle);
-		tempCentre.rotate_YZ(Camera.YZ_angle);
-		tempCentre.updateLocation();
+		cantreModelInCamera.set(centreModel);
+		cantreModelInCamera.y = -1;
+		cantreModelInCamera.subtract(Camera.position);
+		cantreModelInCamera.rotate_XZ(Camera.XZ_angle);
+		cantreModelInCamera.rotate_YZ(Camera.YZ_angle);
+		cantreModelInCamera.updateLocation();
 		
 		//test whether the model is visible by comparing the 2D position of its centre point and the screen area
-		if(tempCentre.z < 0.9 || tempCentre.screenY < -10 || (tempCentre.screenX < -60 && tempCentre.z > 3) || (tempCentre.screenX >700 &&  tempCentre.z > 3)){
+		if(cantreModelInCamera.z < 0.9 || cantreModelInCamera.screenY < -10 || (cantreModelInCamera.screenX < -60 && cantreModelInCamera.z > 3) || (cantreModelInCamera.screenX >700 &&  cantreModelInCamera.z > 3)){
 			
-			visible = false;
+			isVisible = false;
 			return;
 		}
-		visible = true;
+		isVisible = true;
 		if(testCollision)
 			ModelDrawList.register(this);
 		
@@ -316,7 +316,7 @@ public class Stone extends SolidObject{
 	}
 	
 	public void draw(){
-		if(visible){
+		if(isVisible){
 			for(int i = 0; i < polygons.length; i++){
 				polygons[i].draw();
 			}
