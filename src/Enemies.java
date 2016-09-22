@@ -1,5 +1,5 @@
 package src;
-// class for holding all the enemies
+// Class for holding all the enemies.
 public class Enemies {
 
 	public static Model[] enemy;

@@ -1,23 +1,23 @@
 package src;
-//the interface which represents 3D models
+//The interface which represents 3D models.
 
 public interface Model{
-	//update the model, perform AI actions if there is any
+	//Update the model, perform AI actions if there is any.
 	public void update();
 	
-	//get a rough 3D boundary of the model in camera coordinate
+	//Get a rough 3D boundary of the model in camera coordinate.
 	public Polygon3D[] getBoundaryModelInCameraCoordinate();
 	
-	//get  2D boundary of this model (will be used for collision detection)
+	//Get  2D boundary of this model (will be used for collision detection).
 	public Rectangle2D getBoundary2D();
 	
-	//get centre of this model in camera coordinate
+	//Get centre of this model in camera coordinate.
 	public Vector getCentreModelInCameraCoordinate();
 	
-	//get centre of this model in world coordinate
+	//Get centre of this model in world coordinate.
 	public Vector getRealCentreModelWorld();
 	
-	//draw the polygons of the model
+	//Draw the polygons of the model.
 	public void draw();
 	
 	/**return the type of the model
@@ -33,15 +33,15 @@ public interface Model{
 	
 	public int getTypeOfModel(); 
 	  
-	//get the depth value of the tank
+	//Get the depth value of the tank.
 	public double getTankDepth();
 	
-	//get the current life span of the model
+	//Get the current life span of the model.
 	public int getLifeSpan();
 	
-	//damage the object. (ie, reduce its hitpoint)
+	//Damage the object. (ie, reduce its hitpoint).
 	public void damage(int damagePoint);
 	
-	//give way when it has blocked other model
+	//Give way when it has blocked other model.
 	public void unstuck();
 }
