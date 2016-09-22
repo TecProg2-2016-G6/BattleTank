@@ -12,7 +12,7 @@ public class Camera {
 
 	public static Vector viewDirection = null;
 	
-	// The YZ_angle is 315 degrees, and it does not change
+	// The YZ_angle is 315 degrees, and it does not change,
 	public static int YZ_angle = 319;
 	
 	public static int XZ_angle = 0;
@@ -70,14 +70,17 @@ public class Camera {
 			viewDirection.rotate_XZ(XZ_angle);
 			viewDirection.unit();
 
-			// Move the camera back a little bit, so the view becomes more like
-			// Third person rather than first person
+			/**
+			 * Move the camera back a little bit, so the view becomes more like
+			 * Third person rather than first person.
+			 */
+			 
 			thirdPersonDisplacement.set(viewDirection.x * 0.9, 0, -viewDirection.z * 0.9);
 			cameraPosition.add(thirdPersonDisplacement);
 
 		} else {
 				
-			// Fly through this entire level when the game isn't started
+			// Fly through this entire level when the game isn't started.
 			if (flyThroughTimer > 0 && flyThroughTimer <= 60) {
 				cameraPosition.add(0, 0, 0.01);
 				absoluteCameraPosition.set(cameraPosition);
