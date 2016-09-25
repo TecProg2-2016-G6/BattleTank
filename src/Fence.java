@@ -1,4 +1,7 @@
 package src;
+
+import javax.naming.directory.InvalidAttributeValueException;
+
 //Energy fence
 public class Fence extends SolidObject {
 
@@ -8,8 +11,12 @@ public class Fence extends SolidObject {
 	// 0 = vertical 1 = horizontal
 	public int orientation;
 
-	public Fence(double x, double y, double z, int orientation) {
+	public Fence(double x, double y, double z, int orientation) throws InvalidAttributeValueException {
 
+		if(orientation != 0 && orientation!= 1){
+			throw new InvalidAttributeValueException();
+		}
+		
 		startPointInWorld = new Vector(x, y, z);
 		iDirection = new Vector(1, 0, 0);
 		jDirection = new Vector(0, 1, 0);

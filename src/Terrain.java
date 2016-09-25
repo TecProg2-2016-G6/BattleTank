@@ -1,4 +1,7 @@
 package src;
+
+import javax.naming.directory.InvalidAttributeValueException;
+
 //The terrain class, all the polygons data are stored in buffers prior to runtime
 public class Terrain {
 	//polygons that represent land
@@ -586,6 +589,9 @@ public class Terrain {
 	
 		//create energy fences
 		fences = new Fence[62];
+		
+		try{
+			
 		fences[0] = new Fence(10.375,  -0.9,18.125,1);
 		fences[1] = new Fence(10.625,  -0.9,18.125,1);
 		fences[2] = new Fence(10.875,  -0.9,18.125,1);
@@ -656,6 +662,9 @@ public class Terrain {
 		fences[60] = new Fence(12.125,  -0.9,21.375,0);
 		fences[61] = new Fence(12.125,  -0.9,21.125,0);
 		
+		}catch (InvalidAttributeValueException e) {
+			e.printStackTrace();
+		}
 		
 		//create  trees
 		palmTrees = new PalmTree[450];
