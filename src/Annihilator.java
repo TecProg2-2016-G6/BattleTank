@@ -99,190 +99,190 @@ public class Annihilator extends SolidObject{
 	public Annihilator(double x, double y, double z, int angle) {
 		
 		//Define the center point of the tank.
-		startPointInWorld = new Vector(x,y,z);
-		iDirection = new Vector(1,0,0);
-		jDirection = new Vector(0,1,0);
-		kDirection = new Vector(0,0,1);
+		this.startPointInWorld = new Vector(x,y,z);
+		this.iDirection = new Vector(1,0,0);
+		this.jDirection = new Vector(0,1,0);
+		this.kDirection = new Vector(0,0,1);
 		
 		//Boundary of this model has a cubic shape (ie l = w).
-		modelType = 2;  
+		this.modelType = 2;  
 		makeBoundary(lenght, height, weight);
 		
 		//Create 2D rectangle boundary.
-		boundaryModel2D = new Rectangle2D(x - 0.115, z + 0.115, rectangleLenght, rectangleHeight);
-		position = (int)(x * 4) + (129 - (int)(z * 4)) * 80;
-		desiredPosition = position;
-		ObstacleMap.registerObstacle2(this, position);
+		this.boundaryModel2D = new Rectangle2D(x - 0.115, z + 0.115, rectangleLenght, rectangleHeight);
+		this.position = (int)(x * 4) + (129 - (int)(z * 4)) * 80;
+		this.desiredPosition = this.position;
+		ObstacleMap.registerObstacle2(this, this.position);
 		
 		//Find centre of the model in world coordinate.
 		findCentre();
 		
-		bodyCenter = centreModel;
-		bodyAngle = angle;
-		turretAngle = angle;
+		this.bodyCenter = this.centreModel;
+		this.bodyAngle = angle;
+		this.turretAngle = angle;
 		
 		makeBody();
 		makeTurret();
 		
-		randomNumber1 = GameData.getRandom();
+		this.randomNumber1 = GameData.getRandom();
 		
 		//Annihilator tank has 400 hit points.
-		HP = 400;
+		this.HP = 400;
 		
-		lifeSpanObject = 1;
+		this.lifeSpanObject = 1;
 	}
 	
 	//Create polygons for the tank body.
 	private void makeBody(){
 		Vector[] v;
-		startPointInWorld = bodyCenter.myClone();
+		this.startPointInWorld = this.bodyCenter.myClone();
 		
-		iDirection = new Vector(0.95,0,0);
-		jDirection = new Vector(0,1,0);
-		kDirection = new Vector(0,0,1);
+		this.iDirection = new Vector(0.95,0,0);
+		this.jDirection = new Vector(0,1,0);
+		this.kDirection = new Vector(0,0,1);
 		
-		iDirection.rotate_XZ(bodyAngle);
-		kDirection.rotate_XZ(bodyAngle);
+		this.iDirection.rotate_XZ(this.bodyAngle);
+		this.kDirection.rotate_XZ(this.bodyAngle);
 		
-		body = new Polygon3D[19];
+		this.body = new Polygon3D[19];
 		
 		v = new Vector[]{put(0.1, 0, 0.15), put(0.06, 0, 0.15), put(0.06, -0.04, 0.14), put(0.1, -0.04, 0.14)};
-		body[0] = new Polygon3D(v,v[0], v[1],  v[3], Main.textures[12], 1,0.5,6);
+		this.body[0] = new Polygon3D(v,v[0], v[1],  v[3], Main.textures[12], 1,0.5,6);
 		
 		v = new Vector[]{put(-0.1, -0.04, 0.14), put(-0.06, -0.04, 0.14), put(-0.06, 0, 0.15), put(-0.1, 0, 0.15)};
-		body[1] = new Polygon3D(v,v[0], v[1],  v[3], Main.textures[12], 1,0.5,6);
+		this.body[1] = new Polygon3D(v,v[0], v[1],  v[3], Main.textures[12], 1,0.5,6);
 		
 		v = new Vector[]{put(0.06, 0, -0.14), put(0.1, 0, -0.14), put(0.1, -0.04, -0.12), put(0.06, -0.04, -0.12)};
-		body[2] = new Polygon3D(v,v[0], v[1],  v[3], Main.textures[12], 1,0.5,6);
+		this.body[2] = new Polygon3D(v,v[0], v[1],  v[3], Main.textures[12], 1,0.5,6);
 		
 		
 		
 		v = new Vector[]{ put(-0.06, -0.04, -0.12), put(-0.1, -0.04, -0.12), put(-0.1, 0, -0.14),put(-0.06, 0, -0.14)};
-		body[3] = new Polygon3D(v,v[0], v[1],  v[3], Main.textures[12], 1,0.5,6);
+		this.body[3] = new Polygon3D(v,v[0], v[1],  v[3], Main.textures[12], 1,0.5,6);
 		
 		int i = 4;
 		
 		v = new Vector[]{put(0.06, 0.06, 0.13), put(0.06, 0.06, 0.08), put(0.06, -0.01, 0.08), put(0.06, -0.01, 0.15)};
-		body[0 + i] = new Polygon3D(v, v[0], v[1], v[3], Main.textures[58], 0.8,1.1,6);
+		this.body[0 + i] = new Polygon3D(v, v[0], v[1], v[3], Main.textures[58], 0.8,1.1,6);
 		
 		v = new Vector[]{put(-0.06, -0.01, 0.15), put(-0.06, -0.01, 0.08), put(-0.06, 0.06, 0.08), put(-0.06, 0.06, 0.13)};
-		body[1 + i] = new Polygon3D(v, v[0], v[1], v[3], Main.textures[58], 0.8,1.1,6);
+		this.body[1 + i] = new Polygon3D(v, v[0], v[1], v[3], Main.textures[58], 0.8,1.1,6);
 		
 		v = new Vector[]{put(-0.06, 0.06, 0.09), put(0.06, 0.06, 0.09), put(0.06, 0.06, -0.13), put(-0.06, 0.06, -0.13)};
-		body[2 + i] = new Polygon3D(v, v[0], v[1], v[3], Main.textures[58], 0.8,1.1,6);
+		this.body[2 + i] = new Polygon3D(v, v[0], v[1], v[3], Main.textures[58], 0.8,1.1,6);
 		
 		v = new Vector[]{put(0.06, 0.06, 0.09), put(-0.06, 0.06, 0.09), put(-0.06, 0, 0.15), put(0.06, 0, 0.15)};
-		body[3 + i] = new Polygon3D(v, v[0], v[1], v[3], Main.textures[58], 0.8,0.4,6);
+		this.body[3 + i] = new Polygon3D(v, v[0], v[1], v[3], Main.textures[58], 0.8,0.4,6);
 		
 		v = new Vector[]{put(-0.1, 0.06, -0.13), put(0.1, 0.06, -0.13), put(0.1, 0, -0.14),  put(-0.1, 0, -0.14)};
-		body[4 + i] = new Polygon3D(v, v[0], v[1], v[3], Main.textures[58], 0.8,0.3,6);
+		this.body[4 + i] = new Polygon3D(v, v[0], v[1], v[3], Main.textures[58], 0.8,0.3,6);
 		
 		v = new Vector[]{put(0.06, 0.06, 0.13), put(0.1, 0.06, 0.13), put(0.1, 0.06, -0.13), put(0.06, 0.06, -0.13)};
-		body[5 + i] = new Polygon3D(v, v[0], v[1], v[3], Main.textures[58], 0.3,0.8,6);
+		this.body[5 + i] = new Polygon3D(v, v[0], v[1], v[3], Main.textures[58], 0.3,0.8,6);
 		
 		v = new Vector[]{put(-0.06, 0.06, -0.13), put(-0.1, 0.06, -0.13), put(-0.1, 0.06, 0.13), put(-0.06, 0.06, 0.13)};
-		body[6 + i] = new Polygon3D(v, v[0], v[1], v[3], Main.textures[58], 0.3,0.8,6);
+		this.body[6 + i] = new Polygon3D(v, v[0], v[1], v[3], Main.textures[58], 0.3,0.8,6);
 		
 		v = new Vector[]{put(0.1, 0.06, 0.13), put(0.06, 0.06, 0.13), put(0.06, 0., 0.15), put(0.1, 0., 0.15)};
-		body[7 + i] = new Polygon3D(v, v[0], v[1], v[3], Main.textures[58], 0.8,1.1,6);
+		this.body[7 + i] = new Polygon3D(v, v[0], v[1], v[3], Main.textures[58], 0.8,1.1,6);
 		
 		v = new Vector[]{put(-0.1, 0., 0.15), put(-0.06, 0., 0.15), put(-0.06, 0.06, 0.13),put(-0.1, 0.06, 0.13)};
-		body[8 + i] = new Polygon3D(v, v[0], v[1], v[3], Main.textures[58], 0.8,1.1,6);
+		this.body[8 + i] = new Polygon3D(v, v[0], v[1], v[3], Main.textures[58], 0.8,1.1,6);
 		
 		v = new Vector[]{put(0.1, 0.06, -0.13), put(0.1, 0.06, 0.13), put(0.1, 0, 0.15), put(0.1, 0, -0.14)};
-		body[9 + i] = new Polygon3D(v, v[0], v[1], v[3], Main.textures[58], 0.8,0.2,6);
+		this.body[9 + i] = new Polygon3D(v, v[0], v[1], v[3], Main.textures[58], 0.8,0.2,6);
 		
 		v = new Vector[]{put(-0.1, 0, -0.14), put(-0.1, 0, 0.15), put(-0.1, 0.06, 0.13), put(-0.1, 0.06, -0.13)};
-		body[10 + i] = new Polygon3D(v, v[0], v[1], v[3], Main.textures[58], 0.8,0.2,6);
+		this.body[10 + i] = new Polygon3D(v, v[0], v[1], v[3], Main.textures[58], 0.8,0.2,6);
 		
 		v = new Vector[]{put(0.1, 0, 0.01), put(0.1, 0, 0.15), put(0.1, -0.04, 0.14), put(0.1, -0.04, 0.03)};
-		body[11 + i] = new Polygon3D(v, put(0.1, 0.1, 0.03), put(0.1, 0.1, 0.13),  put(0.1, -0.04, 0.03), Main.textures[12], 1,0.5,6);
+		this.body[11 + i] = new Polygon3D(v, put(0.1, 0.1, 0.03), put(0.1, 0.1, 0.13),  put(0.1, -0.04, 0.03), Main.textures[12], 1,0.5,6);
 		
 		v = new Vector[]{put(0.1, 0, -0.14), put(0.1, 0, -0.01), put(0.1, -0.04, -0.03), put(0.1, -0.04, -0.12)};
-		body[12 +  i] = new Polygon3D(v, put(0.1, 0.1, -0.15), put(0.1, 0.1, -0.01),  put(0.1, -0.04, -0.15), Main.textures[12], 1,0.5,6);
+		this.body[12 +  i] = new Polygon3D(v, put(0.1, 0.1, -0.15), put(0.1, 0.1, -0.01),  put(0.1, -0.04, -0.15), Main.textures[12], 1,0.5,6);
 		
 		v = new Vector[]{put(-0.1, -0.04, 0.03), put(-0.1, -0.04, 0.14), put(-0.1, 0, 0.15), put(-0.1, 0, 0.01)};
-		body[13 + i] = new Polygon3D(v, put(-0.1, 0.1, 0.03), put(-0.1, 0.1, 0.13),  put(-0.1, -0.04, 0.03), Main.textures[12], 1,0.5,6);
+		this.body[13 + i] = new Polygon3D(v, put(-0.1, 0.1, 0.03), put(-0.1, 0.1, 0.13),  put(-0.1, -0.04, 0.03), Main.textures[12], 1,0.5,6);
 		
 		v = new Vector[]{put(-0.1, -0.04, -0.12), put(-0.1, -0.04, -0.03), put(-0.1, 0, -0.01), put(-0.1, 0, -0.14)};
-		body[14 + i] = new Polygon3D(v, put(-0.1, 0.1, -0.15), put(-0.1, 0.1, -0.01),  put(-0.1, -0.04, -0.15), Main.textures[12], 1,0.5,6);
+		this.body[14 + i] = new Polygon3D(v, put(-0.1, 0.1, -0.15), put(-0.1, 0.1, -0.01),  put(-0.1, -0.04, -0.15), Main.textures[12], 1,0.5,6);
 		
-		turretCenter = put(0, 0.07, -0);
+		this.turretCenter = put(0, 0.07, -0);
 		
 		//Create shadow for tank body.
-		startPointInWorld.add(-0.015, 0, -0.015);
-		startPointInWorld.y = -1;
+		this.startPointInWorld.add(-0.015, 0, -0.015);
+		this.startPointInWorld.y = -1;
 		v = new Vector[]{put(-0.3, 0, 0.3), put(0.3, 0, 0.3), put(0.3, 0, -0.3), put(-0.3, 0, -0.3)};
-		shadowBody = new Polygon3D(v, v[0], v[1], v[3], Main.textures[14], 1, 1, 2);
+		this.shadowBody = new Polygon3D(v, v[0], v[1], v[3], Main.textures[14], 1, 1, 2);
 		
 		
 	}
 	
 	//Create polygons for the tank turret.
 	private void makeTurret() {
-		startPointInWorld = turretCenter.myClone();
+		this.startPointInWorld = this.turretCenter.myClone();
 		Vector[] v;
 		
-		iDirection = new Vector(1.6,0,0);
-		jDirection = new Vector(0,1.4,0);
-		kDirection = new Vector(0,0,1.4);
+		this.iDirection = new Vector(1.6,0,0);
+		this.jDirection = new Vector(0,1.4,0);
+		this.kDirection = new Vector(0,0,1.4);
 		
 		//Adjust orientation of the turret.
-		iDirection.rotate_XZ(turretAngle);
-		kDirection.rotate_XZ(turretAngle);
+		this.iDirection.rotate_XZ(this.turretAngle);
+		this.kDirection.rotate_XZ(this.turretAngle);
 		
-		turret = new Polygon3D[23];
+		this.turret = new Polygon3D[23];
 		
 		v = new Vector[]{put(0.04, 0.035, 0.06), put(-0.04, 0.035, 0.06), put(-0.04, 0, 0.06), put(0.04, 0, 0.06)};
-		turret[0] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[59], 0.6,0.3,6);
+		this.turret[0] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[59], 0.6,0.3,6);
 		
 		v = new Vector[]{put(0.02, 0.025, 0.18), put(0.026, 0.015, 0.18), put(0.028, 0.015, 0.06), put(0.02, 0.025, 0.06)};
-		turret[1] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[60], 0.1,1,6);
+		this.turret[1] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[60], 0.1,1,6);
 		
 		v = new Vector[]{ put(0.02, 0.025, 0.06), put(-0.008 + 0.02, 0.015, 0.06), put(-0.006 + 0.02, 0.015, 0.18),put(0.02, 0.025, 0.18)};
-		turret[2] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[60], 0.1,1,6);
+		this.turret[2] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[60], 0.1,1,6);
 		
 		v = new Vector[]{put(-0.02, 0.025, 0.18), put(0.006 - 0.02, 0.015, 0.18), put(0.008-0.02, 0.015, 0.06), put(-0.02, 0.025, 0.06)};
-		turret[3] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[60], 0.1,1,6);
+		this.turret[3] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[60], 0.1,1,6);
 		
 		v = new Vector[]{ put(-0.02, 0.025, 0.06), put(-0.028, 0.015, 0.06), put(-0.026, 0.015, 0.18),put(-0.02, 0.025, 0.18)};
-		turret[4] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[60], 0.1,1,6);
+		this.turret[4] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[60], 0.1,1,6);
 		
 		v = new Vector[]{put(-0.04, 0.035, 0.06), put(0.04, 0.035, 0.06), put(0.05, 0.035, 0.04), put(0.05, 0.035, -0.03), put(0.03, 0.035, -0.07),  put(-0.03, 0.035, -0.07),put(-0.05, 0.035, -0.03), put(-0.05, 0.035, 0.04)};
-		turret[5] = new Polygon3D(v, put(-0.04, 0.035, 0.19), put(0.04, 0.035, 0.19), put(-0.04, 0.035, 0.09), Main.textures[59], 0.6,0.6,6);
+		this.turret[5] = new Polygon3D(v, put(-0.04, 0.035, 0.19), put(0.04, 0.035, 0.19), put(-0.04, 0.035, 0.09), Main.textures[59], 0.6,0.6,6);
 		
 		v = new Vector[]{put(0.03, 0, -0.07), put(-0.03, 0, -0.07),  put(-0.03, 0.035, -0.07),   put(0.03, 0.035, -0.07)};
-		turret[6] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[59], 0.4,0.2,6);
+		this.turret[6] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[59], 0.4,0.2,6);
 		
 		v = new Vector[]{put(0.03, 0.035, -0.07), put(0.05, 0.035, -0.03), put(0.05, 0, -0.03), put(0.03, 0, -0.07)};
-		turret[7] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[59], 0.4,0.2,6);
+		this.turret[7] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[59], 0.4,0.2,6);
 		
 		v = new Vector[]{put(-0.03, 0, -0.07), put(-0.05, 0, -0.03), put(-0.05, 0.035, -0.03), put(-0.03, 0.035, -0.07)};
-		turret[8] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[59], 0.4,0.2,6);
+		this.turret[8] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[59], 0.4,0.2,6);
 		
 		v = new Vector[]{put(0.05, 0.035, -0.03), put(0.05, 0.035, 0.04), put(0.05, 0, 0.04), put(0.05, 0, -0.03)};
-		turret[9] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[59], 0.5,0.3,6);
+		this.turret[9] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[59], 0.5,0.3,6);
 		
 		v = new Vector[]{put(-0.05, 0, -0.03), put(-0.05, 0, 0.04), put(-0.05, 0.035, 0.04), put(-0.05, 0.035, -0.03)};
-		turret[10] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[59], 0.5,0.3,6);
+		this.turret[10] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[59], 0.5,0.3,6);
 		
 		v = new Vector[]{put(0.05, 0.035, 0.04), put(0.04, 0.035, 0.06), put(0.04, 0, 0.06), put(0.05, 0, 0.04)};
-		turret[11] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[59], 0.3,0.3,6);
+		this.turret[11] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[59], 0.3,0.3,6);
 		
 		v = new Vector[]{put(-0.05, 0, 0.04), put(-0.04, 0, 0.06), put(-0.04, 0.035, 0.06), put(-0.05, 0.035, 0.04)};
-		turret[12] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[59], 0.3,0.3,6);
+		this.turret[12] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[59], 0.3,0.3,6);
 		
 		v = new Vector[]{put(-0.075, 0.05, 0.02), put(-0.05, 0.05, 0.02), put(-0.05, 0.05, -0.04), put(-0.075, 0.05, -0.04)};
-		turret[13] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[35], 0.5,0.5,6);
+		this.turret[13] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[35], 0.5,0.5,6);
 		
 		v = new Vector[]{put(-0.075, 0.05, 0.02), put(-0.075, 0.05, -0.04), put(-0.075, 0.02, -0.04), put(-0.075, 0.02, 0.02)};
-		turret[14] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[35], 0.5,0.5,6);
+		this.turret[14] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[35], 0.5,0.5,6);
 		
 		v = new Vector[]{put(-0.075, 0.05, -0.04), put(-0.05, 0.05, -0.04), put(-0.05, 0.02, -0.04), put(-0.075, 0.02, -0.04)};
-		turret[15] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[35], 0.5,0.5,6);
+		this.turret[15] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[35], 0.5,0.5,6);
 		
 		v = new Vector[]{put(-0.05, 0.05, -0.04), put(-0.05, 0.05, 0.02), put(-0.05, 0.035, 0.02),put(-0.05, 0.035, -0.04)};
-		turret[16] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[35], 0.5,0.5,6);
+		this.turret[16] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[35], 0.5,0.5,6);
 		
 		int r = 150 / 8;
 		int g = 150 / 8;
@@ -290,30 +290,30 @@ public class Annihilator extends SolidObject{
 		short color = (short)((int)r << 10 | (int)g << 5 | (int)b);
 		
 		v = new Vector[]{put(-0.075, 0.02, 0.02), put(-0.05, 0.02, 0.02), put(-0.05, 0.05, 0.02), put(-0.075, 0.05, 0.02)};
-		turret[17] = new Polygon3D(v, v[0], v[1], v [3],null, 0.5,0.5,7);
-		turret[17].color = color;
+		this.turret[17] = new Polygon3D(v, v[0], v[1], v [3],null, 0.5,0.5,7);
+		this.turret[17].color = color;
 		
 		v = new Vector[]{put(0.075, 0.05, -0.04), put(0.05, 0.05, -0.04), put(0.05, 0.05, 0.02), put(0.075, 0.05, 0.02)};
-		turret[18] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[35], 0.5,0.5,6);
+		this.turret[18] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[35], 0.5,0.5,6);
 		
 		v = new Vector[]{put(0.075, 0.02, 0.02), put(0.075, 0.02, -0.04), put(0.075, 0.05, -0.04), put(0.075, 0.05, 0.02)};
-		turret[19] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[35], 0.5,0.5,6);
+		this.turret[19] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[35], 0.5,0.5,6);
 		
 		v = new Vector[]{put(0.075, 0.02, -0.04), put(0.05, 0.02, -0.04), put(0.05, 0.05, -0.04), put(0.075, 0.05, -0.04)};
-		turret[20] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[35], 0.5,0.5,6);
+		this.turret[20] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[35], 0.5,0.5,6);
 		
 		v = new Vector[]{put(0.05, 0.035, -0.04), put(0.05, 0.035, 0.02), put(0.05, 0.05, 0.02),put(0.05, 0.05, -0.04)};
-		turret[21] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[35], 0.5,0.5,6);
+		this.turret[21] = new Polygon3D(v, v[0], v[1], v [3], Main.textures[35], 0.5,0.5,6);
 			
 		v = new Vector[]{put(0.075, 0.05, 0.02), put(0.05, 0.05, 0.02), put(0.05, 0.02, 0.02), put(0.075, 0.02, 0.02)};
-		turret[22] = new Polygon3D(v, v[0], v[1], v [3],null, 0.5,0.5,7);
-		turret[22].color = color;
+		this.turret[22] = new Polygon3D(v, v[0], v[1], v [3],null, 0.5,0.5,7);
+		this.turret[22].color = color;
 		
 		//Create shadow for tank turret.
-		startPointInWorld.add(-0.03, 0, -0.04);
-		startPointInWorld.y = -1;
+		this.startPointInWorld.add(-0.03, 0, -0.04);
+		this.startPointInWorld.y = -1;
 		v = new Vector[]{put(-0.18, 0, 0.18), put(0.18, 0, 0.18), put(0.18, 0, -0.18), put(-0.18, 0, -0.18)};
-		shadowTurret = new Polygon3D(v, v[0], v[1], v[3], Main.textures[61], 1, 1, 2);
+		this.shadowTurret = new Polygon3D(v, v[0], v[1], v[3], Main.textures[61], 1, 1, 2);
 				
 	}
 	
@@ -321,432 +321,432 @@ public class Annihilator extends SolidObject{
 	public void update() {
 		
 		//Retrieve a random number every 333 game frame.
-		if((Main.timer + randomNumber1 * 3) % 1000 == 0) {
-			if(randomNumber2 > 50){
-				randomNumber2 = 50;
+		if((Main.timer + this.randomNumber1 * 3) % 1000 == 0) {
+			if(this.randomNumber2 > 50){
+				this.randomNumber2 = 50;
 			}else{
-				randomNumber2 = 51;
+				this.randomNumber2 = 51;
 			}
 		}
 		
 		//Process AI.
-		if(countDownToDeath <= 0 && active && !Main.gamePaused) {
+		if(this.countDownToDeath <= 0 && this.active && !Main.gamePaused) {
 			processAI();
 		} 
 		//Perform actions.
-		if(aimLeft) {
-			if(Math.abs(turretAngle - targetAngle) <= 3) {
-				turretAngleDelta = targetAngle - turretAngle;
-				turretAngle += turretAngleDelta;
-				if(turretAngleDelta < 0){
-					turretAngleDelta += 360;
+		if(this.aimLeft) {
+			if(Math.abs(this.turretAngle - this.targetAngle) <= 3) {
+				this.turretAngleDelta = this.targetAngle - this.turretAngle;
+				this.turretAngle += this.turretAngleDelta;
+				if(this.turretAngleDelta < 0){
+					this.turretAngleDelta += 360;
 				}
 			}else {
-				turretAngleDelta = 3;
-				turretAngle += 3;
+				this.turretAngleDelta = 3;
+				this.turretAngle += 3;
 			}
-			if(turretAngle >= 360) {
-				turretAngle -= 360;
+			if(this.turretAngle >= 360) {
+				this.turretAngle -= 360;
 			}
-		}else if(aimRight) {
-			if(Math.abs(turretAngle - targetAngle) <= 3 ) {
-				turretAngleDelta = targetAngle - turretAngle;
-				turretAngle += turretAngleDelta;
-				if(turretAngleDelta < 0) {
-					turretAngleDelta += 360;
+		}else if(this.aimRight) {
+			if(Math.abs(this.turretAngle - this.targetAngle) <= 3 ) {
+				this.turretAngleDelta = this.targetAngle - this.turretAngle;
+				this.turretAngle += this.turretAngleDelta;
+				if(this.turretAngleDelta < 0) {
+					this.turretAngleDelta += 360;
 				}
 			}else {
-				turretAngleDelta = 357;
-				turretAngle -= 3;
+				this.turretAngleDelta = 357;
+				this.turretAngle -= 3;
 			}
-			if(turretAngle < 0) {
-				turretAngle += 360;
+			if(this.turretAngle < 0) {
+				this.turretAngle += 360;
 			}
 		}
 		
-		if(forward) {
+		if(this.forward) {
 			//Move forward.
-			int delta = targetAngleBody - bodyAngle;
+			int delta = this.targetAngleBody - this.bodyAngle;
 			if(Math.abs(delta) < 5 || Math.abs(delta) > 355) {
-				bodyAngle = targetAngleBody;
-				bodyAngleDelta = (delta + 720) % 360;
-				displacement.set(0,0,0.01);
-				displacement.rotate_XZ(bodyAngle);
+				this.bodyAngle = this.targetAngleBody;
+				this.bodyAngleDelta = (delta + 720) % 360;
+				this.displacement.set(0,0,0.01);
+				this.displacement.rotate_XZ(this.bodyAngle);
 			}else {
-				displacement.set(0,0,0);
+				this.displacement.set(0,0,0);
 				if(delta > 0) {
 					if(delta < 180) {
-						bodyAngleDelta = 5;
+						this.bodyAngleDelta = 5;
 					}else {
-						bodyAngleDelta = 355;
+						this.bodyAngleDelta = 355;
 					}
 				}	
 				if(delta < 0) {
 					if(delta > -180) {
-						bodyAngleDelta = 355;
+						this.bodyAngleDelta = 355;
 					}else{
-						bodyAngleDelta = 5;
+						this.bodyAngleDelta = 5;
 					}
 				}
 				
-				bodyAngle = (bodyAngle+bodyAngleDelta) % 360;
+				this.bodyAngle = (this.bodyAngle+this.bodyAngleDelta) % 360;
 			}
 		}
 		
 		
 		//Update centre.
-		centreModel.add(displacement);
+		this.centreModel.add(this.displacement);
 		
 		//Update bundary2D.
-		boundaryModel2D.update(displacement);
+		this.boundaryModel2D.update(this.displacement);
 		
 		/**
 		 * Update location in the 2d tile map
 		 * Validating movement is already done in  process AI part.
 		 */
-		int newPosition = (int)(boundaryModel2D.xPos * 4) + (129 - (int)(boundaryModel2D.yPos * 4)) * 80;
+		int newPosition = (int)(this.boundaryModel2D.xPos * 4) + (129 - (int)(this.boundaryModel2D.yPos * 4)) * 80;
 		
 		if(!ObstacleMap.isOccupied(newPosition)) {
 			
-			ObstacleMap.removeObstacle2(position);
+			ObstacleMap.removeObstacle2(this.position);
 			ObstacleMap.registerObstacle2(this, newPosition);
-			position = newPosition;
-			desiredPosition = newPosition;
+			this.position = newPosition;
+			this.desiredPosition = newPosition;
 			
-		}else if(!ObstacleMap.isOccupied(desiredPosition)) {
+		}else if(!ObstacleMap.isOccupied(this.desiredPosition)) {
 			
-			ObstacleMap.removeObstacle2(position);
-			ObstacleMap.registerObstacle2(this, desiredPosition);
-			position = desiredPosition;
+			ObstacleMap.removeObstacle2(this.position);
+			ObstacleMap.registerObstacle2(this, this.desiredPosition);
+			this.position = this.desiredPosition;
 			
 		}else {
-			desiredPosition = newPosition;
+			this.desiredPosition = newPosition;
 		}
 		
 		//Find centre in camera coordinate.
-		cantreModelInCamera.set(centreModel);
-		cantreModelInCamera.y = -1;
-		cantreModelInCamera.subtract(Camera.cameraPosition);
-		cantreModelInCamera.rotate_XZ(Camera.XZ_angle);
-		cantreModelInCamera.rotate_YZ(Camera.YZ_angle);
-		cantreModelInCamera.updateLocation();
+		this.cantreModelInCamera.set(this.centreModel);
+		this.cantreModelInCamera.y = -1;
+		this.cantreModelInCamera.subtract(Camera.cameraPosition);
+		this.cantreModelInCamera.rotate_XZ(Camera.XZ_angle);
+		this.cantreModelInCamera.rotate_YZ(Camera.YZ_angle);
+		this.cantreModelInCamera.updateLocation();
 		
 		//Test whether the model is visible by comparing the 2D position of its centre point with the screen.
-		isVisible = true;
+		this.isVisible = true;
 		
-		if(cantreModelInCamera.z < 0.9 || cantreModelInCamera.screenY < -10 || cantreModelInCamera.screenX < -400 || cantreModelInCamera.screenX > 800) {
-			isVisible = false;
-			isVisiblePreviousFrame = false;
+		if(this.cantreModelInCamera.z < 0.9 || this.cantreModelInCamera.screenY < -10 || this.cantreModelInCamera.screenX < -400 || this.cantreModelInCamera.screenX > 800) {
+			this.isVisible = false;
+			this.isVisiblePreviousFrame = false;
 		}
 		
 		//If tank is not visible in the previous frame, its need to be reconstructed.
-		if(isVisible) {
-			if(isVisiblePreviousFrame == false) {
+		if(this.isVisible) {
+			if(this.isVisiblePreviousFrame == false) {
 				//Recreate body and turret polygons.
 				makeBody();
 				makeTurret();
-				isVisiblePreviousFrame = true;
+				this.isVisiblePreviousFrame = true;
 			}
 		}
 		
 		//If visible then update the geometry to camera coordinate.
-		if(isVisible) {
+		if(this.isVisible) {
 			ModelDrawList.register(this);
 			
-			if(countDownToDeath < 3) {
+			if(this.countDownToDeath < 3) {
 			
 				//Update body polygons.
-				for(int i = 0; i < body.length; i++) {
+				for(int i = 0; i < this.body.length; i++) {
 					
 					//Perform vertex updates in world coordinate.
-					body[i].origin.add(displacement);
-					body[i].origin.subtract(centreModel);
-					body[i].origin.rotate_XZ(bodyAngleDelta);
-					body[i].origin.add(centreModel);
+					this.body[i].origin.add(this.displacement);
+					this.body[i].origin.subtract(this.centreModel);
+					this.body[i].origin.rotate_XZ(this.bodyAngleDelta);
+					this.body[i].origin.add(this.centreModel);
 					
-					body[i].bottomEnd.add(displacement);
-					body[i].bottomEnd.subtract(centreModel);
-					body[i].bottomEnd.rotate_XZ(bodyAngleDelta);
-					body[i].bottomEnd.add(centreModel);
+					this.body[i].bottomEnd.add(this.displacement);
+					this.body[i].bottomEnd.subtract(this.centreModel);
+					this.body[i].bottomEnd.rotate_XZ(this.bodyAngleDelta);
+					this.body[i].bottomEnd.add(this.centreModel);
 					
-					body[i].rightEnd.add(displacement);
-					body[i].rightEnd.subtract(centreModel);
-					body[i].rightEnd.rotate_XZ(bodyAngleDelta);
-					body[i].rightEnd.add(centreModel);
+					this.body[i].rightEnd.add(this.displacement);
+					this.body[i].rightEnd.subtract(this.centreModel);
+					this.body[i].rightEnd.rotate_XZ(this.bodyAngleDelta);
+					this.body[i].rightEnd.add(this.centreModel);
 					
-					for(int j = 0; j < body[i].vertex3D.length; j++){
-						body[i].vertex3D[j].add(displacement);
-						body[i].vertex3D[j].subtract(centreModel);
-						body[i].vertex3D[j].rotate_XZ(bodyAngleDelta);
-						body[i].vertex3D[j].add(centreModel);
+					for(int j = 0; j < this.body[i].vertex3D.length; j++){
+						this.body[i].vertex3D[j].add(this.displacement);
+						this.body[i].vertex3D[j].subtract(this.centreModel);
+						this.body[i].vertex3D[j].rotate_XZ(this.bodyAngleDelta);
+						this.body[i].vertex3D[j].add(this.centreModel);
 					}
 					
-					body[i].findRealNormal();
-					body[i].findDiffuse();
+					this.body[i].findRealNormal();
+					this.body[i].findDiffuse();
 					
 					//Transform the polygon into camera coordinate.
-					body[i].update();
+					this.body[i].update();
 				}
 				
 				//Update shadow for tank body.
-				tempVector1.set(centreModel);
-				tempVector1.add(-0.03, 0, -0.04);
-				shadowBody.origin.add(displacement);
-				shadowBody.origin.subtract(tempVector1);
-				shadowBody.origin.rotate_XZ(bodyAngleDelta);
-				shadowBody.origin.add(tempVector1);
+				this.tempVector1.set(this.centreModel);
+				this.tempVector1.add(-0.03, 0, -0.04);
+				this.shadowBody.origin.add(this.displacement);
+				this.shadowBody.origin.subtract(this.tempVector1);
+				this.shadowBody.origin.rotate_XZ(this.bodyAngleDelta);
+				this.shadowBody.origin.add(this.tempVector1);
 				
-				shadowBody.bottomEnd.add(displacement);
-				shadowBody.bottomEnd.subtract(tempVector1);
-				shadowBody.bottomEnd.rotate_XZ(bodyAngleDelta);
-				shadowBody.bottomEnd.add(tempVector1);
+				this.shadowBody.bottomEnd.add(this.displacement);
+				this.shadowBody.bottomEnd.subtract(this.tempVector1);
+				this.shadowBody.bottomEnd.rotate_XZ(this.bodyAngleDelta);
+				this.shadowBody.bottomEnd.add(this.tempVector1);
 				
-				shadowBody.rightEnd.add(displacement);
-				shadowBody.rightEnd.subtract(tempVector1);
-				shadowBody.rightEnd.rotate_XZ(bodyAngleDelta);
-				shadowBody.rightEnd.add(tempVector1);
+				this.shadowBody.rightEnd.add(this.displacement);
+				this.shadowBody.rightEnd.subtract(this.tempVector1);
+				this.shadowBody.rightEnd.rotate_XZ(this.bodyAngleDelta);
+				this.shadowBody.rightEnd.add(this.tempVector1);
 				
-				for(int j = 0; j < shadowBody.vertex3D.length; j++) {
-					shadowBody.vertex3D[j].add(displacement);
-					shadowBody.vertex3D[j].subtract(tempVector1);
-					shadowBody.vertex3D[j].rotate_XZ(bodyAngleDelta);
-					shadowBody.vertex3D[j].add(tempVector1);
+				for(int j = 0; j < this.shadowBody.vertex3D.length; j++) {
+					this.shadowBody.vertex3D[j].add(this.displacement);
+					this.shadowBody.vertex3D[j].subtract(this.tempVector1);
+					this.shadowBody.vertex3D[j].rotate_XZ(this.bodyAngleDelta);
+					this.shadowBody.vertex3D[j].add(this.tempVector1);
 				}
 				
-				shadowBody.update();
-				Rasterizer.rasterize(shadowBody);
+				this.shadowBody.update();
+				Rasterizer.rasterize(this.shadowBody);
 			
 				//Update turret center.
-				turretCenter.add(displacement);
+				this.turretCenter.add(this.displacement);
 				
 				//Update turret polygons.
-				for(int i = 0; i < turret.length; i++) {
+				for(int i = 0; i < this.turret.length; i++) {
 					
 					//perform vertex updates in world coordinate
-					turret[i].origin.add(displacement);
-					turret[i].origin.subtract(turretCenter);
-					turret[i].origin.rotate_XZ(turretAngleDelta);
-					turret[i].origin.add(turretCenter);
+					this.turret[i].origin.add(this.displacement);
+					this.turret[i].origin.subtract(this.turretCenter);
+					this.turret[i].origin.rotate_XZ(this.turretAngleDelta);
+					this.turret[i].origin.add(this.turretCenter);
 					
-					turret[i].bottomEnd.add(displacement);
-					turret[i].bottomEnd.subtract(turretCenter);
-					turret[i].bottomEnd.rotate_XZ(turretAngleDelta);
-					turret[i].bottomEnd.add(turretCenter);
+					this.turret[i].bottomEnd.add(this.displacement);
+					this.turret[i].bottomEnd.subtract(this.turretCenter);
+					this.turret[i].bottomEnd.rotate_XZ(this.turretAngleDelta);
+					this.turret[i].bottomEnd.add(this.turretCenter);
 					
-					turret[i].rightEnd.add(displacement);
-					turret[i].rightEnd.subtract(turretCenter);
-					turret[i].rightEnd.rotate_XZ(turretAngleDelta);
-					turret[i].rightEnd.add(turretCenter);
+					this.turret[i].rightEnd.add(this.displacement);
+					this.turret[i].rightEnd.subtract(this.turretCenter);
+					this.turret[i].rightEnd.rotate_XZ(this.turretAngleDelta);
+					this.turret[i].rightEnd.add(this.turretCenter);
 					
-					for(int j = 0; j < turret[i].vertex3D.length; j++) {
-						turret[i].vertex3D[j].add(displacement);
-						turret[i].vertex3D[j].subtract(turretCenter);
-						turret[i].vertex3D[j].rotate_XZ(turretAngleDelta);
-						turret[i].vertex3D[j].add(turretCenter);
+					for(int j = 0; j < this.turret[i].vertex3D.length; j++) {
+						this.turret[i].vertex3D[j].add(this.displacement);
+						this.turret[i].vertex3D[j].subtract(this.turretCenter);
+						this.turret[i].vertex3D[j].rotate_XZ(this.turretAngleDelta);
+						this.turret[i].vertex3D[j].add(this.turretCenter);
 					}
 					
-					turret[i].findRealNormal();
-					turret[i].findDiffuse();
+					this.turret[i].findRealNormal();
+					this.turret[i].findDiffuse();
 					
 					//Transform the polygon into camera coordinate.
-					turret[i].update();
+					this.turret[i].update();
 				}
 				
 				//Update shadow for tank turret.
-				tempVector1.set(turretCenter);
-				tempVector1.add(-0.03, 0, -0.04);
+				this.tempVector1.set(this.turretCenter);
+				this.tempVector1.add(-0.03, 0, -0.04);
 				
-				shadowTurret.origin.add(displacement);
-				shadowTurret.origin.subtract(tempVector1);
-				shadowTurret.origin.rotate_XZ(turretAngleDelta);
-				shadowTurret.origin.add(tempVector1);
+				this.shadowTurret.origin.add(this.displacement);
+				this.shadowTurret.origin.subtract(this.tempVector1);
+				this.shadowTurret.origin.rotate_XZ(this.turretAngleDelta);
+				this.shadowTurret.origin.add(this.tempVector1);
 				
-				shadowTurret.bottomEnd.add(displacement);
-				shadowTurret.bottomEnd.subtract(tempVector1);
-				shadowTurret.bottomEnd.rotate_XZ(turretAngleDelta);
-				shadowTurret.bottomEnd.add(tempVector1);
+				this.shadowTurret.bottomEnd.add(this.displacement);
+				this.shadowTurret.bottomEnd.subtract(this.tempVector1);
+				this.shadowTurret.bottomEnd.rotate_XZ(this.turretAngleDelta);
+				this.shadowTurret.bottomEnd.add(this.tempVector1);
 				
-				shadowTurret.rightEnd.add(displacement);
-				shadowTurret.rightEnd.subtract(tempVector1);
-				shadowTurret.rightEnd.rotate_XZ(turretAngleDelta);
-				shadowTurret.rightEnd.add(tempVector1);
+				this.shadowTurret.rightEnd.add(this.displacement);
+				this.shadowTurret.rightEnd.subtract(this.tempVector1);
+				this.shadowTurret.rightEnd.rotate_XZ(this.turretAngleDelta);
+				this.shadowTurret.rightEnd.add(this.tempVector1);
 				
-				for(int j = 0; j < shadowTurret.vertex3D.length; j++) {
-					shadowTurret.vertex3D[j].add(displacement);
-					shadowTurret.vertex3D[j].subtract(tempVector1);
-					shadowTurret.vertex3D[j].rotate_XZ(turretAngleDelta);
-					shadowTurret.vertex3D[j].add(tempVector1);
+				for(int j = 0; j < this.shadowTurret.vertex3D.length; j++) {
+					this.shadowTurret.vertex3D[j].add(this.displacement);
+					this.shadowTurret.vertex3D[j].subtract(this.tempVector1);
+					this.shadowTurret.vertex3D[j].rotate_XZ(this.turretAngleDelta);
+					this.shadowTurret.vertex3D[j].add(this.tempVector1);
 				}
-				shadowTurret.update();
-				Rasterizer.rasterize(shadowTurret);
+				this.shadowTurret.update();
+				Rasterizer.rasterize(this.shadowTurret);
 			}
 		}
 		
 		//Handle attack event.
-		if(coolDownShell > 0 && coolDownShell != 92 && !Main.gamePaused) {
-			coolDownShell--;
+		if(this.coolDownShell > 0 && this.coolDownShell != 92 && !Main.gamePaused) {
+			this.coolDownShell--;
 		}
-		if(coolDownRocket > 0 && coolDownRocket != 90 && !Main.gamePaused) {
-			coolDownRocket--;
+		if(this.coolDownRocket > 0 && this.coolDownRocket != 90 && !Main.gamePaused) {
+			this.coolDownRocket--;
 		}
-		if(firingShell) {
-			if(coolDownShell == 0) {
-				coolDownShell = 100;
+		if(this.firingShell) {
+			if(this.coolDownShell == 0) {
+				this.coolDownShell = 100;
 				//Calculate laser direction.
 				Vector tempVector1 = new Vector(0,0,1);
-				tempVector1.rotate_XZ((turretAngle + 270) % 360);
+				tempVector1.rotate_XZ((this.turretAngle + 270) % 360);
 				tempVector1.scale(0.035);
 				Vector direction = new Vector(0,0,1);
-				direction.rotate_XZ(turretAngle);
+				direction.rotate_XZ(this.turretAngle);
 				direction.scale(0.1);
-				direction.add(turretCenter);
+				direction.add(this.turretCenter);
 				direction.add(tempVector1);
-				Projectiles.register(new Shell(direction.x, direction.y,direction.z, turretAngle, true, 1));
+				Projectiles.register(new Shell(direction.x, direction.y,direction.z, this.turretAngle, true, 1));
 				
 			}
 			
-			if(coolDownShell == 92) {
-				coolDownShell = 25;
+			if(this.coolDownShell == 92) {
+				this.coolDownShell = 25;
 				//Calculate shell direction.
 				Vector tempVector1 = new Vector(0,0,1);
-				tempVector1.rotate_XZ((turretAngle + 270) % 360);
+				tempVector1.rotate_XZ((this.turretAngle + 270) % 360);
 				tempVector1.scale(-0.035);
 				Vector direction = new Vector(0,0,1);
-				direction.rotate_XZ(turretAngle);
+				direction.rotate_XZ(this.turretAngle);
 				direction.scale(0.1);
-				direction.add(turretCenter);
+				direction.add(this.turretCenter);
 				direction.add(tempVector1);
-				Projectiles.register(new Shell(direction.x, direction.y,direction.z, turretAngle, true, 1));
+				Projectiles.register(new Shell(direction.x, direction.y,direction.z, this.turretAngle, true, 1));
 			}
 		}
 		
-		if(firingRocket) {
+		if(this.firingRocket) {
 			
-			if(coolDownRocket == 0) {
-				coolDownRocket = 100;
+			if(this.coolDownRocket == 0) {
+				this.coolDownRocket = 100;
 				//calculate laser direction
 				Vector tempVector1 = new Vector(0,0,1);
-				tempVector1.rotate_XZ((turretAngle + 270) % 360);
+				tempVector1.rotate_XZ((this.turretAngle + 270) % 360);
 				tempVector1.scale(0.095);
 				Vector direction = new Vector(0,0,1);
-				direction.rotate_XZ(turretAngle);
+				direction.rotate_XZ(this.turretAngle);
 				direction.scale(0.05);
-				direction.add(turretCenter);
+				direction.add(this.turretCenter);
 				direction.add(tempVector1);
 				
-				Rocket r = new Rocket(direction.x, direction.y,direction.z, turretAngle ,true);
+				Rocket r = new Rocket(direction.x, direction.y,direction.z, this.turretAngle ,true);
 				Projectiles.register(r);
 			}
 			
-			if(coolDownRocket == 90) {
-				coolDownRocket = 45;
+			if(this.coolDownRocket == 90) {
+				this.coolDownRocket = 45;
 				//Calculate shell direction.
 				Vector tempVector1 = new Vector(0,0,1);
-				tempVector1.rotate_XZ((turretAngle + 270) % 360);
+				tempVector1.rotate_XZ((this.turretAngle + 270) % 360);
 				tempVector1.scale(-0.095);
 				Vector direction = new Vector(0,0,1);
-				direction.rotate_XZ(turretAngle);
+				direction.rotate_XZ(this.turretAngle);
 				direction.scale(0.05);
-				direction.add(turretCenter);
+				direction.add(this.turretCenter);
 				direction.add(tempVector1);
-				Rocket r = new Rocket(direction.x, direction.y,direction.z, turretAngle ,true);
+				Rocket r = new Rocket(direction.x, direction.y,direction.z, this.turretAngle ,true);
 				Projectiles.register(r);
 			}
 		}
 		
-		if(HP <= 200) {
-			if(Smoke == null) {
-				Smoke = new Smoke(this);
+		if(this.HP <= 200) {
+			if(this.Smoke == null) {
+				this.Smoke = new Smoke(this);
 			}else {
-				if(isVisible)
-					Smoke.update();
+				if(this.isVisible)
+					this.Smoke.update();
 			}
 		}
 		
-		if(HP <= 0) {
-			countDownToDeath++;
-			if(countDownToDeath >= 3) {
-				if(countDownToDeath == 3) {
-					Projectiles.register(new Explosion(centreModel.x, centreModel.y, centreModel.z, 2));
+		if(this.HP <= 0) {
+			this.countDownToDeath++;
+			if(this.countDownToDeath >= 3) {
+				if(this.countDownToDeath == 3) {
+					Projectiles.register(new Explosion(this.centreModel.x, this.centreModel.y, this.centreModel.z, 2));
 				
 				}
-				ObstacleMap.removeObstacle2(position);
-				Smoke.stopped = true;
+				ObstacleMap.removeObstacle2(this.position);
+				this.Smoke.stopped = true;
 			}
-			if(countDownToDeath >= 40){
-				lifeSpanObject = 0;
+			if(this.countDownToDeath >= 40){
+				this.lifeSpanObject = 0;
 			}
 		}
 	
 		//Reset action flag.
-		forward = false;
-		aimRight = false;
-		aimLeft = false;
-		bodyAngleDelta = 0;
-		turretAngleDelta = 0;	
-		displacement.reset();
-		firingRocket = false;
-		firingShell = false;
+		this.forward = false;
+		this.aimRight = false;
+		this.aimLeft = false;
+		this.bodyAngleDelta = 0;
+		this.turretAngleDelta = 0;	
+		this.displacement.reset();
+		this.firingRocket = false;
+		this.firingShell = false;
 		if(Main.timer % 10 == 0)
-			isBlockingOtherModel = false;
+			this.isBlockingOtherModel = false;
 	
 	}
 	
 	//Process AI.
 	private void processAI() {
 		//Calculate distance from player's tank.
-		tempVector1.set(centreModel);
-		tempVector1.subtract(PlayerTank.bodyCenter);
-		distance = tempVector1.getLength();
+		this.tempVector1.set(this.centreModel);
+		this.tempVector1.subtract(PlayerTank.bodyCenter);
+		this.distance = this.tempVector1.getLength();
 		
 		//Medium tank become aware of player's tank when the distance is less than 2.
-		if(distance < 2){
-			engaged = true;
+		if(this.distance < 2){
+			this.engaged = true;
 		}
 		//Medium tank will stop chasing the player when the distance is greater than 4.
-		if(distance > 6){
-			engaged = false;
+		if(this.distance > 6){
+			this.engaged = false;
 			
 			//Rotate the turret to the same angle as the body.
-			targetAngle = bodyAngle;
-			int AngleDelta = turretAngle - targetAngle;
+			this.targetAngle = this.bodyAngle;
+			int AngleDelta = this.turretAngle - this.targetAngle;
 			if(AngleDelta > 0){
 				if(AngleDelta < 180)
-					aimRight = true;
+					this.aimRight = true;
 				else
-					aimLeft = true;
+					this.aimLeft = true;
 			}
 			else if(AngleDelta < 0){
 				if(AngleDelta > -180)
-					aimLeft = true;
+					this.aimLeft = true;
 				else 
-					aimRight = true;
+					this.aimRight = true;
 			}
 			return;
 		}
 		
-		if(engaged) {
+		if(this.engaged) {
 			//If medium tank is engaged with player, it will send alert to nearby tanks.
 			if((Main.timer) % 5 == 0 )
-				ObstacleMap.alertNearbyTanks(position);
+				ObstacleMap.alertNearbyTanks(this.position);
 			
 			/**
 			 * Test whether there is a type obstacle 2 between medium tank and player tank
 			 * Firing a vision ray from medium tank toward player tank.
 			 */
-			tempVector1.set(bodyCenter);
-			tempVector2.set(PlayerTank.bodyCenter);
-			tempVector2.subtract(tempVector1);
-			tempVector2.unit();
-			tempVector2.scale(0.125);
+			this.tempVector1.set(this.bodyCenter);
+			this.tempVector2.set(PlayerTank.bodyCenter);
+			this.tempVector2.subtract(this.tempVector1);
+			this.tempVector2.unit();
+			this.tempVector2.scale(0.125);
 			
 			
 			
-			clearToShoot = true;
+			this.clearToShoot = true;
 			int obstacleType = -1; 
 			double d = 0;
-			for(int i = 0; (d < distance) && (i < 30); i++, tempVector1.add(tempVector2), d += 0.125) {
-				Model temp = ObstacleMap.isOccupied2(tempVector1);
+			for(int i = 0; (d < this.distance) && (i < 30); i++, this.tempVector1.add(this.tempVector2), d += 0.125) {
+				Model temp = ObstacleMap.isOccupied2(this.tempVector1);
 				if(temp == null){
 					continue;
 				}
@@ -754,7 +754,7 @@ public class Annihilator extends SolidObject{
 				if(obstacleType == 1) {
 					break;
 				}else {
-					clearToShoot = false;
+					this.clearToShoot = false;
 					break;
 				}
 				
@@ -763,25 +763,25 @@ public class Annihilator extends SolidObject{
 			
 			
 			//Find the angle between target and itself.
-			if(clearToShoot) {
-				targetAngle = 90 + (int)(180 * Math.atan((centreModel.z - PlayerTank.bodyCenter.z) / (centreModel.x - PlayerTank.bodyCenter.x)) / Math.PI);
-				if(PlayerTank.bodyCenter.x > turretCenter.x  && targetAngle <= 180) {
-					targetAngle += 180;
+			if(this.clearToShoot) {
+				this.targetAngle = 90 + (int)(180 * Math.atan((this.centreModel.z - PlayerTank.bodyCenter.z) / (this.centreModel.x - PlayerTank.bodyCenter.x)) / Math.PI);
+				if(PlayerTank.bodyCenter.x > this.turretCenter.x  && this.targetAngle <= 180) {
+					this.targetAngle += 180;
 				}
 
 			}else {
-				targetAngle = bodyAngle;
+				this.targetAngle = this.bodyAngle;
 				
 			}
 			
 			//Cauculate the difference between those 2 angles.
-			int AngleDelta = turretAngle - targetAngle;
-			if(Math.abs(AngleDelta) < 3 && clearToShoot && distance < 1.7) {
-				firingShell = true;
+			int AngleDelta = this.turretAngle - this.targetAngle;
+			if(Math.abs(AngleDelta) < 3 && this.clearToShoot && this.distance < 1.7) {
+				this.firingShell = true;
 			}
 			
-			if(Math.abs(AngleDelta) < 3 && clearToShoot && distance < 3) {
-				firingRocket = true;
+			if(Math.abs(AngleDelta) < 3 && this.clearToShoot && this.distance < 3) {
+				this.firingRocket = true;
 			}
 			
 		
@@ -790,16 +790,16 @@ public class Annihilator extends SolidObject{
 			//Aim at a target angle.
 			if(AngleDelta > 0) {
 				if(AngleDelta < 180) {
-					aimRight = true;
+					this.aimRight = true;
 				}else {
-					aimLeft = true;
+					this.aimLeft = true;
 				}
 			}
 			else if(AngleDelta < 0) {
 				if(AngleDelta > -180) {
-					aimLeft = true;
+					this.aimLeft = true;
 				}else { 
-					aimRight = true;
+					this.aimRight = true;
 				}
 			}
 			
@@ -809,28 +809,28 @@ public class Annihilator extends SolidObject{
 			 * A type 2 obstacle between itself and the player's tank.
 			 */
 			
-			forward = true;
-			if(clearToShoot && distance < 1.5) {
-				if(distance < 1.4) {
-					forward = false;
+			this.forward = true;
+			if(this.clearToShoot && this.distance < 1.5) {
+				if(this.distance < 1.4) {
+					this.forward = false;
 				}
-				if(distance >= 1.4) {
-					if(randomNumber2 > 50) {
-						forward = false;
+				if(this.distance >= 1.4) {
+					if(this.randomNumber2 > 50) {
+						this.forward = false;
 					}
 				}
 			}
 			
-			if(isBlockingOtherModel && distance > 0.8) {
-				forward = true;
-				ObstacleMap.giveWay(this, position);
+			if(this.isBlockingOtherModel && this.distance > 0.8) {
+				this.forward = true;
+				ObstacleMap.giveWay(this, this.position);
 				
 			}
 			
-			if(forward) {
-				targetAngleBody = 90 + (int)(180 * Math.atan((centreModel.z - PlayerTank.bodyCenter.z) / (centreModel.x - PlayerTank.bodyCenter.x)) / Math.PI);
-				if(PlayerTank.bodyCenter.x > centreModel.x  && targetAngleBody <= 180) {
-					targetAngleBody += 180;
+			if(this.forward) {
+				this.targetAngleBody = 90 + (int)(180 * Math.atan((this.centreModel.z - PlayerTank.bodyCenter.z) / (this.centreModel.x - PlayerTank.bodyCenter.x)) / Math.PI);
+				if(PlayerTank.bodyCenter.x > this.centreModel.x  && this.targetAngleBody <= 180) {
+					this.targetAngleBody += 180;
 				}
 				
 				/**
@@ -840,57 +840,57 @@ public class Annihilator extends SolidObject{
 				 * 3. blocked by a wall and the target is within 3 units away.
 				 */
 				
-				if(!clearToShoot && (distance < 1.2 || (obstacleType == 6 && distance < 2.5)) || stuckCount == 10){
-					if(stuckCount == 10) {
-						if(randomNumber2 > 50)
-							randomNumber2 = 50;
+				if(!this.clearToShoot && (this.distance < 1.2 || (obstacleType == 6 && this.distance < 2.5)) || this.stuckCount == 10){
+					if(this.stuckCount == 10) {
+						if(this.randomNumber2 > 50)
+							this.randomNumber2 = 50;
 						else
-							randomNumber2 = 51;
-						stuckCount = 0;
+							this.randomNumber2 = 51;
+						this.stuckCount = 0;
 					}
 						
-					if(randomNumber2 > 50)
-						targetAngleBody += 90;
+					if(this.randomNumber2 > 50)
+						this.targetAngleBody += 90;
 					else
-						targetAngleBody -= 90;
+						this.targetAngleBody -= 90;
 					
 					
-					targetAngleBody = (targetAngleBody + 360) % 360;
+					this.targetAngleBody = (this.targetAngleBody + 360) % 360;
 				}
 				
 				
-				int newPosition = (int)(boundaryModel2D.xPos*4) + (129 - (int)(boundaryModel2D.yPos * 4)) * 80;
+				int newPosition = (int)(this.boundaryModel2D.xPos*4) + (129 - (int)(this.boundaryModel2D.yPos * 4)) * 80;
 				
 					
 				//Check whether the next move will embed into obstacles.
-				displacement.set(0,0,0.01);
-				displacement.rotate_XZ(targetAngleBody);
-				boundaryModel2D.update(displacement);
+				this.displacement.set(0,0,0.01);
+				this.displacement.rotate_XZ(this.targetAngleBody);
+				this.boundaryModel2D.update(this.displacement);
 				
 				boolean canMove = true;
 				//Test againt type 1 & 2 obstacles.
 				if(ObstacleMap.collideWithObstacle1(this, newPosition)){
-					forward = false;
+					this.forward = false;
 					canMove = false;
 				}else if(ObstacleMap.collideWithObstacle2(this, newPosition)){
-					forward = false;
+					this.forward = false;
 					canMove = false;
 				}
-				displacement.scale(-1);
-				boundaryModel2D.update(displacement);
-				displacement.reset();
+				this.displacement.scale(-1);
+				this.boundaryModel2D.update(this.displacement);
+				this.displacement.reset();
 				
 				
 				if(!canMove){
-					if(isBlockingOtherModel){
-						ObstacleMap.giveWay(this ,position);
+					if(this.isBlockingOtherModel){
+						ObstacleMap.giveWay(this ,this.position);
 					}
 					
 					
 					//Change direction if unable to move with current direction.
-					targetAngleBody = targetAngle;
+					this.targetAngleBody = this.targetAngle;
 					//Generate 2 new directions.
-					int angle1 = targetAngleBody - targetAngleBody%90;
+					int angle1 = this.targetAngleBody - this.targetAngleBody%90;
 					int angle2 = angle1 + 90;
 					
 					
@@ -904,34 +904,34 @@ public class Annihilator extends SolidObject{
 				
 					
 					//Check if tank is able to move freely at angle 1.
-					displacement.set(0,0,0.01);
-					displacement.rotate_XZ(angle1);
-					boundaryModel2D.update(displacement);
-					newPosition = (int)(boundaryModel2D.xPos * 4) + (129 - (int)(boundaryModel2D.yPos * 4)) * 80;
+					this.displacement.set(0,0,0.01);
+					this.displacement.rotate_XZ(angle1);
+					this.boundaryModel2D.update(this.displacement);
+					newPosition = (int)(this.boundaryModel2D.xPos * 4) + (129 - (int)(this.boundaryModel2D.yPos * 4)) * 80;
 					//Test againt type 1 & 2 obstacles.
 					if(ObstacleMap.collideWithObstacle1(this, newPosition)){
 						canMoveAngle1 = false;
 					}else if(ObstacleMap.collideWithObstacle2(this, newPosition)){
 						canMoveAngle1 = false;
 					}
-					displacement.scale(-1);
-					boundaryModel2D.update(displacement);
-					displacement.reset();
+					this.displacement.scale(-1);
+					this.boundaryModel2D.update(this.displacement);
+					this.displacement.reset();
 					
 					//Check if tank is able to move freely at angle 2.
-					displacement.set(0,0,0.01);
-					displacement.rotate_XZ(angle2);
-					boundaryModel2D.update(displacement);
-					newPosition = (int)(boundaryModel2D.xPos * 4) + (129 - (int)(boundaryModel2D.yPos * 4)) * 80;
+					this.displacement.set(0,0,0.01);
+					this.displacement.rotate_XZ(angle2);
+					this.boundaryModel2D.update(this.displacement);
+					newPosition = (int)(this.boundaryModel2D.xPos * 4) + (129 - (int)(this.boundaryModel2D.yPos * 4)) * 80;
 					//Test againt type 1 & 2 obstacles.
 					if(ObstacleMap.collideWithObstacle1(this, newPosition)){
 						canMoveAngle2 = false;
 					}else if(ObstacleMap.collideWithObstacle2(this, newPosition)){
 						canMoveAngle2 = false;
 					}
-					displacement.scale(-1);
-					boundaryModel2D.update(displacement);
-					displacement.reset();
+					this.displacement.scale(-1);
+					this.boundaryModel2D.update(this.displacement);
+					this.displacement.reset();
 					
 				
 					
@@ -942,103 +942,103 @@ public class Annihilator extends SolidObject{
 					 */
 					
 					if(canMoveAngle1 && !canMoveAngle2){
-						targetAngleBody = angle1;
-						forward = true;
+						this.targetAngleBody = angle1;
+						this.forward = true;
 						
-						ObstacleMap.giveWay(this, position);
+						ObstacleMap.giveWay(this, this.position);
 					}else if(!canMoveAngle1 && canMoveAngle2){
-						targetAngleBody = angle2;
-						forward = true;
+						this.targetAngleBody = angle2;
+						this.forward = true;
 						
-						ObstacleMap.giveWay(this, position);
+						ObstacleMap.giveWay(this, this.position);
 					}else if(canMoveAngle1 && canMoveAngle2){
-						if(Math.abs(angle1 - targetAngleBody) < Math.abs(angle2 - targetAngleBody)){
-							targetAngleBody = angle1;
+						if(Math.abs(angle1 - this.targetAngleBody) < Math.abs(angle2 - this.targetAngleBody)){
+							this.targetAngleBody = angle1;
 							
 						}else{
-							targetAngleBody = angle2;
+							this.targetAngleBody = angle2;
 							
 						}		
-						forward = true;
+						this.forward = true;
 						
 						
 						
 					}else{
 						
 						//Tank get stucked.
-						stuckCount = 10;
+						this.stuckCount = 10;
 						
 					
 						
 						//Tell surrounding units to move away.
-						ObstacleMap.giveWay(this, position);
+						ObstacleMap.giveWay(this, this.position);
 						
 						
 						
 					}
 					
-					if(Math.abs((previousTargetAngleBody + 180) % 360 - targetAngleBody) <= 50){
-						targetAngleBody = previousTargetAngleBody;
+					if(Math.abs((this.previousTargetAngleBody + 180) % 360 - this.targetAngleBody) <= 50){
+						this.targetAngleBody = this.previousTargetAngleBody;
 					}
 					
 					
 				}
 				//Double check whether the move is valid.
-				displacement.set(0,0,0.01);
-				displacement.rotate_XZ(targetAngleBody);
-				boundaryModel2D.update(displacement);
-				newPosition = (int)(boundaryModel2D.xPos * 4) + (129 - (int)(boundaryModel2D.yPos * 4)) * 80;
+				this.displacement.set(0,0,0.01);
+				this.displacement.rotate_XZ(this.targetAngleBody);
+				this.boundaryModel2D.update(this.displacement);
+				newPosition = (int)(this.boundaryModel2D.xPos * 4) + (129 - (int)(this.boundaryModel2D.yPos * 4)) * 80;
 				
 				//Test againt type 1 & 2 obstacles.
 				if(ObstacleMap.collideWithObstacle1(this, newPosition)){
-					forward = false;
+					this.forward = false;
 					
 				}else if(ObstacleMap.collideWithObstacle2(this, newPosition)){
-					forward = false;
+					this.forward = false;
 					
 				}
-				displacement.scale(-1);
-				boundaryModel2D.update(displacement);
-				displacement.reset();
+				this.displacement.scale(-1);
+				this.boundaryModel2D.update(this.displacement);
+				this.displacement.reset();
 			}
 		}
-		previousTargetAngleBody = targetAngleBody;
+		this.previousTargetAngleBody = this.targetAngleBody;
 	}
 	
 	public void draw(){
-		if(countDownToDeath < 3){
+		if(this.countDownToDeath < 3){
 			//Draw body.
-			for(int i = 0; i < body.length; i++){
-				body[i].draw();
+			for(int i = 0; i < this.body.length; i++){
+				this.body[i].draw();
 				
 			}
 			
 			//Draw turret.
-			for(int i = 0; i < turret.length; i++){
-				turret[i].draw();
+			for(int i = 0; i < this.turret.length; i++){
+				this.turret[i].draw();
 			}
 		}
 		
 		
 
 		//Draw smoke tail.
-		if(Smoke != null && isVisible)
-			Smoke.draw();
+		if(this.Smoke != null && this.isVisible)
+			this.Smoke.draw();
 	}
 	
 	public void damage(int damagePoint){
 		if(damagePoint == -1){
-			active = true;
-			engaged = true;
+			this.active = true;
+			this.engaged = true;
 			return;
 		}
-		HP -= damagePoint;
-		engaged = true;
+		this.HP -= damagePoint;
+		this.engaged = true;
 	}
 	
 	//Return the 2D boundary of this model.
 	public Rectangle2D getBoundary2D(){
-		return boundaryModel2D;
+		return this.boundaryModel2D;
 	}
 
 }
