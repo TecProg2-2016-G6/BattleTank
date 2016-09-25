@@ -4,13 +4,13 @@ import java.awt.*;
 
 public class Camera {
 	
-	public static Vector cameraPosition = null;
+	public static Vector cameraPosition = new Vector(10, 0.25, 1.5);;
 
-	public static Vector absoluteCameraPosition = null;
+	public static Vector absoluteCameraPosition = new Vector(10, 0.25, 1.5);
 
 	public Vector thirdPersonDisplacement = null;
 
-	public static Vector viewDirection = null;
+	public static Vector viewDirection = new Vector(0, 0, 1);
 	
 	// The YZ_angle is 315 degrees, and it does not change,
 	public static int YZ_angle = 319;
@@ -19,16 +19,12 @@ public class Camera {
 
 	public static final Rectangle screen = new Rectangle(0, 0, 640, 480);
 
-	public static boolean restartCameraPosition;
+	public static boolean restartCameraPosition = false;
 
-	public int flyThroughTimer;
+	public int flyThroughTimer = 0;
 
 	public Camera() {
 
-		XZ_angle = 0;
-		cameraPosition = new Vector(10, 0.25, 1.5);
-		absoluteCameraPosition = new Vector(10, 0.25, 1.5);
-		viewDirection = new Vector(0, 0, 1);
 		thirdPersonDisplacement = new Vector(0, 0, 0);
 		thirdPersonDisplacement.set(viewDirection.x, 0, -viewDirection.z);
 	}
