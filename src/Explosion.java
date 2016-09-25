@@ -14,14 +14,14 @@ public class Explosion extends SolidObject {
 	public int damage = 5;
 	
 	// Type of explosion 0 = normal   1 = plasma
-	public int typeOfExplosion;
+	public int typeOfExplosion = 0;
 	
-	public int centreOfExplosionInTileMap;
+	public int centreOfExplosionInTileMap = 0;
 	
 	// Enable this boolean if this explosion has be to drawn explicitly
-	public boolean explicitDrawing;
+	public boolean explicitDrawing = false;
 	
-	public Polygon3D explosionAura;
+	public Polygon3D explosionAura = null;
 	
 	public Explosion(double xAxis, double yAxys, double zAxys, double size) {
 		
