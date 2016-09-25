@@ -2,33 +2,33 @@ package src;
 
 public abstract class SolidObject implements Model {
 
-	protected Vector startPointInWorld;
+	protected Vector startPointInWorld = new Vector(0, 0, 0);
 
-	protected Vector iDirection;
+	protected Vector iDirection = new Vector(0, 0, 0);
 
-	protected Vector jDirection;
+	protected Vector jDirection = new Vector(0, 0, 0);
 
-	protected Vector kDirection;
+	protected Vector kDirection = new Vector(0, 0, 0);
 
-	protected Polygon3D[] boundaryModel;
+	protected Polygon3D[] boundaryModel = null;
 
-	protected Rectangle2D boundaryModel2D;
+	protected Rectangle2D boundaryModel2D = null;
 
-	protected boolean isVisible;
+	protected boolean isVisible = false;
 
-	protected Vector centreModel;
+	protected Vector centreModel = new Vector(0, 0, 0);
 
 	protected Vector cantreModelInCamera = new Vector(0, 0, 0);
 
 	// The object is expired if the value is less than 0
-	protected int lifeSpanObject;
+	protected int lifeSpanObject = 0;
 
-	protected int HP;
+	protected int HP = 0;
 
-	protected boolean isBlockingOtherModel;
+	protected boolean isBlockingOtherModel = false;
 
 	// Type 1 = boundary generally has a cubic shape, type 2 = other
-	protected int modelType;
+	protected int modelType = 0;
 
 	public final Polygon3D[] getBoundaryModelInCameraCoordinate() {
 		return boundaryModel;
