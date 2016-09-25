@@ -25,7 +25,7 @@ public class ModelDrawList {
 	
 	public static void draw(){
 		for(int i = 0; i < modelCount; i++){
-			visibleModels[i].draw();
+			visibleModels[i].drawExplosion();
 		}
 	}
 	

@@ -208,7 +208,7 @@ public class ObstacleMap {
 					if(obstacleMap2[temp].getTypeOfModel() == 3 || obstacleMap2[temp].getTypeOfModel() == 6){
 						Explosion theExplosion = new Explosion(projectile.getRealCentreModelWorld().x, -0.9, projectile.getRealCentreModelWorld().z, 0.5); 
 						theExplosion.damage = 0;
-						theExplosion.type = 2;
+						theExplosion.typeOfExplosion = 2;
 						Projectiles.register(theExplosion);
 						obstacleMap2[temp].damage(100);
 						
@@ -217,7 +217,7 @@ public class ObstacleMap {
 					if(obstacleMap2[temp].getTypeOfModel() == 1){
 						Explosion theExplosion = new Explosion(projectile.getRealCentreModelWorld().x, -0.9, projectile.getRealCentreModelWorld().z, 0.5); 
 						theExplosion.damage = 0;
-						theExplosion.type = 2;
+						theExplosion.typeOfExplosion = 2;
 						Projectiles.register(theExplosion);
 						obstacleMap2[temp].damage(10);
 					
@@ -235,7 +235,7 @@ public class ObstacleMap {
 					if(obstacleMap2[temp].getTypeOfModel() == 3 || obstacleMap2[temp].getTypeOfModel() == 6){
 						Explosion theExplosion = new Explosion(projectile.getRealCentreModelWorld().x, -0.9, projectile.getRealCentreModelWorld().z, 0.5); 
 						theExplosion.damage = 0;
-						theExplosion.type = 2;
+						theExplosion.typeOfExplosion = 2;
 						Projectiles.register(theExplosion);
 						obstacleMap2[temp].damage(100);
 						
@@ -246,7 +246,7 @@ public class ObstacleMap {
 						obstacleMap2[temp].damage(8);
 						Explosion theExplosion = new Explosion(projectile.getRealCentreModelWorld().x, -0.9, projectile.getRealCentreModelWorld().z, 0.5); 
 						theExplosion.damage = 0;
-						theExplosion.type = 2;
+						theExplosion.typeOfExplosion = 2;
 						Projectiles.register(theExplosion);
 					}
 				}

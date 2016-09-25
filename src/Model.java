@@ -18,7 +18,7 @@ public interface Model{
 	public Vector getRealCentreModelWorld();
 	
 	//Draw the polygons of the model.
-	public void draw();
+	public void drawExplosion();
 	
 	/**return the type of the model
 	  * To be more specific:

@@ -218,7 +218,7 @@ public class PowerUp extends SolidObject{
 		return boundaryModel2D;
 	}
 	
-	public void draw(){
+	public void drawExplosion(){
 		for(int i = 0; i < polygons.length; i++){
 			polygons[i].draw();
 		}

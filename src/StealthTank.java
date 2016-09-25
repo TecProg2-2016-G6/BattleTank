@@ -992,7 +992,7 @@ public class StealthTank extends SolidObject{
 		previousTargetAngleBody = targetAngleBody;
 	}
 	
-	public void draw(){
+	public void drawExplosion(){
 		//draw body
 		if(countDownToDeath <3){
 			

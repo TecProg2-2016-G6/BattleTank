@@ -1176,7 +1176,7 @@ public class Terrain {
 		
 		for(int i = 0; i < underWaterRocks.length; i++){
 			if(underWaterRocks[i] != null)
-				underWaterRocks[i].draw();
+				underWaterRocks[i].drawExplosion();
 		}
 		
 		
@@ -1187,7 +1187,7 @@ public class Terrain {
 		
 		
 		for(int i = 0; i < aboveWaterRocks.length; i++){
-			aboveWaterRocks[i].draw();
+			aboveWaterRocks[i].drawExplosion();
 		}
 	}
 	

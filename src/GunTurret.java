@@ -471,7 +471,7 @@ public class GunTurret extends SolidObject{
 		}
 	}
 	
-	public void draw(){
+	public void drawExplosion(){
 		//draw Body
 		for(int i = 0; i < body.length; i++){
 			body[i].draw();

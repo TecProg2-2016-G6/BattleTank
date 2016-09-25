@@ -867,7 +867,7 @@ public class MissileLauncher extends SolidObject{
 	}
 	
 	//draw model
-	public void draw(){
+	public void drawExplosion(){
 		if(countDownToDeath <3){
 			for(int i = 0; i < polygons.length; i++)
 				polygons[i].draw();

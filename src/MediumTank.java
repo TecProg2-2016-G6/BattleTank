@@ -860,7 +860,7 @@ public class MediumTank extends SolidObject{
 	
 	
 	//draw model
-	public void draw(){
+	public void drawExplosion(){
 		//draw body
 		if(countDownToDeath <3){
 			for(int i = 0; i < body.length; i++){

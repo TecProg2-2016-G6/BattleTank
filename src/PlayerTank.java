@@ -1026,7 +1026,7 @@ public class PlayerTank extends SolidObject{
 	
 	//draw model
 	@Override
-	public void draw(){
+	public void drawExplosion(){
 		//dont draw play tank when game is finished
 		if(Main.gameOver)
 			return;

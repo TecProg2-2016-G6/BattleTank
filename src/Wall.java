@@ -416,7 +416,7 @@ public class Wall extends SolidObject{
 	}
 	
 	// Method for updating model.
-	public void draw(){
+	public void drawExplosion(){
 		if(isVisible){
 			for(int i = 0; i < polygons.length; i++){
 				polygons[i].draw();

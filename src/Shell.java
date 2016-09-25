@@ -195,7 +195,7 @@ public class Shell extends SolidObject{
 			direction.scale(0.5);
 			centreModel.add(direction);
 			Explosion e = new Explosion(centreModel.x, centreModel.y, centreModel.z, 1);
-			e.type = this.type;
+			e.typeOfExplosion = this.type;
 			if(type == 1)
 				e.damage = 10;
 			Projectiles.register(e);
@@ -244,7 +244,7 @@ public class Shell extends SolidObject{
 		if(lifeSpanObject < 0){
 			//generate explosion
 			Explosion e = new Explosion(centreModel.x, centreModel.y, centreModel.z, 1);
-			e.type = this.type;
+			e.typeOfExplosion = this.type;
 			if(type == 1)
 				e.damage = 10;
 			Projectiles.register(e);
@@ -253,7 +253,7 @@ public class Shell extends SolidObject{
 	}
 	
 	//draw the model
-	public void draw(){
+	public void drawExplosion(){
 		for(int i = 0; i < polygons.length; i++){
 			if(lifeSpanObject > 10 && i == 4)
 				break;

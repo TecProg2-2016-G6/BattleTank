@@ -1005,7 +1005,7 @@ public class Annihilator extends SolidObject{
 		this.previousTargetAngleBody = this.targetAngleBody;
 	}
 	
-	public void draw(){
+	public void drawExplosion(){
 		if(this.countDownToDeath < 3){
 			//Draw body.
 			for(int i = 0; i < this.body.length; i++){

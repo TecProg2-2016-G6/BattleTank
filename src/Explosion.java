@@ -2,26 +2,21 @@ package src;
 
 public class Explosion extends SolidObject {
 	
-	// Size of the explosion 
-	double size = 0;
+	double sizeOfExplosion = 0;
 	
-	// Which explosion sprite to use
-	public int spriteIndex = 0;
+	public int spriteExplosionIndex = 0;
 	
-	// Current frame Index;
-	public int frameIndex = 0;
+	public int currentFrameIndex = 0;
 	
-	// Current aura index;
-	public int auraIndex = 0;
+	public int currentAuraIndex = 0;
 	
 	// Default damage = 5;
 	public int damage = 5;
 	
 	// Type of explosion 0 = normal   1 = plasma
-	public int type;
+	public int typeOfExplosion;
 	
-	// Centre of explosion in tile map
-	public int groundZero;
+	public int centreOfExplosionInTileMap;
 	
 	// Enable this boolean if this explosion has be to drawn explicitly
 	public boolean explicitDrawing;
@@ -42,20 +37,20 @@ public class Explosion extends SolidObject {
 		boundaryModel2D = new Rectangle2D(xAxis - 0.1, zAxys + 0.1, 0.2, 0.2);
 		
 		//Find centre of explosion
-		groundZero = (int)(xAxis*4) + (129-(int)(zAxys*4))*80;
+		centreOfExplosionInTileMap = (int)(xAxis*4) + (129-(int)(zAxys*4))*80;
 		 
 		if(random >= 75 ) {			
-			spriteIndex = 17;
+			spriteExplosionIndex = 17;
 		}else if(random >= 50 ) {			
-			spriteIndex = 18;
+			spriteExplosionIndex = 18;
 		}else if(random >= 25) {
-			spriteIndex = 19;
+			spriteExplosionIndex = 19;
 		}else{
-			spriteIndex = 20;
+			spriteExplosionIndex = 20;
 		}
 		
 		if(size > 1){
-			spriteIndex = 18;
+			spriteExplosionIndex = 18;
 		}
 		
 		Vector[] v = new Vector[]{put(-0.3, 0, 0.3), put(0.3, 0, 0.3), put(0.3, 0, -0.3),put(-0.3, 0, -0.3)};
@@ -66,7 +61,7 @@ public class Explosion extends SolidObject {
 		
 		explosionAura = new Polygon3D(v, v[0], v[1], v[3], Main.textures[21], 1, 1, 2);
 		
-		this.size = size;
+		this.sizeOfExplosion = size;
 		
 		//Boundary of this model has a cubic shape (ie length ~= width ~= height)		
 		makeBoundary(0.001, 0.001, 0.001);
@@ -86,11 +81,11 @@ public class Explosion extends SolidObject {
 			explosionAura.update();
 			
 			if(explosionAura.visible) {
-				explosionAura.myTexture.Texture = explosionAura.myTexture.lightMapData[auraIndex];
+				explosionAura.myTexture.Texture = explosionAura.myTexture.lightMapData[currentAuraIndex];
 				Rasterizer.rasterize(explosionAura);
 			}
 		}
-		auraIndex++;
+		currentAuraIndex++;
 		
 		//Send to draw list
 		if(!explicitDrawing)
@@ -106,7 +101,7 @@ public class Explosion extends SolidObject {
 		
 		//Damage nearby units
 		if(lifeSpanObject == 15 && damage != 0) {
-			ObstacleMap.damageType2Obstacles(damage, boundaryModel2D, groundZero);
+			ObstacleMap.damageType2Obstacles(damage, boundaryModel2D, centreOfExplosionInTileMap);
 		}
 		
 		lifeSpanObject--;
@@ -118,18 +113,18 @@ public class Explosion extends SolidObject {
 	}
 	
 	//Draw  explosion scene
-	public void draw() {
+	public void drawExplosion() {
 		
 		//Calculate explosion size
 		cantreModelInCamera.updateLocation();
-		double ratio = size*2/cantreModelInCamera.z;
+		double ratio = sizeOfExplosion*2/cantreModelInCamera.z;
 		
 		
 		//Drawing sprite	
-		Rasterizer.temp = this.type; 
-		Rasterizer.renderExplosionSprite(Main.textures[spriteIndex].explosions[frameIndex],ratio, cantreModelInCamera.screenX, cantreModelInCamera.screenY, 64, 64);
+		Rasterizer.temp = this.typeOfExplosion; 
+		Rasterizer.renderExplosionSprite(Main.textures[spriteExplosionIndex].explosions[currentFrameIndex],ratio, cantreModelInCamera.screenX, cantreModelInCamera.screenY, 64, 64);
 		
-		frameIndex++;
+		currentFrameIndex++;
 		
 	}
 	

@@ -103,7 +103,7 @@ public class Fence extends SolidObject {
 		ObstacleMap.removeObstacle2(position);
 	}
 
-	public void draw() {
+	public void drawExplosion() {
 		
 		if (isVisible) {
 			for (int i = 0; i < polygons.length; i++) {

@@ -106,7 +106,7 @@ public class Helix extends SolidObject{
 		
 	}
 	
-	public void draw(){
+	public void drawExplosion(){
 		int position = 0;
 		int color = 0;
 		int r = 0; int b = 0; int g = 0;

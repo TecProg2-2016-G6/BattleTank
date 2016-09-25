@@ -641,7 +641,7 @@ public class PowerPlant extends SolidObject{
 	}
 	
 	//draw the model
-	public void draw(){
+	public void drawExplosion(){
 		if(isVisible){
 			
 			if(countDownToDeath < 30)
@@ -653,7 +653,7 @@ public class PowerPlant extends SolidObject{
 			if(HP < 0){
 				for(int i = 0; i < explosions.length; i++){
 					if(explosions[i] != null){
-						explosions[i].draw(); 
+						explosions[i].drawExplosion(); 
 						
 						
 					}
