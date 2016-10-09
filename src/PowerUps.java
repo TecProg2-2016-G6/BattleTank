@@ -1,7 +1,15 @@
 package src;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.naming.directory.InvalidAttributeValueException;
+
 //This class stores powerUp objects
 public class PowerUps {
 	public static PowerUp[] PU;
+	
+	private static final Logger LOGGER = Logger.getLogger( PowerUps.class.getName() );
 	
 	public static void init(){
 		PU = new PowerUp[100];
@@ -30,7 +38,11 @@ public class PowerUps {
 					if(PU[i].type == 1){
 						if(Main.PlayerTank.shells == 0){
 							Main.PlayerTank.shells +=10;
-							Main.PlayerTank.changeWeapon(1);
+							try {
+								Main.PlayerTank.changeWeapon(1);
+							} catch (InvalidAttributeValueException e) {
+								LOGGER.log(Level.WARNING, "Invalid Weapon Value");
+							}
 						}else{
 							Main.PlayerTank.shells +=10;
 						}
@@ -38,7 +50,11 @@ public class PowerUps {
 					if(PU[i].type == 2){
 						if(Main.PlayerTank.rockets == 0){
 							Main.PlayerTank.rockets +=10;
-							Main.PlayerTank.changeWeapon(2);
+							try {
+								Main.PlayerTank.changeWeapon(2);
+							} catch (InvalidAttributeValueException e) {
+								LOGGER.log(Level.WARNING, "Invalid Weapon Value");
+							}
 							
 						}else{
 							Main.PlayerTank.rockets +=10;
@@ -47,7 +63,11 @@ public class PowerUps {
 					if(PU[i].type == 3){
 						if(Main.PlayerTank.slugs == 0){
 							Main.PlayerTank.slugs +=10;
-							Main.PlayerTank.changeWeapon(3);
+							try {
+								Main.PlayerTank.changeWeapon(3);
+							} catch (InvalidAttributeValueException e) {
+								LOGGER.log(Level.WARNING, "Invalid Weapon Value");
+							}
 						}else{
 							Main.PlayerTank.slugs +=10;
 						}
@@ -56,7 +76,11 @@ public class PowerUps {
 					if(PU[i].type == 4){
 						if(Main.PlayerTank.plasma == 0){
 							Main.PlayerTank.plasma +=10;
-							Main.PlayerTank.changeWeapon(4);
+							try {
+								Main.PlayerTank.changeWeapon(4);
+							} catch (InvalidAttributeValueException e) {
+								LOGGER.log(Level.WARNING, "Invalid Weapon Value");
+							}
 						}else{
 							Main.PlayerTank.plasma +=10;
 						}
