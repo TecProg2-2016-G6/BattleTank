@@ -15,6 +15,8 @@ public class Fence extends SolidObject {
 
 		if(orientation != 0 && orientation!= 1){
 			throw new InvalidAttributeValueException();
+		}else{
+			//Do nothing
 		}
 		
 		startPointInWorld = new Vector(x, y, z);
@@ -25,6 +27,8 @@ public class Fence extends SolidObject {
 		if (orientation == 0) {
 			iDirection.rotate_XZ(90);
 			kDirection.rotate_XZ(90);
+		}else{
+			//Do nothing
 		}
 
 		// 3D boundary of this model has a cubic shape (ie l = w)
@@ -35,13 +39,16 @@ public class Fence extends SolidObject {
 		if (orientation == 0) {
 			boundaryModel2D = new Rectangle2D(x - 0.06, z + 0.17, 0.12, 0.34);
 			ObstacleMap.registerObstacle2(this, (int) (x * 4) + (129 - (int) (z * 4)) * 80);
-
+		}else{
+			//Do nothing
 		}
 
 		if (orientation == 1) {
 			boundaryModel2D = new Rectangle2D(x - 0.17, z + 0.06, 0.34, 0.12);
 			ObstacleMap.registerObstacle2(this, (int) (x * 4) + (129 - (int) (z * 4)) * 80);
 
+		}else{
+			//Do nothing
 		}
 
 		// Find centre of the model in world coordinate
@@ -88,6 +95,8 @@ public class Fence extends SolidObject {
 		if (cantreModelInCamera.z < 0.5 || cantreModelInCamera.screenY < -30 || cantreModelInCamera.screenX < -400 || cantreModelInCamera.screenX > 800) {
 			isVisible = false;
 			return;
+		}else{
+			//Do nothing
 		}
 		isVisible = true;
 
@@ -116,6 +125,8 @@ public class Fence extends SolidObject {
 			for (int i = 0; i < polygons.length; i++) {
 				polygons[i].draw();
 			}
+		}else{
+			//Do nothing
 		}
 	}
 }
