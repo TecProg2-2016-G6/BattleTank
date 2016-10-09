@@ -1,6 +1,8 @@
 package src;
 //enemy: medium tank
 
+import javax.naming.directory.InvalidAttributeValueException;
+
 public class MediumTank extends SolidObject{
 	
 	static final double height = 0.25;
@@ -891,7 +893,12 @@ public class MediumTank extends SolidObject{
 		return boundaryModel2D;
 	}
 	
-	public void damage(int damagePoint){
+	public void damage(int damagePoint) throws InvalidAttributeValueException{
+		
+		if(damagePoint < -1){
+			throw new InvalidAttributeValueException();
+		}
+		
 		if(damagePoint == -1){
 			active = true;
 			return;

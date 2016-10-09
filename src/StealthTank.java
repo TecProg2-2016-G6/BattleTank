@@ -1,4 +1,7 @@
 package src;
+
+import javax.naming.directory.InvalidAttributeValueException;
+
 //enemy: stealth tank
 public class StealthTank extends SolidObject{
 	//polygons for tank body
@@ -1046,7 +1049,12 @@ public class StealthTank extends SolidObject{
 		return boundaryModel2D;
 	}
 	
-	public void damage(int damagePoint){
+	public void damage(int damagePoint) throws InvalidAttributeValueException{
+		
+		if(damagePoint < -1){
+			throw new InvalidAttributeValueException();
+		}
+		
 		if(damagePoint == -1){
 			active = true;
 			return;
