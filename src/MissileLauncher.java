@@ -322,7 +322,7 @@ public class MissileLauncher extends SolidObject{
 			int delta = targetAngleBody - bodyAngle;
 			if(Math.abs(delta) < 5 || Math.abs(delta) > 355){
 				bodyAngle = targetAngleBody;
-				bodyAngleDelta = (delta+720)%circumference;
+				bodyAngleDelta = (int) ((delta+720)%circumference);
 				displacement.set(0,0,0.01);
 				displacement.rotate_XZ(bodyAngle);
 			}else{
@@ -340,7 +340,7 @@ public class MissileLauncher extends SolidObject{
 						bodyAngleDelta = 5;
 				}
 				
-				bodyAngle = (bodyAngle+bodyAngleDelta)%circumference;
+				bodyAngle = (int) ((bodyAngle+bodyAngleDelta)%circumference);
 			}
 		}
 		
@@ -737,7 +737,7 @@ public class MissileLauncher extends SolidObject{
 						targetAngleBody -= 90;
 					
 					
-					targetAngleBody = (targetAngleBody + circumference)%circumference;
+					targetAngleBody = (int) ((targetAngleBody + circumference)%circumference);
 				}
 				
 				//check whether the next move will embed into obstacles
@@ -772,7 +772,7 @@ public class MissileLauncher extends SolidObject{
 					int angle2 = angle1 + 90;
 					
 					
-					angle2 = angle2%circumference;
+					angle2 = (int) (angle2%circumference);
 				
 					
 					
