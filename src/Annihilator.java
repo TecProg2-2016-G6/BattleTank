@@ -13,6 +13,10 @@ public class Annihilator extends SolidObject{
 	
 	static final double rectangleHeight = 0.23;
 	
+	static final double halfCircumference = 180;
+	
+	static final double circumference = 360;
+	
 	//Polygons for tank body.
 	private Polygon3D[] body;
 	
@@ -339,28 +343,28 @@ public class Annihilator extends SolidObject{
 				this.turretAngleDelta = this.targetAngle - this.turretAngle;
 				this.turretAngle += this.turretAngleDelta;
 				if(this.turretAngleDelta < 0){
-					this.turretAngleDelta += 360;
+					this.turretAngleDelta += circumference;
 				}
 			}else {
 				this.turretAngleDelta = 3;
 				this.turretAngle += 3;
 			}
-			if(this.turretAngle >= 360) {
-				this.turretAngle -= 360;
+			if(this.turretAngle >= circumference) {
+				this.turretAngle -= circumference;
 			}
 		}else if(this.aimRight) {
 			if(Math.abs(this.turretAngle - this.targetAngle) <= 3 ) {
 				this.turretAngleDelta = this.targetAngle - this.turretAngle;
 				this.turretAngle += this.turretAngleDelta;
 				if(this.turretAngleDelta < 0) {
-					this.turretAngleDelta += 360;
+					this.turretAngleDelta += circumference;
 				}
 			}else {
 				this.turretAngleDelta = 357;
 				this.turretAngle -= 3;
 			}
 			if(this.turretAngle < 0) {
-				this.turretAngle += 360;
+				this.turretAngle += circumference;
 			}
 		}
 		
@@ -369,27 +373,27 @@ public class Annihilator extends SolidObject{
 			int delta = this.targetAngleBody - this.bodyAngle;
 			if(Math.abs(delta) < 5 || Math.abs(delta) > 355) {
 				this.bodyAngle = this.targetAngleBody;
-				this.bodyAngleDelta = (delta + 720) % 360;
+				this.bodyAngleDelta = (int) ((delta + 720) % circumference);
 				this.displacement.set(0,0,0.01);
 				this.displacement.rotate_XZ(this.bodyAngle);
 			}else {
 				this.displacement.set(0,0,0);
 				if(delta > 0) {
-					if(delta < 180) {
+					if(delta < halfCircumference) {
 						this.bodyAngleDelta = 5;
 					}else {
 						this.bodyAngleDelta = 355;
 					}
 				}	
 				if(delta < 0) {
-					if(delta > -180) {
+					if(delta > -halfCircumference) {
 						this.bodyAngleDelta = 355;
 					}else{
 						this.bodyAngleDelta = 5;
 					}
 				}
 				
-				this.bodyAngle = (this.bodyAngle+this.bodyAngleDelta) % 360;
+				this.bodyAngle = (int) ((this.bodyAngle+this.bodyAngleDelta) % circumference);
 			}
 		}
 		
@@ -594,7 +598,7 @@ public class Annihilator extends SolidObject{
 				this.coolDownShell = 100;
 				//Calculate laser direction.
 				Vector tempVector1 = new Vector(0,0,1);
-				tempVector1.rotate_XZ((this.turretAngle + 270) % 360);
+				tempVector1.rotate_XZ((int) ((this.turretAngle + 270) % circumference));
 				tempVector1.scale(0.035);
 				Vector direction = new Vector(0,0,1);
 				direction.rotate_XZ(this.turretAngle);
@@ -609,7 +613,7 @@ public class Annihilator extends SolidObject{
 				this.coolDownShell = 25;
 				//Calculate shell direction.
 				Vector tempVector1 = new Vector(0,0,1);
-				tempVector1.rotate_XZ((this.turretAngle + 270) % 360);
+				tempVector1.rotate_XZ((int) ((this.turretAngle + 270) % circumference));
 				tempVector1.scale(-0.035);
 				Vector direction = new Vector(0,0,1);
 				direction.rotate_XZ(this.turretAngle);
@@ -626,7 +630,7 @@ public class Annihilator extends SolidObject{
 				this.coolDownRocket = 100;
 				//calculate laser direction
 				Vector tempVector1 = new Vector(0,0,1);
-				tempVector1.rotate_XZ((this.turretAngle + 270) % 360);
+				tempVector1.rotate_XZ((int) ((this.turretAngle + 270) % circumference));
 				tempVector1.scale(0.095);
 				Vector direction = new Vector(0,0,1);
 				direction.rotate_XZ(this.turretAngle);
@@ -642,7 +646,7 @@ public class Annihilator extends SolidObject{
 				this.coolDownRocket = 45;
 				//Calculate shell direction.
 				Vector tempVector1 = new Vector(0,0,1);
-				tempVector1.rotate_XZ((this.turretAngle + 270) % 360);
+				tempVector1.rotate_XZ((int) ((this.turretAngle + 270) % circumference));
 				tempVector1.scale(-0.095);
 				Vector direction = new Vector(0,0,1);
 				direction.rotate_XZ(this.turretAngle);
@@ -711,13 +715,13 @@ public class Annihilator extends SolidObject{
 			this.targetAngle = this.bodyAngle;
 			int AngleDelta = this.turretAngle - this.targetAngle;
 			if(AngleDelta > 0){
-				if(AngleDelta < 180)
+				if(AngleDelta < halfCircumference)
 					this.aimRight = true;
 				else
 					this.aimLeft = true;
 			}
 			else if(AngleDelta < 0){
-				if(AngleDelta > -180)
+				if(AngleDelta > -halfCircumference)
 					this.aimLeft = true;
 				else 
 					this.aimRight = true;
@@ -764,9 +768,9 @@ public class Annihilator extends SolidObject{
 			
 			//Find the angle between target and itself.
 			if(this.clearToShoot) {
-				this.targetAngle = 90 + (int)(180 * Math.atan((this.centreModel.z - PlayerTank.bodyCenter.z) / (this.centreModel.x - PlayerTank.bodyCenter.x)) / Math.PI);
-				if(PlayerTank.bodyCenter.x > this.turretCenter.x  && this.targetAngle <= 180) {
-					this.targetAngle += 180;
+				this.targetAngle = 90 + (int)(halfCircumference * Math.atan((this.centreModel.z - PlayerTank.bodyCenter.z) / (this.centreModel.x - PlayerTank.bodyCenter.x)) / Math.PI);
+				if(PlayerTank.bodyCenter.x > this.turretCenter.x  && this.targetAngle <= halfCircumference) {
+					this.targetAngle += halfCircumference;
 				}
 
 			}else {
@@ -789,14 +793,14 @@ public class Annihilator extends SolidObject{
 			
 			//Aim at a target angle.
 			if(AngleDelta > 0) {
-				if(AngleDelta < 180) {
+				if(AngleDelta < halfCircumference) {
 					this.aimRight = true;
 				}else {
 					this.aimLeft = true;
 				}
 			}
 			else if(AngleDelta < 0) {
-				if(AngleDelta > -180) {
+				if(AngleDelta > -halfCircumference) {
 					this.aimLeft = true;
 				}else { 
 					this.aimRight = true;
@@ -828,9 +832,9 @@ public class Annihilator extends SolidObject{
 			}
 			
 			if(this.forward) {
-				this.targetAngleBody = 90 + (int)(180 * Math.atan((this.centreModel.z - PlayerTank.bodyCenter.z) / (this.centreModel.x - PlayerTank.bodyCenter.x)) / Math.PI);
-				if(PlayerTank.bodyCenter.x > this.centreModel.x  && this.targetAngleBody <= 180) {
-					this.targetAngleBody += 180;
+				this.targetAngleBody = 90 + (int)(halfCircumference * Math.atan((this.centreModel.z - PlayerTank.bodyCenter.z) / (this.centreModel.x - PlayerTank.bodyCenter.x)) / Math.PI);
+				if(PlayerTank.bodyCenter.x > this.centreModel.x  && this.targetAngleBody <= halfCircumference) {
+					this.targetAngleBody += halfCircumference;
 				}
 				
 				/**
@@ -855,7 +859,7 @@ public class Annihilator extends SolidObject{
 						this.targetAngleBody -= 90;
 					
 					
-					this.targetAngleBody = (this.targetAngleBody + 360) % 360;
+					this.targetAngleBody = (int) ((this.targetAngleBody + circumference) % circumference);
 				}
 				
 				
@@ -894,7 +898,7 @@ public class Annihilator extends SolidObject{
 					int angle2 = angle1 + 90;
 					
 					
-					angle2 = angle2 % 360;
+					angle2 = (int) (angle2 % circumference);
 				
 					
 					
@@ -977,7 +981,7 @@ public class Annihilator extends SolidObject{
 						
 					}
 					
-					if(Math.abs((this.previousTargetAngleBody + 180) % 360 - this.targetAngleBody) <= 50){
+					if(Math.abs((this.previousTargetAngleBody + halfCircumference) % circumference - this.targetAngleBody) <= 50){
 						this.targetAngleBody = this.previousTargetAngleBody;
 					}
 					
