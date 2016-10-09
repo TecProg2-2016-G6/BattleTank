@@ -2,6 +2,8 @@ package src;
 
 import javax.naming.directory.InvalidAttributeValueException;
 
+import sun.util.logging.resources.logging;
+
 //The terrain class, all the polygons data are stored in buffers prior to runtime
 public class Terrain {
 	//polygons that represent land
@@ -591,7 +593,7 @@ public class Terrain {
 		fences = new Fence[62];
 		
 		try{
-			
+		
 		fences[0] = new Fence(10.375,  -0.9,18.125,1);
 		fences[1] = new Fence(10.625,  -0.9,18.125,1);
 		fences[2] = new Fence(10.875,  -0.9,18.125,1);

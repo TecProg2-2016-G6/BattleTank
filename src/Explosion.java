@@ -57,6 +57,8 @@ public class Explosion extends SolidObject {
 		
 		if(size > 3){
 			v = new Vector[]{put(-0.12, 0, 0.12), put(0.12, 0, 0.12), put(0.12, 0, -0.12),put(-0.12, 0, -0.12)};
+		} else{
+			// Do nothing
 		}
 		
 		explosionAura = new Polygon3D(v, v[0], v[1], v[3], Main.textures[21], 1, 1, 2);

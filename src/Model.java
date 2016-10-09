@@ -1,6 +1,8 @@
 package src;
 //The interface which represents 3D models.
 
+import javax.naming.directory.InvalidAttributeValueException;
+
 public interface Model{
 	//Update the model, perform AI actions if there is any.
 	public void update();
@@ -40,7 +42,7 @@ public interface Model{
 	public int getLifeSpan();
 	
 	//Damage the object. (ie, reduce its hitpoint).
-	public void damage(int damagePoint);
+	public void damage(int damagePoint) throws InvalidAttributeValueException;
 	
 	//Give way when it has blocked other model.
 	public void unstuck();

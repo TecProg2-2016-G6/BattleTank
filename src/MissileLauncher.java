@@ -1,4 +1,7 @@
 package src;
+
+import javax.naming.directory.InvalidAttributeValueException;
+
 //enemy:  surface to surface missile launcher
 public class MissileLauncher extends SolidObject{
 	
@@ -894,7 +897,11 @@ public class MissileLauncher extends SolidObject{
 		return boundaryModel2D;
 	}
 	
-	public void damage(int damagePoint){
+	public void damage(int damagePoint) throws InvalidAttributeValueException{
+		
+		if(damagePoint < -1){
+			throw new InvalidAttributeValueException();
+		}
 		
 		if(damagePoint == -1){
 			active = true;

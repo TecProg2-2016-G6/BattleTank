@@ -1,5 +1,7 @@
 package src;
 
+import javax.naming.directory.InvalidAttributeValueException;
+
 public abstract class SolidObject implements Model {
 
 	protected Vector startPointInWorld = new Vector(0, 0, 0);
@@ -118,7 +120,7 @@ public abstract class SolidObject implements Model {
 		return lifeSpanObject;
 	}
 
-	public void damage(int damagePoint) {
+	public void damage(int damagePoint) throws InvalidAttributeValueException {
 		HP -= damagePoint;
 	}
 

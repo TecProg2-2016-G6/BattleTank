@@ -1,4 +1,7 @@
 package src;
+
+import javax.naming.directory.InvalidAttributeValueException;
+
 /** This class processes in game events one example of events 
  *  can be activate/disactivate an enemy, open a gate etc...
  */
@@ -33,11 +36,21 @@ public class GameEventHandler {
 			}
 			
 			for(int i = 38; i < 43; i++) {
-				Enemies.enemy[i].damage(-1);
+				try {
+					Enemies.enemy[i].damage(-1);
+				} catch (InvalidAttributeValueException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			
 			for(int i = 96; i < 107; i++) {
-				Enemies.enemy[i].damage(-1);
+				try {
+					Enemies.enemy[i].damage(-1);
+				} catch (InvalidAttributeValueException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			
 		}
@@ -50,8 +63,18 @@ public class GameEventHandler {
 				Main.Terrain.fences[i].destory();
 				Main.Terrain.fences[i] = null;
 			}
-			Enemies.enemy[107].damage(-1);
-			Enemies.enemy[108].damage(-1);
+			try {
+				Enemies.enemy[107].damage(-1);
+			} catch (InvalidAttributeValueException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				Enemies.enemy[108].damage(-1);
+			} catch (InvalidAttributeValueException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 		}
 		

@@ -3,6 +3,8 @@ package src;
 //Store both static (trees, rocks) and non-static objects(tanks)
 //Non-static object could only occupy 1 tile at a time.
 
+import javax.naming.directory.InvalidAttributeValueException;
+
 public class ObstacleMap {
 	//Type 1 obstacle map store the object that are impassable for
 	//player tank, enemy tanks, but projectiles could still pass through
@@ -210,7 +212,12 @@ public class ObstacleMap {
 						theExplosion.damage = 0;
 						theExplosion.typeOfExplosion = 2;
 						Projectiles.register(theExplosion);
-						obstacleMap2[temp].damage(100);
+						try {
+							obstacleMap2[temp].damage(100);
+						} catch (InvalidAttributeValueException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						
 						return true;
 					}
@@ -219,7 +226,12 @@ public class ObstacleMap {
 						theExplosion.damage = 0;
 						theExplosion.typeOfExplosion = 2;
 						Projectiles.register(theExplosion);
-						obstacleMap2[temp].damage(10);
+						try {
+							obstacleMap2[temp].damage(10);
+						} catch (InvalidAttributeValueException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					
 					}
 				}
@@ -237,13 +249,23 @@ public class ObstacleMap {
 						theExplosion.damage = 0;
 						theExplosion.typeOfExplosion = 2;
 						Projectiles.register(theExplosion);
-						obstacleMap2[temp].damage(100);
+						try {
+							obstacleMap2[temp].damage(100);
+						} catch (InvalidAttributeValueException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						
 						
 						return true;
 					}
 					if(obstacleMap2[temp].getTypeOfModel() == 2){
-						obstacleMap2[temp].damage(8);
+						try {
+							obstacleMap2[temp].damage(8);
+						} catch (InvalidAttributeValueException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						Explosion theExplosion = new Explosion(projectile.getRealCentreModelWorld().x, -0.9, projectile.getRealCentreModelWorld().z, 0.5); 
 						theExplosion.damage = 0;
 						theExplosion.typeOfExplosion = 2;
@@ -328,9 +350,19 @@ public class ObstacleMap {
 			if(obstacleMap2[temp] == null)
 				continue;
 			if(Rectangle2D.testIntersection(obstacleMap2[temp].getBoundary2D(), blastArea)){
-				obstacleMap2[temp].damage(damage);
+				try {
+					obstacleMap2[temp].damage(damage);
+				} catch (InvalidAttributeValueException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}else{
-				obstacleMap2[temp].damage(0);
+				try {
+					obstacleMap2[temp].damage(0);
+				} catch (InvalidAttributeValueException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}	
 	}
@@ -362,7 +394,12 @@ public class ObstacleMap {
 		
 		for(int i = 0; i < 49; i++){
 			if(obstacleMap2[indexes3[i]+position] != null)
-				obstacleMap2[indexes3[i]+position].damage(0);
+				try {
+					obstacleMap2[indexes3[i]+position].damage(0);
+				} catch (InvalidAttributeValueException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 		}
 	}
 	

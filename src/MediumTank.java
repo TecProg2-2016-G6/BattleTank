@@ -12,7 +12,7 @@ public class MediumTank extends SolidObject{
 	static final double halfCircumference = 180;
 	
 	static final double circumference = 360;
-	
+		
 	//polygons for tank body
 	private Polygon3D[] body;
 	
@@ -763,13 +763,9 @@ public class MediumTank extends SolidObject{
 					
 					
 					angle2 = (int) (angle2%circumference);
-				
-					
-					
+									
 					boolean canMoveAngle1 = true;
 					boolean canMoveAngle2 = true;
-				
-				
 					
 					//check if tank is able to move freely at angle 1
 					displacement.set(0,0,0.01);
