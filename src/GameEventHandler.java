@@ -1,11 +1,16 @@
 package src;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.naming.directory.InvalidAttributeValueException;
 
 /** This class processes in game events one example of events 
  *  can be activate/disactivate an enemy, open a gate etc...
  */
 public class GameEventHandler {
+	
+	private static final Logger LOGGER = Logger.getLogger( GameEventHandler.class.getName() );
 	
 	public static void processEvent() {
 		
@@ -40,7 +45,7 @@ public class GameEventHandler {
 					Enemies.enemy[i].damage(-1);
 				} catch (InvalidAttributeValueException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					LOGGER.log(Level.WARNING, "Invalid Damege Value");
 				}
 			}
 			
@@ -49,7 +54,7 @@ public class GameEventHandler {
 					Enemies.enemy[i].damage(-1);
 				} catch (InvalidAttributeValueException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					LOGGER.log(Level.WARNING, "Invalid Damege Value");
 				}
 			}
 			
@@ -67,14 +72,12 @@ public class GameEventHandler {
 				Enemies.enemy[107].damage(-1);
 			} catch (InvalidAttributeValueException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+				LOGGER.log(Level.WARNING, "Invalid Damege Value");			}
 			try {
 				Enemies.enemy[108].damage(-1);
 			} catch (InvalidAttributeValueException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+				LOGGER.log(Level.WARNING, "Invalid Damege Value");			}
 			
 		}
 		
