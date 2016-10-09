@@ -2,6 +2,8 @@ package src;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+import javax.naming.directory.InvalidAttributeValueException;
+
 
 public class InputHandler {
 	//these booleans indicate whether a particular key is pressed
@@ -68,21 +70,27 @@ public class InputHandler {
 			if(GameHUD.loadingScreenPosition != 1234567 && GameHUD.loadingScreenPosition > 100)
 				PlayerTank.firing = true;
 		}
+		try {
+			
 		
-		if(weapon1Selected)
-			Main.PlayerTank.changeWeapon(1);
+			if(weapon1Selected)
+				Main.PlayerTank.changeWeapon(1);
+			
+			if(weapon2Selected)
+				Main.PlayerTank.changeWeapon(2);
+			
+			if(weapon3Selected)
+				Main.PlayerTank.changeWeapon(3);
+			
+			if(weapon4Selected)
+				Main.PlayerTank.changeWeapon(4);
+			
+			if(changeWeapon){
+				Main.PlayerTank.changeWeapon(-1);
+			}
 		
-		if(weapon2Selected)
-			Main.PlayerTank.changeWeapon(2);
-		
-		if(weapon3Selected)
-			Main.PlayerTank.changeWeapon(3);
-		
-		if(weapon4Selected)
-			Main.PlayerTank.changeWeapon(4);
-		
-		if(changeWeapon){
-			Main.PlayerTank.changeWeapon(-1);
+		} catch (InvalidAttributeValueException e) {
+			// TODO: handle exception
 		}
 		changeWeapon = false;
 		
