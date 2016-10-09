@@ -1,6 +1,17 @@
 package src;
 //enemy:  surface to surface missile launcher
 public class MissileLauncher extends SolidObject{
+	
+	static final double height = 0.25;
+	
+	static final double lenght = 0.1;
+	
+	static final double weight = 0.1;
+	
+	static final double halfCircumference = 180;
+	
+	static final double circumference = 360;
+	
 	//polygons for SSML
 	private Polygon3D[] polygons;
 	
@@ -109,7 +120,7 @@ public class MissileLauncher extends SolidObject{
 		
 		//boundary of this model has a cubic shape (ie l = w)
 		modelType = 2;  
-		makeBoundary(0.1, 0.25, 0.1);
+		makeBoundary(lenght, height, weight);
 		
 		//create 2D boundary
 		boundaryModel2D = new Rectangle2D(x - 0.1, z + 0.1, 0.2, 0.2);
@@ -283,25 +294,25 @@ public class MissileLauncher extends SolidObject{
 				turretAngleDelta = targetAngle - turretAngle;
 				turretAngle+=turretAngleDelta;
 				if(turretAngleDelta < 0)
-					turretAngleDelta+=360;
+					turretAngleDelta+=circumference;
 			}else{
 				turretAngleDelta=3;
 				turretAngle+=3;
 			}
-			if(turretAngle >= 360)
-				turretAngle-=360;
+			if(turretAngle >= circumference)
+				turretAngle-=circumference;
 		}else if(aimRight){
 			if(Math.abs(turretAngle - targetAngle) <=3){
 				turretAngleDelta = targetAngle - turretAngle;
 				turretAngle+=turretAngleDelta;
 				if(turretAngleDelta < 0)
-					turretAngleDelta+=360;
+					turretAngleDelta+=circumference;
 			}else{
 				turretAngleDelta=357;
 				turretAngle-=3;
 			}
 			if(turretAngle < 0)
-				turretAngle+=360;
+				turretAngle+=circumference;
 		}
 		
 		
@@ -311,25 +322,25 @@ public class MissileLauncher extends SolidObject{
 			int delta = targetAngleBody - bodyAngle;
 			if(Math.abs(delta) < 5 || Math.abs(delta) > 355){
 				bodyAngle = targetAngleBody;
-				bodyAngleDelta = (delta+720)%360;
+				bodyAngleDelta = (delta+720)%circumference;
 				displacement.set(0,0,0.01);
 				displacement.rotate_XZ(bodyAngle);
 			}else{
 				displacement.set(0,0,0);
 				if(delta > 0){
-					if(delta < 180)
+					if(delta < halfCircumference)
 						bodyAngleDelta = 5;
 					else
 						bodyAngleDelta = 355;
 				}	
 				if(delta < 0){
-					if(delta > -180)
+					if(delta > -halfCircumference)
 						bodyAngleDelta = 355;
 					else
 						bodyAngleDelta = 5;
 				}
 				
-				bodyAngle = (bodyAngle+bodyAngleDelta)%360;
+				bodyAngle = (bodyAngle+bodyAngleDelta)%circumference;
 			}
 		}
 		
@@ -610,13 +621,13 @@ public class MissileLauncher extends SolidObject{
 			targetAngle = bodyAngle;
 			int AngleDelta = turretAngle - targetAngle;
 			if(AngleDelta > 0){
-				if(AngleDelta < 180)
+				if(AngleDelta < halfCircumference)
 					aimRight = true;
 				else
 					aimLeft = true;
 			}
 			else if(AngleDelta < 0){
-				if(AngleDelta > -180)
+				if(AngleDelta > -halfCircumference)
 					aimLeft = true;
 				else 
 					aimRight = true;
@@ -656,9 +667,9 @@ public class MissileLauncher extends SolidObject{
 			
 			//find the angle between target and itself
 			if(clearToShoot){
-				targetAngle = 90 + (int)(180 * Math.atan((turretCenter.z - PlayerTank.bodyCenter.z)/(turretCenter.x - PlayerTank.bodyCenter.x)) / Math.PI);
-				if(PlayerTank.bodyCenter.x > turretCenter.x  && targetAngle <= 180)
-					targetAngle+=180;
+				targetAngle = 90 + (int)(halfCircumference * Math.atan((turretCenter.z - PlayerTank.bodyCenter.z)/(turretCenter.x - PlayerTank.bodyCenter.x)) / Math.PI);
+				if(PlayerTank.bodyCenter.x > turretCenter.x  && targetAngle <= halfCircumference)
+					targetAngle+=halfCircumference;
 
 			}else{
 				targetAngle = bodyAngle;
@@ -673,13 +684,13 @@ public class MissileLauncher extends SolidObject{
 			
 			//aim at a target angle
 			if(AngleDelta > 0){
-				if(AngleDelta < 180)
+				if(AngleDelta < halfCircumference)
 					aimRight = true;
 				else
 					aimLeft = true;
 			}
 			else if(AngleDelta < 0){
-				if(AngleDelta > -180)
+				if(AngleDelta > -halfCircumference)
 					aimLeft = true;
 				else 
 					aimRight = true;
@@ -701,9 +712,9 @@ public class MissileLauncher extends SolidObject{
 			}
 			
 			if(forward){
-				targetAngleBody = 90 + (int)(180 * Math.atan((centreModel.z - PlayerTank.bodyCenter.z)/(centreModel.x - PlayerTank.bodyCenter.x)) / Math.PI);
-				if(PlayerTank.bodyCenter.x > centreModel.x  && targetAngleBody <= 180)
-					targetAngleBody+=180;
+				targetAngleBody = 90 + (int)(halfCircumference * Math.atan((centreModel.z - PlayerTank.bodyCenter.z)/(centreModel.x - PlayerTank.bodyCenter.x)) / Math.PI);
+				if(PlayerTank.bodyCenter.x > centreModel.x  && targetAngleBody <= halfCircumference)
+					targetAngleBody+=halfCircumference;
 				
 				//the enemy tank will occasionly (~once every 10 secs)perfom a 90 degree change in moving angle if:
 				//1. it cant see the target tank and the target thatis within 1.2 unit away
@@ -726,7 +737,7 @@ public class MissileLauncher extends SolidObject{
 						targetAngleBody -= 90;
 					
 					
-					targetAngleBody = (targetAngleBody + 360)%360;
+					targetAngleBody = (targetAngleBody + circumference)%circumference;
 				}
 				
 				//check whether the next move will embed into obstacles
@@ -761,7 +772,7 @@ public class MissileLauncher extends SolidObject{
 					int angle2 = angle1 + 90;
 					
 					
-					angle2 = angle2%360;
+					angle2 = angle2%circumference;
 				
 					
 					
@@ -838,7 +849,7 @@ public class MissileLauncher extends SolidObject{
 						
 					}
 					
-					if((previousTargetAngleBody + 180)%360 == targetAngleBody){
+					if((previousTargetAngleBody + halfCircumference)%circumference == targetAngleBody){
 						targetAngleBody = previousTargetAngleBody;
 					}
 					
