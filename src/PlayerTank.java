@@ -1,6 +1,15 @@
 package src;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.naming.directory.InvalidAttributeValueException;
+
 //The tank that controlled by user
 public class PlayerTank extends SolidObject{
+	
+	private static final Logger LOGGER = Logger.getLogger( PlayerTank.class.getName() );
+	
 	//polygons that made up the tank body
 	private Polygon3D[] body;
 	
@@ -987,14 +996,20 @@ public class PlayerTank extends SolidObject{
 				
 				//change weapon when run out of ammo for current weapon
 				if(this.outOfAmmo){
-					if(shells > 0 && this.currentWeapon != 1)
-						changeWeapon(1);
-					else if(rockets > 0 && this.currentWeapon != 2)
-						changeWeapon(2);
-					else if(slugs > 0 && this.currentWeapon != 3)
-						changeWeapon(3);
-					else if(plasma > 0 && this.currentWeapon != 4)
-						changeWeapon(4);
+					try {
+					
+						if(shells > 0 && this.currentWeapon != 1)
+							changeWeapon(1);
+						else if(rockets > 0 && this.currentWeapon != 2)
+							changeWeapon(2);
+						else if(slugs > 0 && this.currentWeapon != 3)
+							changeWeapon(3);
+						else if(plasma > 0 && this.currentWeapon != 4)
+							changeWeapon(4);
+					
+					} catch (InvalidAttributeValueException e) {
+						LOGGER.log(Level.WARNING, "Invalid Weapon Value");
+					}
 				}
 				
 			}
@@ -1064,7 +1079,12 @@ public class PlayerTank extends SolidObject{
 	}
 	
 	//change weapon
-	public void changeWeapon(int weapon){
+	public void changeWeapon(int weapon) throws InvalidAttributeValueException{
+		
+		if(weapon > 4 && weapon < -1){
+			throw new InvalidAttributeValueException();
+		}
+		
 		if(weapon == -1){
 			weapon = (this.currentWeapon+1)%5;
 			if(weapon == 0)
@@ -1116,7 +1136,12 @@ public class PlayerTank extends SolidObject{
 	//damage the object. (ie, reduce its hitpoint)
 	//the tank will stop  regenerating after got hit
 	@Override
-	public void damage(int damagePoint){
+	public void damage(int damagePoint) throws InvalidAttributeValueException{
+		
+		if(damagePoint < 0){
+			throw new InvalidAttributeValueException();
+		}
+		
 		//apply damage mulitplier 
 		this.HP-=(damagePoint * 0.8);
 		if(this.HP <= 0){
