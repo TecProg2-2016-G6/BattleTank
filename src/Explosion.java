@@ -2,26 +2,26 @@ package src;
 
 public class Explosion extends SolidObject {
 	
-	double sizeOfExplosion = 0;
+	private double sizeOfExplosion = 0;
 	
-	public int spriteExplosionIndex = 0;
+	private int spriteExplosionIndex = 0;
 	
-	public int currentFrameIndex = 0;
+	private int currentFrameIndex = 0;
 	
-	public int currentAuraIndex = 0;
+	private int currentAuraIndex = 0;
 	
 	// Default damage = 5;
-	public int damage = 5;
+	private int damage = 5;
 	
 	// Type of explosion 0 = normal   1 = plasma
-	public int typeOfExplosion = 0;
+	private int typeOfExplosion = 0;
 	
-	public int centreOfExplosionInTileMap = 0;
+	private int centreOfExplosionInTileMap = 0;
 	
 	// Enable this boolean if this explosion has be to drawn explicitly
-	public boolean explicitDrawing = false;
+	private boolean explicitDrawing = false;
 	
-	public Polygon3D explosionAura = null;
+	private Polygon3D explosionAura = null;
 	
 	public Explosion(double xAxis, double yAxys, double zAxys, double size) {
 		
