@@ -7,7 +7,7 @@ import javax.naming.directory.InvalidAttributeValueException;
 
 public class InputHandler {
 	//these booleans indicate whether a particular key is pressed
-	public static boolean UP, DOWN, RIGHT, LEFT, A, S, D, W, space, weapon1Selected, weapon2Selected, weapon3Selected, weapon4Selected, mousePressed, cursorInApplet, changeWeapon, L, I, M;
+	protected static boolean UP, DOWN, RIGHT, LEFT, A, S, D, W, space, weapon1Selected, weapon2Selected, weapon3Selected, weapon4Selected, mousePressed, cursorInApplet, changeWeapon, L, I, M;
 	
 	//a flag that indicate whether the player is pressing a key
 	public static boolean playerInAction;

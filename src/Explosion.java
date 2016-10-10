@@ -10,18 +10,18 @@ public class Explosion extends SolidObject {
 	
 	private int currentAuraIndex = 0;
 	
-	// Default damage = 5;
-	private int damage = 5;
-	
-	// Type of explosion 0 = normal   1 = plasma
-	private int typeOfExplosion = 0;
-	
 	private int centreOfExplosionInTileMap = 0;
 	
-	// Enable this boolean if this explosion has be to drawn explicitly
-	private boolean explicitDrawing = false;
-	
 	private Polygon3D explosionAura = null;
+	
+	// Type of explosion 0 = normal   1 = plasma
+	protected int typeOfExplosion = 0;
+	
+	// Default damage = 5;
+	protected int damage = 5;
+	
+	// Enable this boolean if this explosion has be to drawn explicitly
+	protected boolean explicitDrawing = false;
 	
 	public Explosion(double xAxis, double yAxys, double zAxys, double size) {
 		
@@ -134,4 +134,6 @@ public class Explosion extends SolidObject {
 	public Rectangle2D getBoundary2D() {
 		return boundaryModel2D;
 	}
+	
+	
 }
