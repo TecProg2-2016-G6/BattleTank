@@ -19,9 +19,7 @@ public class Rocket extends SolidObject {
 	private Polygon3D rocketAura;
 
 	// location of the target
-	private Vector targetLocation;
-	
-	
+	private Vector targetLocation;	
 
 	// temporary vectors which will be used for vector arithmetic
 	private Vector tempVector1 = new Vector(0, 0, 0);

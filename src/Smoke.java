@@ -2,22 +2,21 @@ package src;
 //a particle system that resembles the smoke from a badly damaged tank
 public class Smoke{
 	//the emitter (usually a badly damged unit)
-	public Model emitter;
+	private Model emitter;
 	
 	//particles
-	public Vector[] particles;
+	private Vector[] particles;
 	
 	//temp vector
-	public Vector temp;
+	private Vector temp;
 	
 	//alpha mask
-	public int ALPHA=0xFF000000; 
+	private int ALPHA=0xFF000000; 
+	
+	private Vector soruceCentre;
 	
 	//a flag to turn smoke on and off
-	public boolean stopped;
-	
-	public Vector soruceCentre;
-	
+	protected boolean stopped;
 	
 	public Smoke(Model emitter){
 		this.emitter = emitter;
