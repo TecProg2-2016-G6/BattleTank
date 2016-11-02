@@ -9,7 +9,7 @@ public class Wall extends SolidObject{
 	public Polygon3D shadow, shadow2;
 	
 	//orientation of the wall
-	//0 = vertical   1 = horizontal   2 = up-right    3 = up-left  4 = down-right  5 = down left , 6 shadowed wall vertical 6 shadowed wall horizontal
+	//0 = vertical   1 = horizontal   2 = up-right    3 = up-left  4 = down-right  5 = down left , 6 shadowed wall vertical, 7 shadowed wall horizontal
 	public int orientation;
 	
 	//whether the wall has an open end
@@ -28,24 +28,27 @@ public class Wall extends SolidObject{
 		modelType = 6;  
 		makeBoundary(0.125, 0.25, 0.125);
 		
-		//create 2D boundary
+		// Create 2D boundary for Vertical and shadowed wall vertical orientation
 		if(orientation == 0 || orientation ==6){
 			boundaryModel2D = new Rectangle2D(x - 0.09, z + 0.17, 0.18, 0.34);
 			ObstacleMap.registerObstacle2(this, (int)(x*4) + (129-(int)(z*4))*80);
 		
 		}
 		
+		// Create 2D boundary for horizontal and shadowed wall horizontal orientation
 		if(orientation == 1 || orientation ==7){
 			boundaryModel2D = new Rectangle2D(x - 0.17, z + 0.09, 0.34, 0.18);
 			ObstacleMap.registerObstacle2(this, (int)(x*4) + (129-(int)(z*4))*80);
 		
 		}
 		
+		// Create 2D boundary for up-right, up-left, down-right and down-left orientation
 		if(orientation == 2 || orientation == 3 || orientation == 4 || orientation == 5){
 			boundaryModel2D = new Rectangle2D(x - 0.09, z + 0.09, 0.18, 0.18);
 			ObstacleMap.registerObstacle2(this, (int)(x*4) + (129-(int)(z*4))*80);
 		}
 		
+		// Create 2D boundary all anothers orientations
 		if(orientation == 8 || orientation == 9 || orientation == 10 || orientation == 11){
 			boundaryModel2D = new Rectangle2D(x - 0.09, z + 0.09, 0.16, 0.18);
 			ObstacleMap.registerObstacle2(this, (int)(x*4) + (129-(int)(z*4))*80);
@@ -373,6 +376,7 @@ public class Wall extends SolidObject{
 	
 	// Method for updating model.
 	public void update(){
+		
 		//find centre in camera coordinate
 		cantreModelInCamera.set(centreModel);
 		cantreModelInCamera.y = -1;
