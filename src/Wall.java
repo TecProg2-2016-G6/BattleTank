@@ -1,5 +1,8 @@
 package src;
 
+import java.io.IOException;
+import java.security.InvalidParameterException;
+
 public class Wall extends SolidObject{
 	
 	//the polygons of the model
@@ -15,7 +18,7 @@ public class Wall extends SolidObject{
 	//whether the wall has an open end
 	public int open;
 	
-	public Wall(double x, double y, double z, int orientation, int open){
+	public Wall(double x, double y, double z, int orientation, int open) throws InvalidParameterException{
 		startPointInWorld = new Vector(x,y,z);
 		iDirection = new Vector(1,0,0);
 		jDirection = new Vector(0,1,0);
@@ -28,30 +31,42 @@ public class Wall extends SolidObject{
 		modelType = 6;  
 		makeBoundary(0.125, 0.25, 0.125);
 		
+		switch (orientation) {
 		// Create 2D boundary for Vertical and shadowed wall vertical orientation
-		if(orientation == 0 || orientation ==6){
+		case 0:
+		case 6:{
 			boundaryModel2D = new Rectangle2D(x - 0.09, z + 0.17, 0.18, 0.34);
 			ObstacleMap.registerObstacle2(this, (int)(x*4) + (129-(int)(z*4))*80);
-		
+			break;
 		}
-		
 		// Create 2D boundary for horizontal and shadowed wall horizontal orientation
-		if(orientation == 1 || orientation ==7){
+		case 1:
+		case 7:{
 			boundaryModel2D = new Rectangle2D(x - 0.17, z + 0.09, 0.34, 0.18);
 			ObstacleMap.registerObstacle2(this, (int)(x*4) + (129-(int)(z*4))*80);
-		
+			break;
 		}
-		
 		// Create 2D boundary for up-right, up-left, down-right and down-left orientation
-		if(orientation == 2 || orientation == 3 || orientation == 4 || orientation == 5){
+		case 2:
+		case 3:
+		case 4:
+		case 5:{
 			boundaryModel2D = new Rectangle2D(x - 0.09, z + 0.09, 0.18, 0.18);
 			ObstacleMap.registerObstacle2(this, (int)(x*4) + (129-(int)(z*4))*80);
+			break;
 		}
-		
 		// Create 2D boundary all anothers orientations
-		if(orientation == 8 || orientation == 9 || orientation == 10 || orientation == 11){
+		case 8:
+		case 9:
+		case 10:
+		case 11:{
 			boundaryModel2D = new Rectangle2D(x - 0.09, z + 0.09, 0.16, 0.18);
 			ObstacleMap.registerObstacle2(this, (int)(x*4) + (129-(int)(z*4))*80);
+			break;
+		}
+		
+		default:
+			throw new InvalidParameterException("Parâmetro de orientação inválido");
 		}
 		
 		
