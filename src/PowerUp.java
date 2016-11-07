@@ -206,7 +206,7 @@ public class PowerUp extends SolidObject{
 		}
 		
 		shadow.update();
-		if(shadow.visible)
+		if(shadow.isVisible)
 			Rasterizer.rasterize(shadow);
 	
 		

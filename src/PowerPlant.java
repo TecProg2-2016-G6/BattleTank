@@ -605,7 +605,7 @@ public class PowerPlant extends SolidObject{
 				if(HP > 250)
 					smokeCentres[i].set(smokeBottom);
 				else if(HP < 250 && HP > 0){
-					if(GameData.getRandom() > 96)
+					if(GameData.getRandomNumber() > 96)
 						smokeCentres[i].set(smokeBottom);
 					else
 						smokeCentres[i].set(0,0,1500);
@@ -633,7 +633,7 @@ public class PowerPlant extends SolidObject{
 		//update shadow
 		if(shadow != null && countDownToDeath < 30){
 			shadow.update();
-			if(shadow.visible){
+			if(shadow.isVisible){
 				Rasterizer.rasterize(shadow);
 			}
 		}

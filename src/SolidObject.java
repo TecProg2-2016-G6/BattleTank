@@ -80,7 +80,7 @@ public abstract class SolidObject implements Model {
 
 		for (int i = 0; i < boundaryModel.length; i++) {
 
-			if (boundaryModel[i].visible) {
+			if (boundaryModel[i].isVisible) {
 				return true;
 			}
 		}

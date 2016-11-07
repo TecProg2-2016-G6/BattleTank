@@ -1,6 +1,5 @@
 package src;
 
-import java.io.IOException;
 import java.security.InvalidParameterException;
 
 public class Wall extends SolidObject{
@@ -420,7 +419,7 @@ public class Wall extends SolidObject{
 		
 		if(shadow != null){
 			shadow.update();
-			if(shadow.visible){
+			if(shadow.isVisible){
 				Rasterizer.rasterize(shadow);
 			}
 		}
@@ -428,7 +427,7 @@ public class Wall extends SolidObject{
 
 		if(shadow2 != null){
 			shadow2.update();
-			if(shadow2.visible){
+			if(shadow2.isVisible){
 				Rasterizer.rasterize(shadow2);
 			}
 		}

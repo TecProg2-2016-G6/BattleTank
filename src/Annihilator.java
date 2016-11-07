@@ -128,7 +128,7 @@ public class Annihilator extends SolidObject{
 		makeBody();
 		makeTurret();
 		
-		this.randomNumber1 = GameData.getRandom();
+		this.randomNumber1 = GameData.getRandomNumber();
 		
 		//Annihilator tank has 400 hit points.
 		this.HP = 400;

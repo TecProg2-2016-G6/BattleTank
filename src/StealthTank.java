@@ -126,7 +126,7 @@ public class StealthTank extends SolidObject{
 		bodyAngle = angle;
 		turretAngle = angle;
 		
-		randomNumber1 = GameData.getRandom();
+		randomNumber1 = GameData.getRandomNumber();
 		
 		makeBody();
 		makeTurret();

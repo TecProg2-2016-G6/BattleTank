@@ -60,7 +60,7 @@ public class Polygon3D {
 	public boolean faceVerticalPolygon;
 	
 	//whether the polygon is visible
-	public boolean visible;
+	public boolean isVisible;
 	
 	//type of the polygon
 	//0 = polygons that don't have a texture 
@@ -169,7 +169,7 @@ public class Polygon3D {
 		tempVector1.set(Camera.cameraPosition);
 		tempVector1.subtract(vertex3D[0]);
 		if(tempVector1.dot(realNormal) <= 0){
-			visible = false;
+			isVisible = false;
 			return;
 		}
 		
@@ -216,10 +216,10 @@ public class Polygon3D {
 		bound.setSize( xMax-xMin + 1, yMax-yMin);
 			
 		//Test whether the rectangle intersects the screen.
-		visible = Camera.screen.intersects(bound);
+		isVisible = Camera.screen.intersects(bound);
 		
 	
-		if(visible){
+		if(isVisible){
 			//find normal vector (in camera coordinate)
 			//the vector is calculated from the cross product of 2 neighbor edges.
 			//since only the direction is important, it will not be normalized
@@ -264,7 +264,7 @@ public class Polygon3D {
 	
 	public void draw(){
 		//send this polygon to rasterizer
-		if(visible){
+		if(isVisible){
 			Main.polyCount++;
 			Rasterizer.rasterize(this);
 		}

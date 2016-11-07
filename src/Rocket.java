@@ -139,7 +139,7 @@ public class Rocket extends SolidObject {
 			rocketAura.update();
 
 			rocketAura.myTexture.Texture = rocketAura.myTexture.lightMapData[1 + (GameData
-					.getRandom() % 3) * 2];
+					.getRandomNumber() % 3) * 2];
 			Rasterizer.rasterize(rocketAura);
 
 		}

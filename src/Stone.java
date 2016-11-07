@@ -313,7 +313,7 @@ public class Stone extends SolidObject{
 		
 		if(shadow != null){
 			shadow.update();
-			if(shadow.visible){
+			if(shadow.isVisible){
 				Rasterizer.rasterize(shadow);
 			}
 		}

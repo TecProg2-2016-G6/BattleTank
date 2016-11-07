@@ -31,7 +31,7 @@ public class RocketTail extends SolidObject{
 		directions = new Vector[15];
 		for(int i = 0; i < 15; i ++){
 			particles[i] = centre.myClone();
-			directions[i] = new Vector(0.00005 * GameData.getRandom() - 0.0025, 0.00005 * GameData.getRandom()- 0.0025, 0.00005 * GameData.getRandom()- 0.0025);
+			directions[i] = new Vector(0.00005 * GameData.getRandomNumber() - 0.0025, 0.00005 * GameData.getRandomNumber()- 0.0025, 0.00005 * GameData.getRandomNumber()- 0.0025);
 			directions[i].scale(0.8);
 		}
 		

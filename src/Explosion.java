@@ -25,7 +25,7 @@ public class Explosion extends SolidObject {
 	
 	public Explosion(double xAxis, double yAxys, double zAxys, double size) {
 		
-		int random = GameData.getRandom();
+		int random = GameData.getRandomNumber();
 		
 		this.startPointInWorld = new Vector(xAxis,yAxys,zAxys);
 		this.iDirection = new Vector(1,0,0);
@@ -83,7 +83,7 @@ public class Explosion extends SolidObject {
 		if(this.explosionAura != null && this.damage != 0) {
 			this.explosionAura.update();
 			
-			if(this.explosionAura.visible) {
+			if(this.explosionAura.isVisible) {
 				this.explosionAura.myTexture.Texture = this.explosionAura.myTexture.lightMapData[this.currentAuraIndex];
 				Rasterizer.rasterize(this.explosionAura);
 			}

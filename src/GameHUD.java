@@ -35,7 +35,7 @@ public class GameHUD {
 		
 		
 		for(int i = 0; i < 640; i+=2){
-			int random = GameData.getRandom()/10;
+			int random = GameData.getRandomNumber()/10;
 			randomDisplacement[i] = random;
 			randomDisplacement[i+1] = random;
 			

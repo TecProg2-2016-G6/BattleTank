@@ -249,7 +249,7 @@ public class PalmTree extends SolidObject{
 		//terrain
 		if(shadow != null){
 			shadow.update();
-			if(shadow.visible){
+			if(shadow.isVisible){
 				Rasterizer.rasterize(shadow);
 			}
 		}

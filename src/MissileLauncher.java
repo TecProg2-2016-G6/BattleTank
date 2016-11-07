@@ -139,7 +139,7 @@ public class MissileLauncher extends SolidObject{
 		makeBody();
 		makeTurret();
 		
-		randomNumber1 = GameData.getRandom();
+		randomNumber1 = GameData.getRandomNumber();
 		
 		//SSML has 15 hitpoints
 		HP = 15;

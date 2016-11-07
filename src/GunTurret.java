@@ -283,7 +283,7 @@ public class GunTurret extends SolidObject{
 			
 			//draw body shadow
 			shadowBody.update();
-			if(shadowBody.visible){
+			if(shadowBody.isVisible){
 				Rasterizer.rasterize(shadowBody);
 			}
 				

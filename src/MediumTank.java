@@ -134,7 +134,7 @@ public class MediumTank extends SolidObject{
 		makeBody();
 		makeTurret();
 		
-		randomNumber1 = GameData.getRandom();
+		randomNumber1 = GameData.getRandomNumber();
 		
 		//Medium tank has 25 hit points
 		HP = 25;
