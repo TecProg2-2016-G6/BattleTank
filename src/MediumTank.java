@@ -3,7 +3,7 @@ package src;
 
 import javax.naming.directory.InvalidAttributeValueException;
 
-public class MediumTank extends SolidObject{
+public class MediumTank extends Thank{
 	
 	static final double height = 0.25;
 	

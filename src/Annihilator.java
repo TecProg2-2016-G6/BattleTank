@@ -1,7 +1,7 @@
 package src;
 //Class responsable for enemy Annihilator. 
 
-public class Annihilator extends SolidObject{
+public class Annihilator extends Thank{
 	
 	static final double height = 0.25;
 	

@@ -3,7 +3,7 @@ package src;
 import javax.naming.directory.InvalidAttributeValueException;
 
 //enemy: stealth tank
-public class StealthTank extends SolidObject{
+public class StealthTank extends Thank{
 	//polygons for tank body
 	private Polygon3D[] body;
 	

@@ -3,7 +3,7 @@ package src;
 import javax.naming.directory.InvalidAttributeValueException;
 
 //enemy:  surface to surface missile launcher
-public class MissileLauncher extends SolidObject{
+public class MissileLauncher extends Thank{
 	
 	static final double height = 0.25;
 	

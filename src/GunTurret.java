@@ -1,6 +1,6 @@
 package src;
 
-public class GunTurret extends SolidObject{
+public class GunTurret extends Thank{
 	//polygons for gunTurret body
 	private Polygon3D[] body;
 	

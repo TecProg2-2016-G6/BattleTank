@@ -25,8 +25,6 @@ public class Helix extends SolidObject{
 		this.centreModel = centre;
 		angle+=360;
 		angle%=360;
-	
-	
 		
 		iDirection = new Vector(1,0,0);
 		jDirection = new Vector(0,1,0);
