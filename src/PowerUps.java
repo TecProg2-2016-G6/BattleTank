@@ -8,13 +8,13 @@ import javax.naming.directory.InvalidAttributeValueException;
 //This class stores powerUp objects
 public class PowerUps {
 	
-	public static PowerUp[] PU;
+	public static PowerUp[] powerUpVector;
 	
 	private static final Logger LOGGER = Logger.getLogger( PowerUps.class.getName() );
 	
 	public static void init(){
 		
-		PU = new PowerUp[100];
+		powerUpVector = new PowerUp[100];
 		
 		// Register Power Ups 
 		register(new PowerUp(18.15,-0.875, 16.575, 4));
@@ -32,81 +32,87 @@ public class PowerUps {
 	public static void update(){
 		
 		// PowerUp 
-		for(int i = 0; i < PU.length; i++){
-			if(PU[i] != null){
-				PU[i].update();
-				if(Rectangle2D.testIntersection(PU[i].boundaryModel2D, Main.PlayerTank.boundaryModel2D)){
-					
-					// PowerUp for shell type
-					if(PU[i].type == 1){
-						if(Main.PlayerTank.shells == 0){
-							Main.PlayerTank.shells +=10;
-							try {
-								Main.PlayerTank.changeWeapon(1);
-							} catch (InvalidAttributeValueException e) {
-								LOGGER.log(Level.WARNING, "Invalid Weapon Value");
-							}
-						}else{
-							Main.PlayerTank.shells +=10;
-						}
-					}
-					
-					// PowerUp for rocket type
-					if(PU[i].type == 2){
-						if(Main.PlayerTank.rockets == 0){
-							Main.PlayerTank.rockets +=10;
-							try {
-								Main.PlayerTank.changeWeapon(2);
-							} catch (InvalidAttributeValueException e) {
-								LOGGER.log(Level.WARNING, "Invalid Weapon Value");
-							}
-							
-						}else{
-							Main.PlayerTank.rockets +=10;
-						}
-					}
-					
-					// PowerUp for slug type
-					if(PU[i].type == 3){
-						if(Main.PlayerTank.slugs == 0){
-							Main.PlayerTank.slugs +=10;
-							try {
-								Main.PlayerTank.changeWeapon(3);
-							} catch (InvalidAttributeValueException e) {
-								LOGGER.log(Level.WARNING, "Invalid Weapon Value");
-							}
-						}else{
-							Main.PlayerTank.slugs +=10;
-						}
-					}
-					
-					// PowerUp for plasma type
-					if(PU[i].type == 4){
-						if(Main.PlayerTank.plasma == 0){
-							Main.PlayerTank.plasma +=10;
-							try {
-								Main.PlayerTank.changeWeapon(4);
-							} catch (InvalidAttributeValueException e) {
-								LOGGER.log(Level.WARNING, "Invalid Weapon Value");
-							}
-						}else{
-							Main.PlayerTank.plasma +=10;
-						}
-					}
-						
-						
-					PU[i] = null;
-					
-				}
+		for(int i = 0; i < powerUpVector.length; i++){
+			
+			if(powerUpVector[i] != null){
+				powerUpVector[i].update();
+				upUnitPower(powerUpVector[i]);
+				powerUpVector[i] = null;
 			}
 		}
 	}
 	
-	// Add new projectile to the PowerUp Array
-	public static void register(PowerUp P){
-		for(int i = 0; i < PU.length; i++){
-			if(PU[i] == null){
-				PU[i] = P;
+	private static void upUnitPower(PowerUp powerUp){
+		
+		if(Rectangle2D.testIntersection(powerUp.boundaryModel2D, Main.PlayerTank.boundaryModel2D)){
+			
+			switch (powerUp.type) {
+			// PowerUp for shell type
+			case 1:
+				if(PlayerTank.shells == 0){
+					PlayerTank.shells +=10;
+					try {
+						Main.PlayerTank.changeWeapon(1);
+					} catch (InvalidAttributeValueException invalidAttributeValueException) {
+						LOGGER.log(Level.WARNING, "Invalid Weapon Value", invalidAttributeValueException); //$NON-NLS-1$
+					}
+				}else{
+					PlayerTank.shells +=10;
+				}
+				break;
+			// PowerUp for rocket type
+			case 2:
+				if(PlayerTank.rockets == 0){
+					PlayerTank.rockets +=10;
+					try {
+						Main.PlayerTank.changeWeapon(2);
+					} catch (InvalidAttributeValueException invalidAttributeValueException) {
+						LOGGER.log(Level.WARNING, "Invalid Weapon Value", invalidAttributeValueException); //$NON-NLS-1$
+					}
+					
+				}else{
+					PlayerTank.rockets +=10;
+				}
+				break;
+			// PowerUp for slug type
+			case 3:
+				if(PlayerTank.slugs == 0){
+					PlayerTank.slugs +=10;
+					try {
+						Main.PlayerTank.changeWeapon(3);
+					} catch (InvalidAttributeValueException invalidAttributeValueException) {
+						LOGGER.log(Level.WARNING, "Invalid Weapon Value", invalidAttributeValueException); //$NON-NLS-1$
+					}
+				}else{
+					PlayerTank.slugs +=10;
+				}
+				break;
+			// PowerUp for plasma type	
+			case 4:
+				if(PlayerTank.plasma == 0){
+					PlayerTank.plasma +=10;
+					try {
+						Main.PlayerTank.changeWeapon(4);
+					} catch (InvalidAttributeValueException invalidAttributeValueException) {
+						LOGGER.log(Level.WARNING, "Invalid Weapon Value", invalidAttributeValueException); //$NON-NLS-1$
+					}
+				}else{
+					PlayerTank.plasma +=10;
+				}
+				break;
+			default:
+				break;
+			}
+							
+			
+		}
+	}
+	
+	// Add new projective to the PowerUp Array
+	public static void register(PowerUp powerUp){
+		for(int i = 0; i < powerUpVector.length; i++){
+			if(powerUpVector[i] == null){
+				powerUpVector[i] = powerUp;
 				return;
 			}
 		}
